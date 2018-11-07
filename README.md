@@ -124,7 +124,15 @@ An Example Cafe (also ref to Yelp API):
 
 ## Wireframes
 
+/ - introduction, login/register
+
+![list](documentation/list.png)
+
 /user - main launch page showing recent searches
+
+![list](documentation/list.png)
+
+/search - page for display all coffee shops nearby entered location
 
 ![list](documentation/list.png)
 
