@@ -165,11 +165,14 @@ Here's a [complex example from wikipedia](https://upload.wikimedia.org/wikipedia
 
 ## [Link to Initial Main Project File](app.js) 
 
-(___TODO__: create a skeleton Express application with a package.json, app.js, views folder, etc. ... and link to your initial app.js_)
+[app.js](https://github.com/nyu-csci-ua-0480-001-003-fall-2018/cyong813-final-project/src/app.js)
 
 ## Annotations / References Used
 
 (___TODO__: list any tutorials/references/etc. that you've based your code off of_)
 
-1. [React 16 - The Complete Guide (incl. React Router 4 & Redux)](https://www.udemy.com/react-the-complete-guide-incl-redux/) - (add link to source code that was based on this)
-2. 
+1. [React 16 - The Complete Guide (incl. React Router 4 & Redux)](https://www.udemy.com/react-the-complete-guide-incl-redux/) 
+2. [MERN Stack Tutorial](https://appdividend.com/2017/06/28/mern-stack-tutorial/) 
+  - [React.js Project](https://github.com/KrunalLathiya/reactfrontend)
+  - [Node.js Express Project](https://github.com/KrunalLathiya/expressbackend)
+  
