@@ -8,7 +8,7 @@ COFFEEEEEEEE is a web app that allows users to search for varieties of local cof
 
 In the future, I would hope to develop this into a more elaborate platform where coffee culture can be incorporated and celebrated through this app. This could include job postings for baristas/waiters/waitresses/etc, listing events happening at the coffee shops, listing coffee festivals and general events, and other features to host the coffee community.
 
-The name COFFEEEEEEEE is inspired by a cafe and a sign I always used to pass by in high school. 
+The name COFFEEEEEEEE is inspired by Cafe Madeline's storefront sign in Brooklyn. I always used to pass by in high school. 
 
 ## Data Model
 
@@ -105,10 +105,10 @@ An Example Cafe (also ref to Yelp API):
   categories: [
     { name: "American" }
   ],
-  coordinates: {
-    "latitude": 37.80587,
-    "longitude": -122.42058
-  },
+  coordinates: [
+    { latitude: 37.80587},
+    { longitude: -122.42058}
+  ],
   drinks: [
     { name: "Maple Butter Latte", coffee_id: 13},
     { name: "Maple Latte", coffee_id: 12},
@@ -120,21 +120,31 @@ An Example Cafe (also ref to Yelp API):
 
 ## [Link to Commented First Draft Schema](db.js) 
 
-(___TODO__: create a first draft of your Schemas in db.js and link to it_)
+[mongoose schema](https://github.com/nyu-csci-ua-0480-001-003-fall-2018/cyong813-final-project/src/db.js)
 
 ## Wireframes
 
-(___TODO__: wireframes for all of the pages on your site; they can be as simple as photos of drawings or you can use a tool like Balsamiq, Omnigraffle, etc._)
-
-/list/create - page for creating a new shopping list
-
-![list create](documentation/list-create.png)
-
-/list - page for showing all shopping lists
+/user - main launch page showing recent searches
 
 ![list](documentation/list.png)
 
-/list/slug - page for showing specific shopping list
+/bookmark - page for showing all bookmarked places/drinks
+
+![list](documentation/list.png)
+
+/cafes - page for showing all coffee shops and their drinks, other information about the shop
+
+![list](documentation/list.png)
+
+/cafes/slug - page for showing specific cafe
+
+![list](documentation/list-slug.png)
+
+/drinks - page for showing all drinks
+
+![list](documentation/list-slug.png)
+
+/drinks/slug - page for showing specific cafes with this drink
 
 ![list](documentation/list-slug.png)
 
