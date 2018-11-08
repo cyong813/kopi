@@ -120,41 +120,41 @@ An Example Cafe (also ref to Yelp API):
 
 ## [Link to Commented First Draft Schema](db.js) 
 
-[mongoose schema](https://github.com/nyu-csci-ua-0480-001-003-fall-2018/cyong813-final-project/src/db.js)
+[mongoose schema](https://github.com/nyu-csci-ua-0480-001-003-fall-2018/cyong813-final-project/blob/master/src/db.js)
 
 ## Wireframes
 
 / - introduction, login/register
 
-![list](documentation/list.png)
+![list](documentation/intro.png)
 
 /user - main launch page showing recent searches
 
-![list](documentation/list.png)
+![list](documentation/main.png)
 
 /search - page for display all coffee shops nearby entered location
 
 ![list](documentation/list.png)
 
-/bookmark - page for showing all bookmarked places/drinks
+/bookmarks - page for showing all bookmarked places/drinks
 
-![list](documentation/list.png)
+![list](documentation/bookmarks.png)
 
 /cafes - page for showing all coffee shops and their drinks, other information about the shop
 
-![list](documentation/list.png)
+![list](documentation/cafes.png)
 
 /cafes/slug - page for showing specific cafe
 
-![list](documentation/list-slug.png)
+![list](documentation/single_cafe.png)
 
 /drinks - page for showing all drinks
 
-![list](documentation/list-slug.png)
+![list](documentation/drinks.png)
 
 /drinks/slug - page for showing specific cafes with this drink
 
-![list](documentation/list-slug.png)
+![list](documentation/single_drink.png)
 
 ## Site map
 
@@ -183,7 +183,7 @@ Here's a [complex example from wikipedia](https://upload.wikimedia.org/wikipedia
 
 ## [Link to Initial Main Project File](app.js) 
 
-[app.js](https://github.com/nyu-csci-ua-0480-001-003-fall-2018/cyong813-final-project/src/app.js)
+[app.js](https://github.com/nyu-csci-ua-0480-001-003-fall-2018/cyong813-final-project/blob/master/src/app.js)
 
 ## Annotations / References Used
 
