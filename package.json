@@ -19,5 +19,9 @@
   "devDependencies": {
     "express": "^4.16.4",
     "mongoose": "^5.3.10"
+  },
+  "dependencies": {
+    "react": "^16.6.1",
+    "react-bootstrap": "^0.32.4"
   }
 }
