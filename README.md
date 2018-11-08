@@ -134,7 +134,7 @@ An Example Cafe (also ref to Yelp API):
 
 /search - page for display all coffee shops nearby entered location
 
-![list](documentation/list.png)
+![list](documentation/cafes-near.png)
 
 /bookmarks - page for showing all bookmarked places/drinks
 
