@@ -134,7 +134,7 @@ An Example Cafe (also ref to Yelp API):
 
 /search - page for display all coffee shops nearby entered location
 
-![list](documentation/cafes-near.png)
+![list](documentation/cafes_near.png)
 
 /bookmarks - page for showing all bookmarked places/drinks
 
@@ -158,9 +158,7 @@ An Example Cafe (also ref to Yelp API):
 
 ## Site map
 
-(___TODO__: draw out a site map that shows how pages are related to each other_)
-
-Here's a [complex example from wikipedia](https://upload.wikimedia.org/wikipedia/commons/2/20/Sitemap_google.jpg), but you can create one without the screenshots, drop shadows, etc. ... just names of pages and where they flow to.
+![list](documentation/sitemap.png)
 
 ## User Stories or Use Cases
 
@@ -173,13 +171,11 @@ Here's a [complex example from wikipedia](https://upload.wikimedia.org/wikipedia
 
 ## Research Topics
 
-* React Bootstrap
-* React.js as the frontend framework
-* Using Webpack 
-    * Sass 
-* Google Map API
+* (2 points) Sass because much more easier to use than pure CSS
+* (5 points) React.js as the frontend framework
+* (1 point) Google Map API for populating & visualizing coffee shop locations 
 
-10 points total out of 8 required points
+8 points total out of 8 required points
 
 ## [Link to Initial Main Project File](app.js) 
 
@@ -187,10 +183,8 @@ Here's a [complex example from wikipedia](https://upload.wikimedia.org/wikipedia
 
 ## Annotations / References Used
 
-(___TODO__: list any tutorials/references/etc. that you've based your code off of_)
-
 1. [React 16 - The Complete Guide (incl. React Router 4 & Redux)](https://www.udemy.com/react-the-complete-guide-incl-redux/) 
 2. [MERN Stack Tutorial](https://appdividend.com/2017/06/28/mern-stack-tutorial/) 
-  - [React.js Project](https://github.com/KrunalLathiya/reactfrontend)
-  - [Node.js Express Project](https://github.com/KrunalLathiya/expressbackend)
+3. [React.js Project](https://github.com/KrunalLathiya/reactfrontend)
+4. [Node.js Express Project](https://github.com/KrunalLathiya/expressbackend)
   
