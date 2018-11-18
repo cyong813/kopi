@@ -3,8 +3,34 @@
   "version": "1.0.0",
   "description": "I love going to coffee shops to study and enjoy the vibes. But there are times where I crave a specific drink, or the place I want to go to doesn't approve of laptops (totally understandable), or maybe there's no space and I'd like to try a different place.",
   "main": "index.js",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "mongoose": "^5.3.12",
+    "react": "^16.6.3",
+    "react-bootstrap": "^0.32.4",
+    "react-dom": "^16.6.3",
+    "react-modal": "^3.6.1",
+    "react-parallax": "^2.0.1",
+    "react-router-dom": "^4.3.1"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.1.6",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "file-loader": "^2.0.0",
+    "nodemon": "^1.18.6",
+    "webpack": "^4.25.1",
+    "webpack-cli": "^3.1.2"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "webpack": "webpack",
+    "start": "npm run webpack && nodemon --exec babel-node -- bin/www"
   },
   "repository": {
     "type": "git",
@@ -15,13 +41,5 @@
   "bugs": {
     "url": "https://github.com/nyu-csci-ua-0480-001-003-fall-2018/cyong813-final-project/issues"
   },
-  "homepage": "https://github.com/nyu-csci-ua-0480-001-003-fall-2018/cyong813-final-project#readme",
-  "devDependencies": {
-    "express": "^4.16.4",
-    "mongoose": "^5.3.10"
-  },
-  "dependencies": {
-    "react": "^16.6.1",
-    "react-bootstrap": "^0.32.4"
-  }
+  "homepage": "https://github.com/nyu-csci-ua-0480-001-003-fall-2018/cyong813-final-project#readme"
 }
