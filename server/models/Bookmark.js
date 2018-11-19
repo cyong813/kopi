@@ -4,5 +4,4 @@ const Bookmark = new mongoose.Schema({
     item: String
 });
 
-mongoose.model('Bookmark', Bookmark);
-mongoose.connect('mongodb://localhost/coffee');
+module.exports = mongoose.model('Bookmark', Bookmark);

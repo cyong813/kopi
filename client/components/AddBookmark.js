@@ -14,10 +14,19 @@ class AddBookmark extends Component {
             modalIsOpen: false
         }
         
+        this.onClick = this.onClick.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
         this.insertNewBookmark = this.insertNewBookmark.bind(this);
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
+    }
+
+    handleTextChange(event) {
+        if (event.target.name == "item") {
+            this.setState({
+                item: event.target.value
+            });
+        }
     }
 
     openModal() {
@@ -32,12 +41,105 @@ class AddBookmark extends Component {
         }));
     }
 
-    componentDidMount() {
-        
+    onClick(event) {
+        this.insertNewBookmark(this);
     }
 
-    componentWillReceiveProps(nextProps) {
+    insertNewBookmark(event) {
+        axios.post('/add',
+        querystring.stringify({
+            item: event.state.item
+        }), {
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            }
+        }).then(function(response) {
+            event.setState({
+                messageFromServer: response.data
+            });
+        });
+    }
 
+    render() {
+        if (this.state.messageFromServer == '') {
+            return (
+                <div>
+                    <Button 
+                        bsStyle='success'
+                        bsSize='small'
+                        onClick={this.openModal}>
+                        <span className='glyphicon glyphicon-plus'></span>                        
+                    </Button> 
+                    <Modal
+                        isOpen={this.state.modalIsOpen}
+                        onRequestClose={this.closeModal}
+                        contentLabel='Add'
+                        className='Modal'>
+                        <Link 
+                            to={{pathname: '/'}}
+                            style={{textDecoration: 'none'}}>
+                            <Button 
+                                bsStyle='danger'
+                                bsSize='mini'
+                                onClick={this.closeModal}>
+                                <span className='closebtn glyphicon glyphicon-remove'></span>                        
+                            </Button> 
+                        </Link><br/>
+                        <fieldset>
+                            <label for="item">Item:</label>
+                            <input 
+                                type='text' 
+                                id='item' 
+                                name='item' 
+                                value={this.state.item}
+                                onChange={this.handleTextChange}>
+                            </input>
+                        </fieldset>
+
+                        <div className='button-center'>
+                            <br/>
+                            <Button 
+                                bsStyle='success' 
+                                bsSize='small'
+                                onClick={this.onClick}>Add    
+                            </Button>
+                        </div>
+                    </Modal>
+                </div>
+            )
+        }
+        else {
+            return (
+                <div>
+                    <Button 
+                        bsStyle='success'
+                        bsSize='small'
+                        onClick={this.openModal}>
+                        <span className='glyphicon glyphicon-plus'></span>    
+                    </Button>
+                    <Modal 
+                        isOpen={this.state.modalIsOpen}
+                        onAfterOpen={this.afterOpenModal}
+                        onRequestClose={this.closeModal}
+                        contentLabel='Add'
+                        className='Modal'>
+                        <div className='button-center'>
+                            <h3>{this.state.messageFromServer}</h3>
+                            <Link 
+                                to={{pathname: '/'}}
+                                style={{textDecoration: 'none'}}>
+                                <Button 
+                                    bsStyle='success'
+                                    bsSize='mini'
+                                    onClick={this.closeModal}>
+                                    Close    
+                                </Button>
+                            </Link>
+                        </div>
+                    </Modal>
+                </div>
+            )
+        }
     }
 }
 
