@@ -86,7 +86,7 @@ class AddBookmark extends Component {
                             </Button> 
                         </Link><br/>
                         <fieldset>
-                            <label for="item">Item:</label>
+                            <label for="item">Drink/Cafe:</label>
                             <input 
                                 type='text' 
                                 id='item' 

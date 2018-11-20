@@ -4,6 +4,7 @@ import { Parallax } from 'react-parallax';
 import CoffeeHeader from '../assets/images/coffeeparallax.jpg'
 import axios from 'axios';
 import AddBookmark from './AddBookmark';
+import DeleteBookmark from './DeleteBookmark';
 
 const insideStyles = {
   color: "white",
@@ -42,28 +43,31 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {/* <Parallax bgImage={CoffeeHeader} strength={500}>
+        <Parallax bgImage={CoffeeHeader} strength={500}>
           <div style={{ height: 500 }}>
             <div style={insideStyles}>COFFEEEEEEEE</div>
           </div>
-        </Parallax> */}
+        </Parallax>
+        <div className='bookmarks'>
         <AddBookmark/>
-        <table>
-          <thead>
-            <tr>
-              <th></th>
-              <th className='button-col'>Item</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.data.map(function(bkmk) {
-              return <tr>
-                        <td className='counterCell'></td>
-                        <td className='button-col'>{bkmk.item}</td>
-                      </tr>
-            })}
-          </tbody>
-        </table>
+          <table>
+            <thead>
+              <tr>
+                <th></th>
+                <th className='button-col'>Bookmarks</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.data.map(function(bkmk) {
+                return <tr>
+                          <td className='counterCell'></td>
+                          <td className='button-col'>{bkmk.item}</td>
+                          <td className='button-col'><DeleteBookmark bookmark={bkmk} /></td>
+                        </tr>
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }

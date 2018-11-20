@@ -120,7 +120,7 @@ An Example Cafe (also ref to Yelp API):
 
 ## [Link to Commented First Draft Schema](db.js) 
 
-[mongoose schema](https://github.com/nyu-csci-ua-0480-001-003-fall-2018/cyong813-final-project/blob/master/src/db.js)
+[mongoose schema](https://github.com/nyu-csci-ua-0480-001-003-fall-2018/cyong813-final-project/blob/master/server/models)
 
 ## Wireframes
 
@@ -179,12 +179,11 @@ An Example Cafe (also ref to Yelp API):
 
 ## [Link to Initial Main Project File](app.js) 
 
-[app.js](https://github.com/nyu-csci-ua-0480-001-003-fall-2018/cyong813-final-project/blob/master/src/app.js)
+[app.js](https://github.com/nyu-csci-ua-0480-001-003-fall-2018/cyong813-final-project/blob/master/server/server.js)
 
 ## Annotations / References Used
 
 1. [React 16 - The Complete Guide (incl. React Router 4 & Redux)](https://www.udemy.com/react-the-complete-guide-incl-redux/) 
-2. [MERN Stack Tutorial](https://appdividend.com/2017/06/28/mern-stack-tutorial/) 
-3. [React.js Project](https://github.com/KrunalLathiya/reactfrontend)
-4. [Node.js Express Project](https://github.com/KrunalLathiya/expressbackend)
+2. [MERN Stack Tutorial](https://blog.cloudboost.io/creating-your-first-mern-stack-application-b6604d12e4d3) [code] (https://github.com/umairraslam/expense-manager-mern)
+
   

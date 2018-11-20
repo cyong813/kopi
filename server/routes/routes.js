@@ -20,7 +20,7 @@ router.route('/add')
 
 router.get('/delete', function(req, res){
     var id = req.query.id;
-    Bookmark.find({_id: id}).remove().exec(function(err, bookmark) {
+    Bookmark.find({_id: id}).deleteOne().exec(function(err, bookmark) {
         if (err) res.send(err)
         res.send('Bookmark successfully deleted!');
     })
