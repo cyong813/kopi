@@ -179,7 +179,7 @@ An Example Cafe (also ref to Yelp API):
 
 ## [Link to Initial Main Project File](app.js) 
 
-[app.js](https://github.com/nyu-csci-ua-0480-001-003-fall-2018/cyong813-final-project/blob/master/server/server.js)
+[app](https://github.com/nyu-csci-ua-0480-001-003-fall-2018/cyong813-final-project/blob/master/server/server.js)
 
 ## Annotations / References Used
 

@@ -3,6 +3,7 @@ var router = express.Router();
 var bodyParser = require('body-parser');
 var Bookmark = require('../models/Bookmark');
 
+// https://github.com/umairraslam/expense-manager-mern/blob/master/server/routes/routes.js
 router.get('/', function(req, res){
   res.render('index')
 });
