@@ -6,5 +6,3 @@ const Drink = new mongoose.Schema({
 });
 
 mongoose.model('Drink', Drink); 
-
-mongoose.connect('mongodb://localhost/coffee');

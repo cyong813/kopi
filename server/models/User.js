@@ -7,5 +7,3 @@ const User = new mongoose.Schema({
 });
 
 mongoose.model('User', User);
-
-mongoose.connect('mongodb://localhost/coffee');

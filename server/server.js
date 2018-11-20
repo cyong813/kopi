@@ -11,7 +11,7 @@ app.use(express.static(path.join(__dirname, '../client')));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: false}));
 
-mongoose.connect('mongodb://localhost/coffee');
+mongoose.connect('mongodb://cyong813:cyong813@ds161487.mlab.com:61487/coffee');
 
 app.use('/', router);
 

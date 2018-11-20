@@ -13,5 +13,3 @@ const Cafe = new mongoose.Schema({
 });
 
 mongoose.model('Cafe', Cafe);
-
-mongoose.connect('mongodb://localhost/coffee');
