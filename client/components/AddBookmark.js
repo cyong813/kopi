@@ -47,7 +47,7 @@ class AddBookmark extends Component {
     }
 
     insertNewBookmark(event) {
-        axios.post('/add',
+        axios.post('/addBookmark',
         querystring.stringify({
             item: event.state.item
         }), {

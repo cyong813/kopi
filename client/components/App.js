@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import { Link } from 'react-router-dom';
 import { Parallax } from 'react-parallax';
 import CoffeeHeader from '../assets/images/coffeeparallax.jpg'
 import axios from 'axios';
-import AddBookmark from './AddBookmark';
-import DeleteBookmark from './DeleteBookmark';
+import Bookmarks from './Bookmarks';
 
 const insideStyles = {
   color: "white",
@@ -26,7 +25,7 @@ class App extends Component {
   }
 
   getData(event) {
-    axios.get('/bookmarks')
+    axios.get('/getAllBookmarks')
       .then(function(response) {
         event.setState({data: response.data});
       });
@@ -49,26 +48,11 @@ class App extends Component {
             <div style={insideStyles}>COFFEEEEEEEE</div>
           </div>
         </Parallax>
-        <div className='bookmarks'>
-        <AddBookmark/>
-          <table>
-            <thead>
-              <tr>
-                <th></th>
-                <th className='button-col'>Bookmarks</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.data.map(function(bkmk) {
-                return <tr>
-                          <td className='counterCell'></td>
-                          <td className='button-col'>{bkmk.item}</td>
-                          <td className='button-col'><DeleteBookmark bookmark={bkmk} /></td>
-                        </tr>
-              })}
-            </tbody>
-          </table>
-        </div>
+        <Link 
+          to={{pathname: '/bookmarks'}}
+          style={{textDecoration: 'none'}}>
+          Bookmarks
+        </Link>
       </div>
     );
   }

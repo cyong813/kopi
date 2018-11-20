@@ -18,7 +18,7 @@ class DeleteBookmark extends Component {
     }
 
     delete(event) {
-        axios.get('/delete?id='+event.state.id)
+        axios.get('/deleteBookmark?id='+event.state.id)
             .then(function(response) {
 
             });

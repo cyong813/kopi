@@ -8,7 +8,7 @@ router.get('/', function(req, res){
   res.render('index')
 });
 
-router.route('/add')
+router.route('/addBookmark')
 .post(function(req,res) {
     var bookmark = new Bookmark();
     bookmark.item = req.body.item;
@@ -19,7 +19,7 @@ router.route('/add')
     });
 })
 
-router.get('/delete', function(req, res){
+router.get('/deleteBookmark', function(req, res){
     var id = req.query.id;
     Bookmark.find({_id: id}).deleteOne().exec(function(err, bookmark) {
         if (err) res.send(err)
@@ -27,7 +27,7 @@ router.get('/delete', function(req, res){
     })
 });
 
-router.get('/bookmarks',function(req, res) {
+router.get('/getAllBookmarks',function(req, res) {
     Bookmark.find(function(err, bookmarks) {
         if (err) res.send(err);
         res.json(bookmarks);
