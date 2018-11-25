@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import axios from 'axios';
 //import AddCafe from './AddCafe';
 
@@ -29,24 +28,24 @@ class Cafes extends Component {
 
     render() {
         return (
-          <div className="Cafes">
-              <table>
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th className='button-col'>Cafes</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {this.state.data.map(function(cafe) {
-                    return <tr>
-                              <td className='counterCell'></td>
-                              <td className='button-col'>{cafe.cafe_name}</td>
-                              <td className='button-col'>{cafe.drinks}</td>
-                            </tr>
-                  })}
-                </tbody>
-              </table>
+            <div className="Cafes">
+                <table>
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th className='col'>Cafes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this.state.data.map(function(cafe) {
+                      return <tr>
+                                <td className='counterCell'></td>
+                                <td className='col'>{cafe.cafe_name}</td>
+                                <td className='col'>{cafe.drinks}</td>
+                              </tr>
+                    })}
+                  </tbody>
+                </table>
             </div>
         );
       }

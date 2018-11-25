@@ -36,15 +36,15 @@ class Bookmarks extends Component {
                 <thead>
                   <tr>
                     <th></th>
-                    <th className='button-col'>Bookmarks</th>
+                    <th className='col'>Bookmarks</th>
                   </tr>
                 </thead>
                 <tbody>
                   {this.state.data.map(function(bkmk) {
                     return <tr>
                               <td className='counterCell'></td>
-                              <td className='button-col'>{bkmk.item}</td>
-                              <td className='button-col'><DeleteBookmark id={bkmk._id} bookmark={bkmk} /></td>
+                              <td className='col'>{bkmk.item}</td>
+                              <td className='col'><DeleteBookmark id={bkmk._id} bookmark={bkmk} /></td>
                             </tr>
                   })}
                 </tbody>

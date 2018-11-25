@@ -33,14 +33,14 @@ class Drinks extends Component {
                 <thead>
                   <tr>
                     <th></th>
-                    <th className='button-col'>Drinks</th>
+                    <th className='col'>Drinks</th>
                   </tr>
                 </thead>
                 <tbody>
                   {this.state.data.map(function(drink) {
                     return <tr>
                               <td className='counterCell'></td>
-                              <td className='button-col'>{drink.drink_name}</td>
+                              <td className='col'>{drink.drink_name}</td>
                             </tr>
                   })}
                 </tbody>
