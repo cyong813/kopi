@@ -6,26 +6,26 @@ import {Link} from 'react-router-dom';
 var querystring = require('querystring');
 
 // https://github.com/umairraslam/expense-manager-mern/blob/master/client/components/Add.js
-class AddBookmark extends Component {
+class AddCafe extends Component {
     constructor() {
         super();
         this.state = {
-            item: '',
+            name: '',
             messageFromServer: '',
             modalIsOpen: false
         }
         
         this.onClick = this.onClick.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
-        this.insertNewBookmark = this.insertNewBookmark.bind(this);
+        this.insertNewCafe = this.insertNewCafe.bind(this);
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
     }
 
     handleTextChange(event) {
-        if (event.target.name == "item") {
+        if (event.target.name == "name") {
             this.setState({
-                item: event.target.value
+                name: event.target.value
             });
         }
     }
@@ -37,19 +37,19 @@ class AddBookmark extends Component {
     closeModal() {
         this.setState(({ 
             modalIsOpen: false, 
-            item: '',
+            name: '',
             messageFromServer: ''
         }));
     }
 
     onClick(event) {
-        this.insertNewBookmark(this);
+        this.insertNewCafe(this);
     }
 
-    insertNewBookmark(event) {
-        axios.post('/addBookmark',
+    insertNewCafe(event) {
+        axios.post('/addCafe',
         querystring.stringify({
-            item: event.state.item
+            name: event.state.name
         }), {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
@@ -77,7 +77,7 @@ class AddBookmark extends Component {
                         contentLabel='Add'
                         className='Modal'>
                         <Link 
-                            to={{pathname: '/'}}
+                            to={{pathname: '/cafes'}}
                             style={{textDecoration: 'none'}}>
                             <Button 
                                 bsStyle='danger'
@@ -87,12 +87,12 @@ class AddBookmark extends Component {
                             </Button> 
                         </Link><br/>
                         <fieldset>
-                            <label for="item">Drink/Cafe:</label>
+                            <label for="name">Cafe:</label>
                             <input 
                                 type='text' 
-                                id='item' 
-                                name='item' 
-                                value={this.state.item}
+                                id='name' 
+                                name='name' 
+                                value={this.state.name}
                                 onChange={this.handleTextChange}>
                             </input>
                         </fieldset>
@@ -127,7 +127,7 @@ class AddBookmark extends Component {
                         <div className='button-center'>
                             <h3>{this.state.messageFromServer}</h3>
                             <Link 
-                                to={{pathname: '/bookmarks'}}
+                                to={{pathname: '/cafes'}}
                                 style={{textDecoration: 'none'}}>
                                 <Button 
                                     bsStyle='success'
@@ -144,4 +144,4 @@ class AddBookmark extends Component {
     }
 }
 
-export default AddBookmark;
+export default AddCafe;

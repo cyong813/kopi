@@ -6,4 +6,4 @@ const User = new mongoose.Schema({
     bookmarks: {type: Array, required: true}
 });
 
-mongoose.model('User', User);
+module.exports = mongoose.model('User', User);

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { Parallax } from 'react-parallax';
 import CoffeeHeader from '../assets/images/coffeeparallax.jpg'
 import axios from 'axios';
-import Bookmarks from './Bookmarks';
 
 const insideStyles = {
   color: "white",
@@ -21,22 +20,6 @@ class App extends Component {
     this.state = {
       data: []
     };
-    this.getData = this.getData.bind(this);
-  }
-
-  getData(event) {
-    axios.get('/getAllBookmarks')
-      .then(function(response) {
-        event.setState({data: response.data});
-      });
-  }
-
-  componentDidMount() {
-    this.getData(this);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.getData(this);
   }
 
   //https://github.com/umairraslam/expense-manager-mern/blob/master/client/components/Add.js
@@ -52,7 +35,17 @@ class App extends Component {
           to={{pathname: '/bookmarks'}}
           style={{textDecoration: 'none'}}>
           Bookmarks
-        </Link>
+        </Link><br/>
+        <Link 
+          to={{pathname: '/cafes'}}
+          style={{textDecoration: 'none'}}>
+          Cafes
+        </Link><br/>
+        <Link 
+          to={{pathname: '/drinks'}}
+          style={{textDecoration: 'none'}}>
+          Drinks
+        </Link><br/>
       </div>
     );
   }

@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 
 const Drink = new mongoose.Schema({
-    drink_name: String,
-    drink_id: {type: mongoose.Schema.Types.ObjectId}
+    drink_name: String
 });
 
-mongoose.model('Drink', Drink); 
+module.exports = mongoose.model('Drink', Drink); 
