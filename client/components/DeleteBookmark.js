@@ -10,14 +10,14 @@ class DeleteBookmark extends Component {
         super();
         this.state = {id: ''};
         this.onClick = this.onClick.bind(this);
-        this.delete = this.delete.bind(this);
+        this.deleteBookmark = this.deleteBookmark.bind(this);
     }
 
     onClick(event) {
-        this.delete(this);
+        this.deleteBookmark(this);
     }
 
-    delete(event) {
+    deleteBookmark(event) {
         axios.get('/deleteBookmark?id='+event.state.id)
             .then(function(response) {
 
@@ -28,17 +28,21 @@ class DeleteBookmark extends Component {
         this.setState({id: this.props.bookmark._id})
     }
 
+    componentWillReceiveProps() {
+        this.setState({id: this.props.bookmark._id})
+    }
+
     render() {
         return (
             <Button 
                 bsStyle='danger'
-                bsSize='small'
+                bsSize='xsmall'
                 onClick={this.onClick}>
                 <Link 
-                    to={{pathname: '/'}}
+                    to={{pathname: '/bookmarks'}}
                     style={{textDecoration: 'none'}}>
-                    <span className='glyphicon glyphicon-remove'></span>
                 </Link>
+                <span className='glyphicon glyphicon-remove'></span>
             </Button>
         )
     }

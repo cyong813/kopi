@@ -31,12 +31,12 @@ class Bookmarks extends Component {
     render() {
         return (
           <div className="Bookmarks">
-            <AddBookmark/>
               <table>
                 <thead>
                   <tr>
                     <th></th>
                     <th className='col'>Bookmarks</th>
+                    <th><AddBookmark/></th>
                   </tr>
                 </thead>
                 <tbody>

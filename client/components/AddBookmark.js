@@ -67,7 +67,7 @@ class AddBookmark extends Component {
                 <div>
                     <Button 
                         bsStyle='success'
-                        bsSize='small'
+                        bsSize='xsmall'
                         onClick={this.openModal}>
                         <span className='glyphicon glyphicon-plus'></span>                        
                     </Button> 
@@ -77,7 +77,7 @@ class AddBookmark extends Component {
                         contentLabel='Add'
                         className='Modal'>
                         <Link 
-                            to={{pathname: '/'}}
+                            to={{pathname: '/bookmarks'}}
                             style={{textDecoration: 'none'}}>
                             <Button 
                                 bsStyle='danger'
@@ -114,7 +114,7 @@ class AddBookmark extends Component {
                 <div>
                     <Button 
                         bsStyle='success'
-                        bsSize='small'
+                        bsSize='xsmall'
                         onClick={this.openModal}>
                         <span className='glyphicon glyphicon-plus'></span>    
                     </Button>
