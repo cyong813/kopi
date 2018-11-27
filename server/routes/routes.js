@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 var Bookmark = require('../models/Bookmark');
+var DrinkBookmark = require('../models/DrinkBookmark');
+var CafeBookmark = require('../models/CafeBookmark');
 var Cafe = require('../models/Cafe');
 var Drink = require('../models/Drink');
 
@@ -11,17 +13,68 @@ router.get('/', function(req, res){
   res.render('index');
 });
 
-router.route('/addBookmark')
+router.route('/addCafeBookmark')
 .post(function(req,res) {
     // check if bookmark is empty
-    if (req.body.item != '') {
-        var bookmark = new Bookmark();
-        bookmark.item = req.body.item;
-
-        bookmark.save(function(err) {
-            if (err) res.send(err);
-            res.send('Bookmark successfully added!');
+    if (req.body.cafe_name != '') {
+        var cafeBookmark = new CafeBookmark();
+        cafeBookmark.drink_name = req.body.cafe_name;
+        
+        // check for dup drink bookmark
+        CaveBookmark.findOne({cafe_name: req.body.cafe_name}, (err, result) => {
+            if (result) {
+                res.send('You bookmarked this already!')
+            }
+            else {
+                // check if cafe exists in Cafe schema
+                Cave.findOne({cafe_name: req.body.cafe_name}, (err, result) => {
+                    if (result) {
+                        cafeBookmark.save(function(cerr) {
+                            if (cerr) res.send(cerr);
+                            res.send('Cafe successfully added!');
+                        });
+                    }
+                    else {
+                        res.send('Not a valid cafe.')
+                    }
+                });
+            }
         });
+
+    }
+    else {
+        res.send('Cannot add an empty bookmark. Please try again.');
+    }
+})
+
+router.route('/addDrinkBookmark')
+.post(function(req,res) {
+    // check if bookmark is empty
+    if (req.body.drink_name != '') {
+        var drinkBookmark = new DrinkBookmark();
+        drinkBookmark.drink_name = req.body.drink_name;
+        
+        // check for dup drink bookmark
+        DrinkBookmark.findOne({drink_name: req.body.drink_name}, (err, result) => {
+            if (result) {
+                res.send('You bookmarked this already!')
+            }
+            else {
+                // check if drink exists in Drink schema
+                Drink.findOne({drink_name: req.body.drink_name}, (err, result) => {
+                    if (result) {
+                        drinkBookmark.save(function(derr) {
+                            if (derr) res.send(derr);
+                            res.send('Drink successfully added!');
+                        });
+                    }
+                    else {
+                        res.send('Not a valid drink.')
+                    }
+                });
+            }
+        });
+
     }
     else {
         res.send('Cannot add an empty bookmark. Please try again.');
@@ -42,16 +95,21 @@ router.route('/addCafe')
 
 router.get('/deleteBookmark', function(req, res){
     var id = req.query.id;
-    Bookmark.find({_id: id}).deleteOne().exec(function(err, bookmark) {
+    // find in drink or cafe bookmark, then delete
+    DrinkBookmark.find({_id: id}).deleteOne().exec(function(err, bookmark) {
         if (err) res.send(err)
-        res.send('Bookmark successfully deleted!');
+        res.send('Drink successfully removed!');
     })
 });
 
 router.get('/getAllBookmarks',function(req, res) {
-    Bookmark.find(function(err, bookmarks) {
+    // Bookmark.find(function(err, bookmarks) {
+    //     if (err) res.send(err);
+    //     res.json(bookmarks);
+    // });
+    DrinkBookmark.find(function(err, drinkbookmarks) {
         if (err) res.send(err);
-        res.json(bookmarks);
+        res.json(drinkbookmarks);
     });
 });
 

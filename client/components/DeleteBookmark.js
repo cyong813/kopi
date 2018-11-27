@@ -4,7 +4,8 @@ import axios from 'axios';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-// https://github.com/umairraslam/expense-manager-mern/blob/master/client/components/Delete.js
+// ref: https://github.com/umairraslam/expense-manager-mern/blob/master/client/components/Delete.js
+
 class DeleteBookmark extends Component {
     constructor() {
         super();

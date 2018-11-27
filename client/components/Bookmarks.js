@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import AddBookmark from './AddBookmark';
+import AddCafeBookmark from './AddCafeBookmark';
+import AddDrinkBookmark from './AddDrinkBookmark';
 import DeleteBookmark from './DeleteBookmark';
 import axios from 'axios';
 
@@ -36,14 +37,17 @@ class Bookmarks extends Component {
                   <tr>
                     <th></th>
                     <th className='col'>Bookmarks</th>
-                    <th><AddBookmark/></th>
+                    <th>
+                      <AddCafeBookmark/>
+                      <AddDrinkBookmark/>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {this.state.data.map(function(bkmk) {
                     return <tr>
                               <td className='counterCell'></td>
-                              <td className='col'>{bkmk.item}</td>
+                              <td className='col'>{bkmk.drink_name || bkmk.cafe_name}</td>
                               <td className='col'><DeleteBookmark id={bkmk._id} bookmark={bkmk} /></td>
                             </tr>
                   })}

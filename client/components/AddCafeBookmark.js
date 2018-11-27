@@ -6,26 +6,26 @@ import {Link} from 'react-router-dom';
 var querystring = require('querystring');
 
 // https://github.com/umairraslam/expense-manager-mern/blob/master/client/components/Add.js
-class AddBookmark extends Component {
+class AddCafeBookmark extends Component {
     constructor() {
         super();
         this.state = {
-            item: '',
+            cafe_name: '',
             messageFromServer: '',
             modalIsOpen: false
         }
         
         this.onClick = this.onClick.bind(this);
         this.handleTextChange = this.handleTextChange.bind(this);
-        this.insertNewBookmark = this.insertNewBookmark.bind(this);
+        this.insertNewCafeBookmark = this.insertNewCafeBookmark.bind(this);
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
     }
 
     handleTextChange(event) {
-        if (event.target.name == "item") {
+        if (event.target.name == "cafe_name") {
             this.setState({
-                item: event.target.value
+                cafe_name: event.target.value
             });
         }
     }
@@ -37,19 +37,19 @@ class AddBookmark extends Component {
     closeModal() {
         this.setState(({ 
             modalIsOpen: false, 
-            item: '',
+            cafe_name: '',
             messageFromServer: ''
         }));
     }
 
     onClick(event) {
-        this.insertNewBookmark(this);
+        this.insertNewCafeBookmark(this);
     }
 
-    insertNewBookmark(event) {
-        axios.post('/addBookmark',
+    insertNewCafeBookmark(event) {
+        axios.post('/addCafeBookmark',
         querystring.stringify({
-            item: event.state.item
+            cafe_name: event.state.cafe_name
         }), {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
@@ -66,10 +66,10 @@ class AddBookmark extends Component {
             return (
                 <div>
                     <Button 
-                        bsStyle='success'
+                        bsStyle='default'
                         bsSize='xsmall'
                         onClick={this.openModal}>
-                        <span className='glyphicon glyphicon-plus'></span>                        
+                        <i class="fas fa-building"></i>                               
                     </Button> 
                     <Modal
                         isOpen={this.state.modalIsOpen}
@@ -87,12 +87,12 @@ class AddBookmark extends Component {
                             </Button> 
                         </Link><br/>
                         <fieldset>
-                            <label for="item">Drink/Cafe:</label>
+                            <label for="cafe_name">Cafe:</label>
                             <input 
                                 type='text' 
-                                id='item' 
-                                name='item' 
-                                value={this.state.item}
+                                id='cafe_name' 
+                                name='cafe_name' 
+                                value={this.state.cafe_name}
                                 onChange={this.handleTextChange}>
                             </input>
                         </fieldset>
@@ -116,7 +116,7 @@ class AddBookmark extends Component {
                         bsStyle='success'
                         bsSize='xsmall'
                         onClick={this.openModal}>
-                        <span className='glyphicon glyphicon-plus'></span>    
+                        <i class="fas fa-building"></i>  
                     </Button>
                     <Modal 
                         isOpen={this.state.modalIsOpen}
@@ -144,4 +144,4 @@ class AddBookmark extends Component {
     }
 }
 
-export default AddBookmark;
+export default AddCafeBookmark;
