@@ -22,7 +22,6 @@ class App extends Component {
     };
   }
 
-  //https://github.com/umairraslam/expense-manager-mern/blob/master/client/components/Add.js
   render() {
     return (
       <div className="App">
@@ -31,21 +30,23 @@ class App extends Component {
             <div style={insideStyles}>COFFEEEEEEEE</div>
           </div>
         </Parallax>
-        <Link 
-          to={{pathname: '/bookmarks'}}
-          style={{textDecoration: 'none'}}>
-          Bookmarks
-        </Link><br/>
-        <Link 
-          to={{pathname: '/cafes'}}
-          style={{textDecoration: 'none'}}>
-          Cafes
-        </Link><br/>
-        <Link 
-          to={{pathname: '/drinks'}}
-          style={{textDecoration: 'none'}}>
-          Drinks
-        </Link><br/>
+        <div className='navlinks'>
+          <Link 
+            to={{pathname: '/bookmarks'}}
+            style={{textDecoration: 'none'}}>
+            Bookmarks
+          </Link>
+          <Link 
+            to={{pathname: '/cafes'}}
+            style={{textDecoration: 'none'}}>
+            Cafes
+          </Link>
+          <Link 
+            to={{pathname: '/drinks'}}
+            style={{textDecoration: 'none'}}>
+            Drinks
+          </Link>
+        </div>
       </div>
     );
   }

@@ -5,20 +5,28 @@ var Bookmark = require('../models/Bookmark');
 var Cafe = require('../models/Cafe');
 var Drink = require('../models/Drink');
 
-// https://github.com/umairraslam/expense-manager-mern/blob/master/server/routes/routes.js
+// ref: https://github.com/umairraslam/expense-manager-mern/blob/master/server/routes/routes.js
+
 router.get('/', function(req, res){
   res.render('index');
 });
 
 router.route('/addBookmark')
 .post(function(req,res) {
-    var bookmark = new Bookmark();
-    bookmark.item = req.body.item;
+    // check if bookmark is empty
+    if (req.body.item != '') {
+        var bookmark = new Bookmark();
+        bookmark.item = req.body.item;
 
-    bookmark.save(function(err) {
-        if (err) res.send(err);
-        res.send('Bookmark successfully added!');
-    });
+        bookmark.save(function(err) {
+            if (err) res.send(err);
+            res.send('Bookmark successfully added!');
+        });
+    }
+    else {
+        res.send('Cannot add an empty bookmark. Please try again.');
+    }
+    // check if bookmark is a drink or cafe prior to adding?
 })
 
 router.route('/addCafe')

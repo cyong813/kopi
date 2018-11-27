@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import Modal from 'react-modal';
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -8,9 +8,15 @@ import { Link } from 'react-router-dom';
 class DeleteBookmark extends Component {
     constructor() {
         super();
-        this.state = {id: ''};
+        this.state = {
+            id: '',
+            messageFromServer: '',
+            modalIsOpen: false
+        };
         this.onClick = this.onClick.bind(this);
         this.deleteBookmark = this.deleteBookmark.bind(this);
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
     }
 
     onClick(event) {
@@ -20,8 +26,22 @@ class DeleteBookmark extends Component {
     deleteBookmark(event) {
         axios.get('/deleteBookmark?id='+event.state.id)
             .then(function(response) {
-
+                event.setState({
+                    messageFromServer: response.data
+                });
             });
+    }
+
+    openModal() {
+        this.setState({ modalIsOpen: true });
+    }
+
+    closeModal() {
+        this.setState(({ 
+            modalIsOpen: false, 
+            id: '',
+            messageFromServer: ''
+        }));
     }
 
     componentDidMount() {
@@ -33,18 +53,56 @@ class DeleteBookmark extends Component {
     }
 
     render() {
-        return (
-            <Button 
-                bsStyle='danger'
-                bsSize='xsmall'
-                onClick={this.onClick}>
+        if (this.state.messageFromServer == '') {
+            return (
                 <Link 
                     to={{pathname: '/bookmarks'}}
                     style={{textDecoration: 'none'}}>
+                    <Button 
+                        bsStyle='danger'
+                        bsSize='xsmall'
+                        onClick={this.onClick}>
+                        <span className='glyphicon glyphicon-remove'></span>
+                    </Button>
                 </Link>
-                <span className='glyphicon glyphicon-remove'></span>
-            </Button>
-        )
+            )
+        }
+        else {
+            return (
+                <div>
+                    <Link 
+                        to={{pathname: '/bookmarks'}}
+                        style={{textDecoration: 'none'}}>
+                        <Button 
+                            bsStyle='danger'
+                            bsSize='xsmall'
+                            onClick={this.onClick}>
+                            <span className='glyphicon glyphicon-remove'></span>
+                        </Button>
+                    </Link>
+                    <Modal 
+                        isOpen={this.state.modalIsOpen}
+                        onAfterOpen={this.afterOpenModal}
+                        onRequestClose={this.closeModal}
+                        contentLabel='Delete'
+                        className='Modal'>
+                        <div className='button-center'>
+                            <h3>{this.state.messageFromServer}</h3>
+                            <Link 
+                                to={{pathname: '/bookmarks'}}
+                                style={{textDecoration: 'none'}}>
+                                <Button 
+                                    bsStyle='success'
+                                    bsSize='mini'
+                                    onClick={this.closeModal}>
+                                    Close    
+                                </Button>
+                            </Link>
+                        </div>
+                    </Modal>
+                </div>
+            )
+        }
     }
 }
 

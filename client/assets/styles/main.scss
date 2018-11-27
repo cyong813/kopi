@@ -5,8 +5,13 @@
 $main-font: 'Didact Gothic';
 $head-font: 'Playfair Display';
 
+.navlinks {
+  position: absolute;
+  top: 25px;
+  right: 0;
+}
+
 .Cafes {
-  
   table {
     margin: 0 auto;
   }
@@ -19,7 +24,6 @@ $head-font: 'Playfair Display';
 }
 
 .Drinks {
-  
   table {
     margin: 0 auto;
   }
