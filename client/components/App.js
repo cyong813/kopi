@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Parallax } from 'react-parallax';
-import CoffeeHeader from '../assets/images/coffeeparallax.jpg'
+import CoffeeHeader from '../assets/images/coffeeparallax.jpg';
+import Register from './Register';
 
 const insideStyles = {
   color: "white",
@@ -26,9 +27,7 @@ const pStyles = {
 class App extends Component {
   constructor() {
     super()
-    this.state = {
-      data: []
-    };
+    this.state = {};
   }
 
   render() {
@@ -59,6 +58,7 @@ class App extends Component {
             Drinks
           </Link>
         </div>
+        <Register />
       </div>
     );
   }

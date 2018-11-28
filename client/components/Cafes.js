@@ -1,54 +1,67 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-//import AddCafe from './AddCafe';
 
 class Cafes extends Component {
-    constructor() {
-        super()
-        this.state = {
-          data: []
-        };
-        this.getData = this.getData.bind(this);
-    }
+  constructor() {
+    super()
+    this.state = {
+      data: []
+    };
+    this.getData = this.getData.bind(this);
+  }
 
-    getData(event) {
-        axios.get('/getAllCafes')
-          .then(function(response) {
-            event.setState({data: response.data});
-          });
-    }
+  getData(event) {
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+    axios.get('/getAllCafes')
+      .then(function(response) {
+        event.setState({data: response.data});
+      })
+      .catch((error) => {
+        if (error.response.status === 401) {
+          this.props.history.push("/login");
+        }
+      });
+  }
     
-    componentDidMount() {
-        this.getData(this);
-    }
+  componentDidMount() {
+    this.getData(this);
+  }
     
-    componentWillReceiveProps(nextProps) {
-        this.getData(this);
-    }
+  logout() {
+    localStorage.removeItem('jwtToken');
+    window.location.reload();
+  }
 
-    render() {
-        return (
-            <div className="Cafes">
-                <table>
-                  <thead>
-                    <tr>
-                      <th></th>
-                      <th className='col'>Cafes</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {this.state.data.map(function(cafe) {
-                      return <tr>
-                                <td className='counterCell'></td>
-                                <td className='col'>{cafe.cafe_name}</td>
-                                <td className='col'>{cafe.drinks}</td>
-                              </tr>
-                    })}
-                  </tbody>
-                </table>
-            </div>
-        );
-      }
+  componentWillReceiveProps(nextProps) {
+    this.getData(this);
+  }
+
+  render() {
+    return (
+      <div className="Cafes">
+        {localStorage.getItem('jwtToken') &&
+          <button class="btn btn-primary" onClick={this.logout}>Logout</button>
+        }
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th className='col'>Cafes</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.data.map(function(cafe) {
+              return <tr>
+                        <td className='counterCell'></td>
+                        <td className='col'>{cafe.cafe_name}</td>
+                        <td className='col'>{cafe.drinks}</td>
+                     </tr>
+            })}
+          </tbody>
+        </table>
+      </div>
+    );
+  }
 }
 
 export default Cafes;
