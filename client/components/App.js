@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Parallax } from 'react-parallax';
 import CoffeeHeader from '../assets/images/coffeeparallax.jpg'
-import axios from 'axios';
 
 const insideStyles = {
   color: "white",
@@ -10,6 +9,16 @@ const insideStyles = {
   padding: 20,
   position: "absolute",
   top: "50%",
+  left: "50%",
+  transform: "translate(-50%,-50%)"
+};
+
+const pStyles = {
+  color: "white",
+  fontSize: 15,
+  padding: 20,
+  position: "absolute",
+  top: "65%",
   left: "50%",
   transform: "translate(-50%,-50%)"
 };
@@ -27,7 +36,10 @@ class App extends Component {
       <div className="App">
         <Parallax bgImage={CoffeeHeader} strength={500}>
           <div style={{ height: 500 }}>
-            <div style={insideStyles}>COFFEEEEEEEE</div>
+            <div style={insideStyles}>
+              COFFEEEEEEEE
+            </div>
+            <p style={pStyles}>Coffee culture all in one place.</p>
           </div>
         </Parallax>
         <div className='navlinks'>
