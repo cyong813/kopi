@@ -1,7 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var bodyParser = require('body-parser');
-var Bookmark = require('../models/Bookmark');
 var DrinkBookmark = require('../models/DrinkBookmark');
 var CafeBookmark = require('../models/CafeBookmark');
 var Cafe = require('../models/Cafe');
@@ -18,16 +16,16 @@ router.route('/addCafeBookmark')
     // check if bookmark is empty
     if (req.body.cafe_name != '') {
         var cafeBookmark = new CafeBookmark();
-        cafeBookmark.drink_name = req.body.cafe_name;
+        cafeBookmark.cafe_name = req.body.cafe_name;
         
-        // check for dup drink bookmark
-        CaveBookmark.findOne({cafe_name: req.body.cafe_name}, (err, result) => {
+        // check for dup cafe bookmark
+        CafeBookmark.findOne({cafe_name: req.body.cafe_name}, (err, result) => {
             if (result) {
                 res.send('You bookmarked this already!')
             }
             else {
                 // check if cafe exists in Cafe schema
-                Cave.findOne({cafe_name: req.body.cafe_name}, (err, result) => {
+                Cafe.findOne({cafe_name: req.body.cafe_name}, (err, result) => {
                     if (result) {
                         cafeBookmark.save(function(cerr) {
                             if (cerr) res.send(cerr);
@@ -96,20 +94,39 @@ router.route('/addCafe')
 router.get('/deleteBookmark', function(req, res){
     var id = req.query.id;
     // find in drink or cafe bookmark, then delete
-    DrinkBookmark.find({_id: id}).deleteOne().exec(function(err, bookmark) {
-        if (err) res.send(err)
-        res.send('Drink successfully removed!');
-    })
+    DrinkBookmark.findOne({_id: id}, (err, result) => {
+        if (result) {
+            DrinkBookmark.find({_id: id}).deleteOne().exec(function(err, dbookmark) {
+                if (err) res.send(err)
+                if (dbookmark) {
+                    res.send('Drink successfully removed!');
+                }
+            });
+        }
+    });
+    CafeBookmark.findOne({_id: id}, (err, result) => {
+        if (result) {
+            CafeBookmark.find({_id: id}).deleteOne().exec(function(err, cbookmark) {
+                if (err) res.send(err)
+                if (cbookmark) {
+                    res.send('Cafe successfully removed!');
+                }
+            });
+        }
+    });
 });
 
-router.get('/getAllBookmarks',function(req, res) {
-    // Bookmark.find(function(err, bookmarks) {
-    //     if (err) res.send(err);
-    //     res.json(bookmarks);
-    // });
-    DrinkBookmark.find(function(err, drinkbookmarks) {
+router.get('/getAllDrinkBookmarks',function(req, res) {
+    DrinkBookmark.find(function(err, dbookmarks) {
         if (err) res.send(err);
-        res.json(drinkbookmarks);
+        res.json(dbookmarks);
+    });
+});
+
+router.get('/getAllCafeBookmarks',function(req, res) {
+    CafeBookmark.find(function(err, cbookmarks) {
+        if (err) res.send(err);
+        res.json(cbookmarks);
     });
 });
 

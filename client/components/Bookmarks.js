@@ -9,16 +9,21 @@ class Bookmarks extends Component {
     constructor() {
         super()
         this.state = {
-          data: []
+          cafeBkmkData: [],
+          drinkBkmkData: []
         };
         this.getData = this.getData.bind(this);
     }
 
     getData(event) {
-        axios.get('/getAllBookmarks')
-          .then(function(response) {
-            event.setState({data: response.data});
-          });
+      axios.get('/getAllCafeBookmarks')
+        .then(function(cresponse) {
+          event.setState({cafeBkmkData: cresponse.data});
+      });
+      axios.get('/getAllDrinkBookmarks')
+        .then(function(dresponse) {
+          event.setState({drinkBkmkData: dresponse.data});
+      });
     }
     
     componentDidMount() {
@@ -44,11 +49,18 @@ class Bookmarks extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {this.state.data.map(function(bkmk) {
+                  {this.state.cafeBkmkData.map(function(cbkmk) {
                     return <tr>
                               <td className='counterCell'></td>
-                              <td className='col'>{bkmk.drink_name || bkmk.cafe_name}</td>
-                              <td className='col'><DeleteBookmark id={bkmk._id} bookmark={bkmk} /></td>
+                              <td className='col'>{cbkmk.cafe_name}</td>
+                              <td className='col'><DeleteBookmark id={cbkmk._id} bookmark={cbkmk} /></td>
+                            </tr>
+                  })}
+                  {this.state.drinkBkmkData.map(function(dbkmk) {
+                    return <tr>
+                              <td className='counterCell'></td>
+                              <td className='col'>{dbkmk.drink_name}</td>
+                              <td className='col'><DeleteBookmark id={dbkmk._id} bookmark={dbkmk} /></td>
                             </tr>
                   })}
                 </tbody>
