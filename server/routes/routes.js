@@ -23,9 +23,9 @@ router.post('/register', function(req, res) {
         // save the user
         newUser.save(function(err) {
             if (err) {
-                res.status(401).send({success: false, msg: 'Username already exists.'});
+                return res.json({success: false, msg: 'Username already exists.'});
             }
-            res.json({success: true, msg: 'Successfully created a new user.'});
+            res.json({success: true, msg: 'Successful created new user.'});
         });
     }
 });
@@ -58,11 +58,11 @@ router.post('/login', function(req, res) {
 // ref: https://github.com/umairraslam/expense-manager-mern/blob/master/server/routes/routes.js
 
 router.get('/', function(req, res){
-  res.render('index');
+    res.render('index');
 });
 
 router.route('/addCafeBookmark')
-.post(passport.authenticate('jwt', { session: false}), function(req, res) {
+.post(passport.authenticate('jwt', { session: false }), function(req, res) {
     var token = getToken(req.headers);
     if (token) {
         // check if bookmark is empty
@@ -73,7 +73,7 @@ router.route('/addCafeBookmark')
             // check for dup cafe bookmark
             CafeBookmark.findOne({cafe_name: req.body.cafe_name}, (err, result) => {
                 if (result) {
-                    res.send('You bookmarked this already!')
+                    res.send('You bookmarked this already!');
                 }
                 else {
                     // check if cafe exists in Cafe schema

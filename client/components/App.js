@@ -41,24 +41,37 @@ class App extends Component {
             <p style={pStyles}>Coffee culture all in one place.</p>
           </div>
         </Parallax>
-        <div className='navlinks'>
-          <Link 
-            to={{pathname: '/bookmarks'}}
-            style={{textDecoration: 'none'}}>
-            Bookmarks
-          </Link>
-          <Link 
-            to={{pathname: '/cafes'}}
-            style={{textDecoration: 'none'}}>
-            Cafes
-          </Link>
-          <Link 
-            to={{pathname: '/drinks'}}
-            style={{textDecoration: 'none'}}>
-            Drinks
-          </Link>
-        </div>
-        <Register />
+        {!localStorage.getItem('jwtToken') &&
+        <div>
+          <div className='navlinks'>
+            <Link 
+              to={{pathname: '/login'}}
+              style={{textDecoration: 'none'}}>
+              Login
+            </Link>
+          </div> 
+          <Register />
+          </div>
+        }
+        {localStorage.getItem('jwtToken') &&
+          <div className='navlinks'>
+            <Link 
+              to={{pathname: '/bookmarks'}}
+              style={{textDecoration: 'none'}}>
+              Bookmarks
+            </Link>
+            <Link 
+              to={{pathname: '/cafes'}}
+              style={{textDecoration: 'none'}}>
+              Cafes
+            </Link>
+            <Link 
+              to={{pathname: '/drinks'}}
+              style={{textDecoration: 'none'}}>
+              Drinks
+            </Link>
+          </div>
+        }
       </div>
     );
   }

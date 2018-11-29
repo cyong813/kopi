@@ -50,7 +50,7 @@ class Login extends Component {
                             { message }
                         </div>
                     }
-                    <h2 class="form-signin-heading">Please sign in</h2>
+                    <h2 class="form-signin-heading">Sign in</h2>
                     <label for="inputEmail" class="sr-only">Email address</label>
                     <input type="email" class="form-control" placeholder="Email address" name="username" value={username} onChange={this.handleTextChange} required/>
                     <label for="inputPassword" class="sr-only">Password</label>

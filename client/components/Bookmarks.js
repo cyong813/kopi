@@ -16,6 +16,7 @@ class Bookmarks extends Component {
   }
 
   getData(event) {
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
     axios.get('/getAllCafeBookmarks')
       .then(function(cresponse) {
         event.setState({cafeBkmkData: cresponse.data});

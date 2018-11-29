@@ -26,22 +26,26 @@ class Register extends Component {
 
         axios.post('/register', { username, password })
         .then((result) => {
-            this.setState({ message: result.data });
-            this.props.history.push('/login');
-        })
-        .catch((error) => {
-            if (error.response.status === 401) {
-                this.setState({ message: 'Please choose another username.' });
+            if (result.data.success) {
+                this.props.history.push('/login');
+            }
+            else {
+                this.setState({ message: result.data.msg })
             }
         });
     }
 
     render() {
-        const { username, password } = this.state;
+        const { username, password, message } = this.state;
         return (
             <div class='Auth'>
                 <div class="container">
                     <form class="form-signin" onSubmit={this.onSubmit}>
+                        {message !== '' &&
+                            <div class="alert alert-warning alert-dismissible" role="alert">
+                                { message }
+                            </div>
+                        }
                         <h2 class="form-signin-heading">Register</h2>
                         <label for="inputEmail" class="sr-only">Email address</label>
                         <input type="email" class="form-control" placeholder="Email address" name="username" value={username} onChange={this.handleTextChange} required/>
