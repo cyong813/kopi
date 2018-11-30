@@ -27,6 +27,7 @@ class Register extends Component {
         axios.post('/register', { username, password })
         .then((result) => {
             if (result.data.success) {
+                this.setState({ message: 'Successful. Please log in!' })
                 this.props.history.push('/login');
             }
             else {
