@@ -3,9 +3,7 @@ var bcrypt = require('bcrypt-nodejs');
 
 const User = new mongoose.Schema({
     username: {type: String, unique: true, required: true},
-    password: {type: String, required: true},
-    cafe_bookmarks: {type: Array, required: true, default: []},
-    drink_bookmarks: {type: Array, required: true, default: []}
+    password: {type: String, required: true}
 });
 
 // ref: https://www.djamware.com/post/5a90c37980aca7059c14297a/securing-mern-stack-web-application-using-passport

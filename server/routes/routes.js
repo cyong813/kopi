@@ -68,10 +68,11 @@ router.route('/addCafeBookmark')
         // check if bookmark is empty
         if (req.body.cafe_name != '') {
             var cafeBookmark = new CafeBookmark();
+            cafeBookmark.user_id = req.user._id;
             cafeBookmark.cafe_name = req.body.cafe_name;
             
             // check for dup cafe bookmark
-            CafeBookmark.findOne({cafe_name: req.body.cafe_name}, (err, result) => {
+            CafeBookmark.findOne({user_id: req.user._id, cafe_name: req.body.cafe_name}, (err, result) => {
                 if (result) {
                     res.send('You bookmarked this already!');
                 }
@@ -107,10 +108,11 @@ router.route('/addDrinkBookmark')
         // check if bookmark is empty
         if (req.body.drink_name != '') {
             var drinkBookmark = new DrinkBookmark();
+            drinkBookmark.user_id = req.user._id;
             drinkBookmark.drink_name = req.body.drink_name;
             
             // check for dup drink bookmark
-            DrinkBookmark.findOne({drink_name: req.body.drink_name}, (err, result) => {
+            DrinkBookmark.findOne({user_id: req.user._id, drink_name: req.body.drink_name}, (err, result) => {
                 if (result) {
                     res.send('You bookmarked this already!')
                 }
@@ -140,12 +142,12 @@ router.route('/addDrinkBookmark')
     }    
 })
 
-router.get('/deleteBookmark', passport.authenticate('jwt', { session: false}), function(req, res) {
+router.get('/deleteBookmark', passport.authenticate('jwt', { session: false }), function(req, res) {
     var token = getToken(req.headers);
     if (token) {
         var id = req.query.id;
         // find in drink or cafe bookmark, then delete
-        DrinkBookmark.findOne({_id: id}, (err, result) => {
+        DrinkBookmark.findOne({user_id: req.user._id, _id: id}, (err, result) => {
             if (result) {
                 DrinkBookmark.find({_id: id}).deleteOne().exec(function(err, dbookmark) {
                     if (err) res.send(err)
@@ -155,9 +157,9 @@ router.get('/deleteBookmark', passport.authenticate('jwt', { session: false}), f
                 });
             }
         });
-        CafeBookmark.findOne({_id: id}, (err, result) => {
+        CafeBookmark.findOne({user_id: req.user._id, _id: id}, (err, result) => {
             if (result) {
-                CafeBookmark.find({_id: id}).deleteOne().exec(function(err, cbookmark) {
+                CafeBookmark.find({user_id: req.user._id, _id: id}).deleteOne().exec(function(err, cbookmark) {
                     if (err) res.send(err)
                     if (cbookmark) {
                         res.send('Cafe successfully removed!');
@@ -171,10 +173,10 @@ router.get('/deleteBookmark', passport.authenticate('jwt', { session: false}), f
     }  
 });
 
-router.get('/getAllDrinkBookmarks', passport.authenticate('jwt', { session: false}), function(req, res) {
+router.get('/getAllDrinkBookmarks', passport.authenticate('jwt', { session: false }), function(req, res) {
     var token = getToken(req.headers);
     if (token) {
-        DrinkBookmark.find(function(err, dbookmarks) {
+        DrinkBookmark.find({user_id: req.user._id}, function(err, dbookmarks) {
             if (err) res.send(err);
             res.json(dbookmarks);
         });
@@ -184,10 +186,10 @@ router.get('/getAllDrinkBookmarks', passport.authenticate('jwt', { session: fals
     }  
 });
 
-router.get('/getAllCafeBookmarks', passport.authenticate('jwt', { session: false}), function(req, res) {
+router.get('/getAllCafeBookmarks', passport.authenticate('jwt', { session: false }), function(req, res) {
     var token = getToken(req.headers);
     if (token) {
-        CafeBookmark.find(function(err, cbookmarks) {
+        CafeBookmark.find({user_id: req.user._id}, function(err, cbookmarks) {
             if (err) res.send(err);
             res.json(cbookmarks);
         });
