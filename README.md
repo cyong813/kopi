@@ -22,25 +22,16 @@ An Example User:
 ```javascript
 {
   username: "corninna",
-  hash: // a password hash,
-  bookmarks: // an array of references to Cafe and Drink documents
+  password: "S3CR3T"
 }
 ```
 
-An Example Bookmark with Embedded Items:
+An Example Cafe Bookmark with Embedded Items:
 
 ```javascript
 {
-  user: // a reference to a User object
-  cafes: [
-    { name: "Cafe Madeline", cafe_id: 3},
-    { name: "Roots Cafe", cafe_id: 4},
-  ],
-  drinks: [
-    { name: "White Mocha", coffee_id: 11},
-    { name: "Maple Latte", coffee_id: 12},
-  ],
-  createdAt: // timestamp
+  user_id: // a reference to a User object
+  cafe_name: 
 }
 ```
 
@@ -124,15 +115,15 @@ An Example Cafe (also ref to Yelp API):
 
 ## Wireframes
 
-/ - introduction, login/register
+/ - introduction, login/register, after login shows recent searches
 
 ![list](documentation/intro.png)
 
-/user - main launch page showing recent searches
+~~/user - main launch page showing recent searches~~
 
 ![list](documentation/main.png)
 
-/search - page for display all coffee shops nearby entered location
+~~/search - page for display all coffee shops nearby entered location~~
 
 ![list](documentation/cafes_near.png)
 
@@ -144,7 +135,7 @@ An Example Cafe (also ref to Yelp API):
 
 ![list](documentation/cafes.png)
 
-/cafes/slug - page for showing specific cafe
+~~/cafes/slug - page for showing specific cafe~~
 
 ![list](documentation/single_cafe.png)
 
@@ -152,7 +143,7 @@ An Example Cafe (also ref to Yelp API):
 
 ![list](documentation/drinks.png)
 
-/drinks/slug - page for showing specific cafes with this drink
+~~/drinks/slug - page for showing specific cafes with this drink~~
 
 ![list](documentation/single_drink.png)
 
@@ -167,15 +158,18 @@ An Example Cafe (also ref to Yelp API):
 3. as a user, I can create bookmarks containing cafes and drinks
 4. as a user, I can view all my bookmarks in a single list
 5. as a user, I can add items to my bookmark list
-6. as a user, I can view all cafes and filter accordingly
+~~6. as a user, I can view all cafes and filter accordingly~~
 
 ## Research Topics
 
+* (3 points) Webpack to run MERN stack app
+* (2 points) Concatenation and minification of CSS and JavaScript files
 * (2 points) Sass because much more easier to use than pure CSS
+* (2 points) PassportJS authentication, learned how to combine with MERN app (fun!)
 * (5 points) React.js as the frontend framework
-* (1 point) Google Map API for populating & visualizing coffee shop locations 
+~~* (1 point) Google Map API for populating & visualizing coffee shop locations~~
 
-8 points total out of 8 required points
+14 points total out of 8 required points
 
 ## [Link to Initial Main Project File](app.js) 
 
@@ -183,7 +177,6 @@ An Example Cafe (also ref to Yelp API):
 
 ## Annotations / References Used
 
-1. [React 16 - The Complete Guide (incl. React Router 4 & Redux)](https://www.udemy.com/react-the-complete-guide-incl-redux/) 
-2. [MERN Stack Tutorial](https://blog.cloudboost.io/creating-your-first-mern-stack-application-b6604d12e4d3) [code] (https://github.com/umairraslam/expense-manager-mern)
-
-  
+1. [MERN Stack Tutorial](https://blog.cloudboost.io/creating-your-first-mern-stack-application-b6604d12e4d3) [code] (https://github.com/umairraslam/expense-manager-mern)
+2. [Securing MERN Stack Web-Application Using Passport](https://www.djamware.com/post/5a90c37980aca7059c14297a/securing-mern-stack-web-application-using-passport)
+3. [React Google Maps](https://tomchentw.github.io/react-google-maps/#usage--configuration)

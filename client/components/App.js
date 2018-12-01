@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Parallax } from 'react-parallax';
 import CoffeeHeader from '../assets/images/coffeeparallax.jpg';
 import Register from './Register';
+import Map from './Map';
 
 const insideStyles = {
   color: "white",
@@ -54,22 +55,27 @@ class App extends Component {
           </div>
         }
         {localStorage.getItem('jwtToken') &&
-          <div className='navlinks'>
-            <Link 
-              to={{pathname: '/bookmarks'}}
-              style={{textDecoration: 'none'}}>
-              Bookmarks
-            </Link>
-            <Link 
-              to={{pathname: '/cafes'}}
-              style={{textDecoration: 'none'}}>
-              Cafes
-            </Link>
-            <Link 
-              to={{pathname: '/drinks'}}
-              style={{textDecoration: 'none'}}>
-              Drinks
-            </Link>
+          <div>
+            <div className='navlinks'>
+              <Link 
+                to={{pathname: '/bookmarks'}}
+                style={{textDecoration: 'none'}}>
+                Bookmarks
+              </Link>
+              <Link 
+                to={{pathname: '/cafes'}}
+                style={{textDecoration: 'none'}}>
+                Cafes
+              </Link>
+              <Link 
+                to={{pathname: '/drinks'}}
+                style={{textDecoration: 'none'}}>
+                Drinks
+              </Link>
+            </div>
+            <div className='Map'>
+              <Map/>
+            </div>
           </div>
         }
       </div>
