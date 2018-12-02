@@ -8,7 +8,7 @@ const Cave = new mongoose.Schema({
     website: String,
     hours: Array,
     categories: Array,
-    coordinates: Array,
+    coordinates: Object,
     drinks: Array
 });
 

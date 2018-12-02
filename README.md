@@ -167,9 +167,9 @@ An Example Cafe (also ref to Yelp API):
 * (2 points) Sass because much more easier to use than pure CSS
 * (2 points) PassportJS authentication, learned how to combine with MERN app (fun!)
 * (5 points) React.js as the frontend framework
-~~* (1 point) Google Map API for populating & visualizing coffee shop locations~~
+* (1 point) Google Map API for populating & visualizing coffee shop locations
 
-14 points total out of 8 required points
+15 points total out of 8 required points
 
 ## [Link to Initial Main Project File](app.js) 
 

@@ -20,7 +20,7 @@ class Cafes extends Component {
         if (error.response.status === 401) {
           this.props.history.push("/login");
         }
-      });
+    });
   }
     
   componentDidMount() {

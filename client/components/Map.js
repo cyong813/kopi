@@ -1,13 +1,10 @@
 import React, { PureComponent } from "react";
+import axios from 'axios';
 const _ = require('lodash');
-const { compose, withProps, lifecycle } = require('recompose');
-const {
-  withScriptjs,
-  withGoogleMap,
-  GoogleMap,
-  Marker,
-} = require('react-google-maps');
+const { compose, withProps, lifecycle, withStateHandlers } = require('recompose');
+const { withScriptjs, withGoogleMap, GoogleMap, Marker } = require('react-google-maps');
 const { SearchBox } = require('react-google-maps/lib/components/places/SearchBox');
+const { InfoBox } = require("react-google-maps/lib/components/addons/InfoBox");
 
 const Map = compose(
   withProps({
@@ -20,13 +17,27 @@ const Map = compose(
     componentWillMount() {
       const refs = {};
 
+      axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+      axios.get("/getAllCafesPos")
+        .then(result => {
+          this.setState({ markers: result.data });
+        })
+        .catch((error) => {
+          this.setState({ markers: [] });
+      });
+      axios.get("/getAllCafeNames")
+        .then(result => {
+          this.setState({ cafes: result.data });
+        })
+        .catch((error) => {
+          this.setState({ cafes: [] });
+      });
+
       this.setState({
         bounds: null,
         center: {
           lat: 40.662895, lng: -73.991554
         },
-        markers: [{position: { lat: 40.662895, lng: -73.991554 }}],
-        address: '',
         onMapMounted: ref => {
           refs.map = ref;
         },
@@ -49,9 +60,6 @@ const Map = compose(
             } else {
               bounds.extend(place.geometry.location);
             }
-            this.setState({
-              address: place.formatted_address,
-            });
           });
           const nextMarkers = places.map(place => ({
             position: place.geometry.location,
@@ -59,20 +67,25 @@ const Map = compose(
           const nextCenter = _.get(nextMarkers, '0.position', this.state.center);
 
           this.setState({
-            center: nextCenter,
-            markers: nextMarkers,
+            center: nextCenter
           });
-          // refs.map.fitBounds(bounds);
         },
       });
     },
+  }),
+  withStateHandlers(() => ({
+    isOpen: false,
+  }), {
+    onToggleOpen: ({ isOpen }) => () => ({
+      isOpen: !isOpen,
+    })
   }),
   withScriptjs,
   withGoogleMap
 )(props =>
   <GoogleMap
     ref={props.onMapMounted}
-    defaultZoom={10}
+    defaultZoom={16}
     center={props.center}
     onBoundsChanged={props.onBoundsChanged}
   >
@@ -101,7 +114,23 @@ const Map = compose(
       />
     </SearchBox>
     {props.markers.map((marker, index) =>
-      <Marker key={index} position={marker.position} />
+      props.cafes.map((cafe) =>
+      <Marker
+        key={index} 
+        position={marker.position}
+        onClick={props.onToggleOpen} >
+          {props.isOpen && 
+            <InfoBox
+              onCloseClick={props.onToggleOpen}
+              options={{ closeBoxURL: ``, enableEventPropagation: true }}>
+                <div style={{ backgroundColor: `white`, opacity: 0.75, padding: `12px` }}>
+                  <div style={{ fontSize: `16px`, fontColor: `#08233B`, margin: `0 auto` }}>
+                    {cafe.cafe_name}
+                  </div>
+                </div>
+          </InfoBox>}
+      </Marker>
+      )
     )}
   </GoogleMap>
 );

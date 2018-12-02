@@ -102,7 +102,7 @@ router.route('/addCafeBookmark')
 })
 
 router.route('/addDrinkBookmark')
-.post(passport.authenticate('jwt', { session: false}), function(req, res) {
+.post(passport.authenticate('jwt', { session: false }), function(req, res) {
     var token = getToken(req.headers);
     if (token) {
         // check if bookmark is empty
@@ -199,7 +199,7 @@ router.get('/getAllCafeBookmarks', passport.authenticate('jwt', { session: false
     }  
 });
 
-router.get('/getAllCafes', passport.authenticate('jwt', { session: false}), function(req, res) {
+router.get('/getAllCafes', passport.authenticate('jwt', { session: false }), function(req, res) {
     var token = getToken(req.headers);
     if (token) {
         Cafe.find(function(err, cafes) {
@@ -212,7 +212,33 @@ router.get('/getAllCafes', passport.authenticate('jwt', { session: false}), func
     }  
 });
 
-router.get('/getAllDrinks', passport.authenticate('jwt', { session: false}), function(req, res) {
+router.get('/getAllCafesPos', passport.authenticate('jwt', { session: false }), function(req, res) {
+    var token = getToken(req.headers);
+    if (token) {
+        Cafe.find({}, {position: 1, _id: 0}, function(err, cafes) {
+            if (err) res.send(err);
+            res.json(cafes);
+        });
+    }
+    else {
+        return res.status(403).send({success: false, msg: 'Unauthorized.'});
+    }  
+});
+
+router.get('/getAllCafeNames', passport.authenticate('jwt', { session: false }), function(req, res) {
+    var token = getToken(req.headers);
+    if (token) {
+        Cafe.find({}, {cafe_name: 1, _id: 0}, function(err, cafes) {
+            if (err) res.send(err);
+            res.json(cafes);
+        });
+    }
+    else {
+        return res.status(403).send({success: false, msg: 'Unauthorized.'});
+    }  
+});
+
+router.get('/getAllDrinks', passport.authenticate('jwt', { session: false }), function(req, res) {
     var token = getToken(req.headers);
     if (token) {
         Drink.find(function(err, drinks) {
