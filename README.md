@@ -171,7 +171,7 @@ An Example Cafe (also ref to Yelp API):
 
 15 points total out of 8 required points
 
-Webpack on my code: (documentation/webpack.gif)
+Webpack on my code: ![list](documentation/webpack.gif)
 
 
 ## [Link to Initial Main Project File](app.js) 
