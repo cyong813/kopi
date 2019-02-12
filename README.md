@@ -1,14 +1,14 @@
-# COFFEEEEEEEE
+# kopi
 
 ## Overview
 
 I love going to coffee shops to study and enjoy the vibes. But there are times where I crave a specific drink, or the place I want to go to doesn't approve of laptops (totally understandable), or maybe there's no space and I'd like to try a different place.
 
-COFFEEEEEEEE is a web app that allows users to search for varieties of local coffee shops and cafes near them. Users can register, login, and bookmark coffee shops for the sake of going another day or to remind them that's their favorite. You are able to filter by drinks, time, closest location, internet access, and so on.
+kopi is a web app that allows users to search for varieties of local coffee shops and cafes near them. Users can register, login, and bookmark coffee shops for the sake of going another day or to remind them that's their favorite. You are able to filter by drinks, time, closest location, internet access, and so on.
 
 In the future, I would hope to develop this into a more elaborate platform where coffee culture can be incorporated and celebrated through this app. This could include job postings for baristas/waiters/waitresses/etc, listing events happening at the coffee shops, listing coffee festivals and general events, and other features to host the coffee community.
 
-The name COFFEEEEEEEE is inspired by Cafe Madeline's storefront sign in Brooklyn. I always used to pass by in high school. 
+kopi is the word for coffee in Malaysia (and other Pacific Island languages).
 
 ## Data Model
 
