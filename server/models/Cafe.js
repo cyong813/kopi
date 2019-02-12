@@ -7,9 +7,10 @@ const Cave = new mongoose.Schema({
     phone: String,
     website: String,
     hours: Array,
-    categories: Array,
+    price: String,
+    categories: Array, // American, French, Bar, Etc.
     coordinates: Object,
-    drinks: Array
+    drinks: [ {drink_name: {type: String, ref: 'Drink'}} ] 
 });
 
 module.exports = mongoose.model('Cafe', Cave);

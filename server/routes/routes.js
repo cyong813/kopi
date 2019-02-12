@@ -9,6 +9,7 @@ var DrinkBookmark = require('../models/DrinkBookmark');
 var CafeBookmark = require('../models/CafeBookmark');
 var Cafe = require('../models/Cafe');
 var Drink = require('../models/Drink');
+var ObjectId = require('mongodb').ObjectID;
 
 // ref: https://www.djamware.com/post/5a90c37980aca7059c14297a/securing-mern-stack-web-application-using-passport
 router.post('/register', function(req, res) {
@@ -238,17 +239,34 @@ router.get('/getAllCafeNames', passport.authenticate('jwt', { session: false }),
     }  
 });
 
-router.get('/getAllDrinks', passport.authenticate('jwt', { session: false }), function(req, res) {
-    var token = getToken(req.headers);
-    if (token) {
+router.get('/getAllDrinks', function(req, res) {
+    // TEMP REMOVED PASSPORT AUTH FOR SAKE OF TESTING
+    //var token = getToken(req.headers);
+    //if (token) {
         Drink.find(function(err, drinks) {
             if (err) res.send(err);
             res.json(drinks);
         });
-    }
-    else {
-        return res.status(403).send({success: false, msg: 'Unauthorized.'});
-    }  
+    //}
+    // else {
+    //     return res.status(403).send({success: false, msg: 'Unauthorized.'});
+    // }  
+});
+
+router.get('/drink/:drinkSlug', function(req, res) {
+    // TEMP REMOVED PASSPORT AUTH FOR SAKE OF TESTING
+    //var token = getToken(req,headers);
+    //if (token) {
+        Drink.findOne({ drinkSlug : req.params.slug }, (err, result) => {
+            if (err) res.send(err);
+            // Find cafes associated with this drink
+            Cafe.find({ drinks: {$elemMatch: {drink_name: result.drink_name}} }, function(err, cafes) {
+                if (err) res.send(err);
+                drinkName = result.drink_name;
+                res.json({drinkName: cafes}); // returns cafes!
+            })
+        });
+    //}
 });
 
 getToken = function (headers) {
