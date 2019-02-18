@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class Drinks extends Component {
@@ -18,9 +18,9 @@ class Drinks extends Component {
         event.setState({data: response.data});
       })
       .catch((error) => {
-        if (error.response.status === 401) {
-          this.props.history.push("/login");
-        }
+        // if (error.response.status === 401) {
+        //   this.props.history.push("/login");
+        // }
       });
   }
   
@@ -54,7 +54,13 @@ class Drinks extends Component {
               {this.state.data.map(function(drink) {
                 return <tr>
                           <td className='counterCell'></td>
-                          <td className='col'>{drink.drink_name}</td>
+                          <td className='col'>
+                          <Link 
+                            to={{pathname: '/drink/'+drink.drink_name}}
+                            style={{textDecoration: 'none'}}>
+                            {drink.drink_name}
+                          </Link>
+                          </td>
                         </tr>
               })}
             </tbody>

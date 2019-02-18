@@ -253,7 +253,7 @@ router.get('/getAllDrinks', function(req, res) {
     // }  
 });
 
-router.get('/drink/:drinkSlug', function(req, res) {
+router.get('/api/drink/:drinkSlug', function(req, res) {
     // TEMP REMOVED PASSPORT AUTH FOR SAKE OF TESTING
     //var token = getToken(req,headers);
     //if (token) {
@@ -269,7 +269,7 @@ router.get('/drink/:drinkSlug', function(req, res) {
     //}
 });
 
-getToken = function (headers) {
+getToken = function(headers) {
     if (headers && headers.authorization) {
         var parted = headers.authorization.split(' ');
         if (parted.length === 2) {
