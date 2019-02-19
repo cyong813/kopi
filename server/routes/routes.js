@@ -253,17 +253,17 @@ router.get('/getAllDrinks', function(req, res) {
     // }  
 });
 
-router.get('/api/drink/:drinkSlug', function(req, res) {
+router.get('/api/drink/:drink_name', function(req, res) {
     // TEMP REMOVED PASSPORT AUTH FOR SAKE OF TESTING
     //var token = getToken(req,headers);
     //if (token) {
-        Drink.findOne({ drinkSlug : req.params.slug }, (err, result) => {
+        Drink.findOne({ drink_name : req.params.drink_name }, (err, result) => {
+            console.log(req.params.drink_name)
             if (err) res.send(err);
             // Find cafes associated with this drink
             Cafe.find({ drinks: {$elemMatch: {drink_name: result.drink_name}} }, function(err, cafes) {
                 if (err) res.send(err);
-                drinkName = result.drink_name;
-                res.json({drinkName: cafes}); // returns cafes!
+                res.json({cafes}); // returns cafes!
             })
         });
     //}

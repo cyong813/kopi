@@ -6,6 +6,7 @@ import Register from './components/Register';
 import Bookmarks from './components/Bookmarks';
 import Cafes from './components/Cafes';
 import Drinks from './components/Drinks';
+import Drink from './components/Drink';
 
 const Routes = () => (
     <Switch>
@@ -15,6 +16,7 @@ const Routes = () => (
       <Route exact path='/bookmarks' component={Bookmarks} />
       <Route exact path='/cafes' component={Cafes} />
       <Route exact path='/drinks' component={Drinks} />
+      <Route path="/drink/:drink_name" component={Drink} />
     </Switch>
 );
 
