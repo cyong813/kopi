@@ -213,6 +213,17 @@ router.get('/getAllCafes', passport.authenticate('jwt', { session: false }), fun
     }  
 });
 
+router.get('/api/cafe/:cafe_name', function(req, res) {
+    // TEMP REMOVED PASSPORT AUTH FOR SAKE OF TESTING
+    //var token = getToken(req,headers);
+    //if (token) {
+        Cafe.findOne({ cafe_name : req.params.cafe_name }, (err, cafes) => {
+            if (err) res.send(err);
+            res.json(cafes); // returns cafes!
+        });
+    //}
+});
+
 router.get('/getAllCafesPos', passport.authenticate('jwt', { session: false }), function(req, res) {
     var token = getToken(req.headers);
     if (token) {

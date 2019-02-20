@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-class Cafes extends Component {
+class Cafe extends Component {
   constructor() {
     super()
     this.state = {
@@ -13,7 +12,7 @@ class Cafes extends Component {
 
   getData(event) {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    axios.get('/getAllCafes')
+    axios.get('/api/cafe/'+this.props.match.params.cafe_name)
       .then(function(response) {
         event.setState({data: response.data});
       })
@@ -43,31 +42,14 @@ class Cafes extends Component {
         {localStorage.getItem('jwtToken') &&
           <button class="btn btn-primary" onClick={this.logout}>Logout</button>
         }
-        <table>
-          <thead>
-            <tr>
-              <th></th>
-              <th className='col'>Cafes</th>
-            </tr>
-          </thead>
-          <tbody>
             {this.state.data.map(function(cafe) {
-              return <tr>
-                        <td className='counterCell'></td>
-                        <td className='col'>
-                          <Link 
-                            to={{pathname: '/cafe/'+cafe.cafe_name}}
-                            style={{textDecoration: 'none'}}>
-                            {cafe.cafe_name}
-                          </Link>
-                        </td>
-                     </tr>
+              return <div>
+                        {cafe.cafe_name}
+                     </div>
             })}
-          </tbody>
-        </table>
       </div>
     );
   }
 }
 
-export default Cafes;
+export default Cafe;
