@@ -4,6 +4,7 @@ import App from './components/App.js';
 import Login from './components/Login';
 import Register from './components/Register';
 import Bookmarks from './components/Bookmarks';
+import Cafe from './components/Cafe';
 import Cafes from './components/Cafes';
 import Drinks from './components/Drinks';
 import Drink from './components/Drink';
@@ -15,6 +16,7 @@ const Routes = () => (
       <Route path='/register' component={Register} />
       <Route exact path='/bookmarks' component={Bookmarks} />
       <Route exact path='/cafes' component={Cafes} />
+      <Route path="/cafe/:cafe_name" component={Cafe} />
       <Route exact path='/drinks' component={Drinks} />
       <Route path="/drink/:drink_name" component={Drink} />
     </Switch>

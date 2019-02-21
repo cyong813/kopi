@@ -12,9 +12,8 @@ class Drink extends Component {
   }
 
   getData(event) {
-      console.log(req.params.drink_name)
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    axios.get('/api/drink/:drink_name')
+    axios.get('/api/drink/'+this.props.match.params.drink_name)
       .then(function(response) {
           console.log(response.data.cafes)
         event.setState({data: response.data.cafes})
@@ -48,6 +47,9 @@ class Drink extends Component {
               {this.state.data.map(function(cafes) {
                 return <div>
                     {cafes.cafe_name}
+                    {cafes.address}
+                    {cafes.phone}
+                    {cafes.website}
                 </div>
               })}
         </div>
