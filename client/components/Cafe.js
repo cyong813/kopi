@@ -45,11 +45,7 @@ class Cafe extends Component {
               <p>{this.state.data.address}</p>
               <p>{this.state.data.phone}</p>
               <p>
-                <Link 
-                    to={{pathname: this.state.data.website}}
-                    style={{textDecoration: 'none'}}>
-                    {this.state.data.website}
-                </Link>
+                <a href={this.state.data.website}>{this.state.data.website}</a>
               </p>
               <p>Drinks:</p>
               <p>

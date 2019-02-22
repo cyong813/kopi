@@ -46,11 +46,11 @@ class Drink extends Component {
           }
               {this.state.data.map(function(cafes) {
                 return <div>
-                    {cafes.cafe_name}
-                    {cafes.address}
-                    {cafes.phone}
-                    {cafes.website}
-                </div>
+                          <p>{cafes.cafe_name}</p>
+                          <p>{cafes.address}</p>
+                          <p>{cafes.phone}</p>
+                          <p><a href={cafes.website}>{cafes.website}</a></p>
+                      </div>
               })}
         </div>
     );
