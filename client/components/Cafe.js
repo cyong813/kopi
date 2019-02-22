@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class Cafe extends Component {
   constructor() {
     super()
     this.state = {
-      data: []
+      data: [],
+      loading: true
     };
     this.getData = this.getData.bind(this);
   }
@@ -14,7 +16,7 @@ class Cafe extends Component {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
     axios.get('/api/cafe/'+this.props.match.params.cafe_name)
       .then(function(response) {
-        event.setState({data: response.data});
+        event.setState({data: response.data, loading: false});
       })
       .catch((error) => {
         // if (error.response.status === 401) {
@@ -32,21 +34,47 @@ class Cafe extends Component {
     window.location.reload();
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.getData(this);
-  }
-
   render() {
+    const { loading } = this.state;
+    let cafe;
+
+    if (!loading) {
+      cafe = <div>
+              <p>{this.state.data.cafe_name}</p>
+              <p>{this.state.data.categories}</p>
+              <p>{this.state.data.address}</p>
+              <p>{this.state.data.phone}</p>
+              <p>
+                <Link 
+                    to={{pathname: this.state.data.website}}
+                    style={{textDecoration: 'none'}}>
+                    {this.state.data.website}
+                </Link>
+              </p>
+              <p>Drinks:</p>
+              <p>
+                {this.state.data.drinks.map(drink => {
+                  return (
+                    <Link 
+                      to={{pathname: '/drink/'+drink.drink_name}}
+                      style={{textDecoration: 'none'}}>
+                      {drink.drink_name}
+                    </Link>
+                  );
+                })}
+              </p>  
+            </div>
+    }
+    else {
+      cafe = null;
+    }
+
     return (
       <div className="Cafes">
         {localStorage.getItem('jwtToken') &&
           <button class="btn btn-primary" onClick={this.logout}>Logout</button>
         }
-            {this.state.data.map(function(cafe) {
-              return <div>
-                        {cafe.cafe_name}
-                     </div>
-            })}
+        {cafe}
       </div>
     );
   }
