@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import AddCafeBookmark from './AddCafeBookmark';
-import AddDrinkBookmark from './AddDrinkBookmark';
 import DeleteBookmark from './DeleteBookmark';
 import axios from 'axios';
 
@@ -61,10 +59,6 @@ class Bookmarks extends Component {
             <tr>
               <th></th>
               <th className='col'>Bookmarks</th>
-              <th>
-                <AddCafeBookmark/>
-                <AddDrinkBookmark/>
-              </th>
             </tr>
           </thead>
           <tbody>

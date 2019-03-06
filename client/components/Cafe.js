@@ -1,22 +1,28 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import {Button} from 'react-bootstrap';
 import axios from 'axios';
+var querystring = require('querystring');
 
 class Cafe extends Component {
   constructor() {
     super()
     this.state = {
       data: [],
-      loading: true
+      loading: true,
+      cafe_name: '',
+      messageFromServer: '',
     };
     this.getData = this.getData.bind(this);
+    this.onClick = this.onClick.bind(this);
+    this.insertNewCafeBookmark = this.insertNewCafeBookmark.bind(this);
   }
 
   getData(event) {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
     axios.get('/api/cafe/'+this.props.match.params.cafe_name)
       .then(function(response) {
-        event.setState({data: response.data, loading: false});
+        event.setState({data: response.data, cafe_name: response.data.cafe_name, loading: false});
       })
       .catch((error) => {
         // if (error.response.status === 401) {
@@ -25,6 +31,25 @@ class Cafe extends Component {
     });
   }
     
+  onClick(event) {
+    this.insertNewCafeBookmark(this);
+  }
+
+  insertNewCafeBookmark(event) {
+      axios.post('/addCafeBookmark',
+      querystring.stringify({
+          cafe_name: event.state.cafe_name
+      }), {
+          headers: {
+              "Content-Type": "application/x-www-form-urlencoded"
+          }
+      }).then(function(response) {
+          event.setState({
+              messageFromServer: response.data
+          });
+      });
+  }
+
   componentDidMount() {
     this.getData(this);
   }
@@ -59,6 +84,11 @@ class Cafe extends Component {
                   );
                 })}
               </p>  
+              <Button 
+                bsStyle='success' 
+                bsSize='small'
+                onClick={this.onClick}>Save  
+              </Button>
             </div>
     }
     else {

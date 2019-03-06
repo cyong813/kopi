@@ -73,9 +73,9 @@ class App extends Component {
                 Drinks
               </Link>
             </div>
-            <div className='Map'>
+            {/* <div className='Map'>
               <Map/>
-            </div>
+            </div> */}
           </div>
         }
       </div>

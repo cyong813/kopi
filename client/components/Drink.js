@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import {Button} from 'react-bootstrap';
 import axios from 'axios';
+// var querystring = require('querystring');
 
 class Drink extends Component {
   constructor() {
       super()
       this.state = {
-        data: []
+        data: [],
+        drink_name: '',
+        messageFromServer: '',
       };
       this.getData = this.getData.bind(this);
+      // this.onClick = this.onClick.bind(this);
+      // this.insertNewDrinkBookmark = this.insertNewDrinkBookmark.bind(this);
   }
 
   getData(event) {
@@ -17,6 +23,7 @@ class Drink extends Component {
       .then(function(response) {
           console.log(response.data.cafes)
         event.setState({data: response.data.cafes})
+        // event.setState({data: response.data.cafes, drink_name: this.props.match.params.drink_name})
       })
       .catch((error) => {
         // if (error.response.status === 401) {
@@ -25,6 +32,25 @@ class Drink extends Component {
       });
   }
   
+  // onClick(event) {
+  //   this.insertNewDrinkBookmark(this);
+  // }
+
+  // insertNewDrinkBookmark(event) {
+  //     axios.post('/addDrinkBookmark',
+  //     querystring.stringify({
+  //         drink_name: event.state.drink_name
+  //     }), {
+  //         headers: {
+  //             "Content-Type": "application/x-www-form-urlencoded"
+  //         }
+  //     }).then(function(response) {
+  //         event.setState({
+  //             messageFromServer: response.data
+  //         });
+  //     });
+  // }
+
   componentDidMount() {
       this.getData(this);
   }
