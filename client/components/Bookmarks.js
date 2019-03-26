@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import { Link } from 'react-router-dom';
 import DeleteBookmark from './DeleteBookmark';
 import axios from 'axios';
 
@@ -15,7 +15,7 @@ class Bookmarks extends Component {
 
   getData(event) {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    axios.get('/getAllCafeBookmarks')
+    axios.get('/api/getAllCafeBookmarks')
       .then(function(cresponse) {
         event.setState({cafeBkmkData: cresponse.data});
       })
@@ -24,7 +24,7 @@ class Bookmarks extends Component {
           this.props.history.push("/login");
         }
       });
-    axios.get('/getAllDrinkBookmarks')
+    axios.get('/api/getAllDrinkBookmarks')
       .then(function(dresponse) {
         event.setState({drinkBkmkData: dresponse.data});
       })
@@ -65,15 +65,29 @@ class Bookmarks extends Component {
             {this.state.cafeBkmkData.map(function(cbkmk) {
               return <tr>
                         <td className='counterCell'></td>
-                        <td className='col'>{cbkmk.cafe_name}</td>
+                        <td className='col'>
+                          <Link 
+                            to={{pathname: '/cafe/'+cbkmk.cafe_name}}
+                            style={{textDecoration: 'none'}}>
+                            {cbkmk.cafe_name}
+                          </Link>
+                        </td>
                         <td className='col'><DeleteBookmark id={cbkmk._id} bookmark={cbkmk} /></td>
                       </tr>
             })}
             {this.state.drinkBkmkData.map(function(dbkmk) {
               return <tr>
                         <td className='counterCell'></td>
-                        <td className='col'>{dbkmk.drink_name}</td>
-                        <td className='col'><DeleteBookmark id={dbkmk._id} bookmark={dbkmk} /></td>
+                        <td className='col'>
+                          <Link 
+                            to={{pathname: '/drink/'+dbkmk.drink_name}}
+                            style={{textDecoration: 'none'}}>
+                            {dbkmk.drink_name}
+                          </Link>
+                        </td>
+                        <td className='col'>
+                          <DeleteBookmark id={dbkmk._id} bookmark={dbkmk} />
+                        </td>
                       </tr>
             })}
           </tbody>

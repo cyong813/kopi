@@ -174,7 +174,7 @@ router.get('/deleteBookmark', passport.authenticate('jwt', { session: false }), 
     }  
 });
 
-router.get('/getAllDrinkBookmarks', passport.authenticate('jwt', { session: false }), function(req, res) {
+router.get('/api/getAllDrinkBookmarks', passport.authenticate('jwt', { session: false }), function(req, res) {
     var token = getToken(req.headers);
     if (token) {
         DrinkBookmark.find({user_id: req.user._id}, function(err, dbookmarks) {
@@ -184,10 +184,10 @@ router.get('/getAllDrinkBookmarks', passport.authenticate('jwt', { session: fals
     }
     else {
         return res.status(403).send({success: false, msg: 'Unauthorized.'});
-    }  
+    }
 });
 
-router.get('/getAllCafeBookmarks', passport.authenticate('jwt', { session: false }), function(req, res) {
+router.get('/api/getAllCafeBookmarks', passport.authenticate('jwt', { session: false }), function(req, res) {
     var token = getToken(req.headers);
     if (token) {
         CafeBookmark.find({user_id: req.user._id}, function(err, cbookmarks) {
@@ -269,12 +269,16 @@ router.get('/api/drink/:drink_name', function(req, res) {
     //var token = getToken(req,headers);
     //if (token) {
         Drink.findOne({ drink_name : req.params.drink_name }, (err, result) => {
-            console.log(req.params.drink_name)
+            //console.log(req.params.drink_name)
             if (err) res.send(err);
             // Find cafes associated with this drink
             Cafe.find({ drinks: {$elemMatch: {drink_name: result.drink_name}} }, function(err, cafes) {
                 if (err) res.send(err);
-                res.json({cafes}); // returns cafes!
+                DrinkBookmark.findOne({ drink_name: req.params.drink_name }, (err, bkmk) => {
+                    if (err) res.send(err);
+                    //console.log(bkmk);
+                    res.json({cafes, bkmk}); // returns cafes and bookmark!
+                });
             })
         });
     //}

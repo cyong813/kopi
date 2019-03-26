@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Modal from 'react-modal';
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -11,13 +10,10 @@ class DeleteBookmark extends Component {
         super();
         this.state = {
             id: '',
-            messageFromServer: '',
-            modalIsOpen: false
+            messageFromServer: ''
         };
         this.onClick = this.onClick.bind(this);
         this.deleteBookmark = this.deleteBookmark.bind(this);
-        this.openModal = this.openModal.bind(this);
-        this.closeModal = this.closeModal.bind(this);
     }
 
     onClick(event) {
@@ -31,18 +27,6 @@ class DeleteBookmark extends Component {
                     messageFromServer: response.data
                 });
             });
-    }
-
-    openModal() {
-        this.setState({ modalIsOpen: true });
-    }
-
-    closeModal() {
-        this.setState(({ 
-            modalIsOpen: false, 
-            id: '',
-            messageFromServer: ''
-        }));
     }
 
     componentDidMount() {
@@ -81,26 +65,6 @@ class DeleteBookmark extends Component {
                             <span className='glyphicon glyphicon-remove'></span>
                         </Button>
                     </Link>
-                    <Modal 
-                        isOpen={this.state.modalIsOpen}
-                        onAfterOpen={this.afterOpenModal}
-                        onRequestClose={this.closeModal}
-                        contentLabel='Delete'
-                        className='Modal'>
-                        <div className='button-center'>
-                            <h3>{this.state.messageFromServer}</h3>
-                            <Link 
-                                to={{pathname: '/bookmarks'}}
-                                style={{textDecoration: 'none'}}>
-                                <Button 
-                                    bsStyle='success'
-                                    bsSize='mini'
-                                    onClick={this.closeModal}>
-                                    Close    
-                                </Button>
-                            </Link>
-                        </div>
-                    </Modal>
                 </div>
             )
         }

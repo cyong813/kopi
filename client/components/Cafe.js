@@ -11,6 +11,8 @@ class Cafe extends Component {
       data: [],
       loading: true,
       cafe_name: '',
+      bkmk_id: null,
+      saved: 'Save',
       messageFromServer: '',
     };
     this.getData = this.getData.bind(this);
