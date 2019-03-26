@@ -217,9 +217,13 @@ router.get('/api/cafe/:cafe_name', function(req, res) {
     // TEMP REMOVED PASSPORT AUTH FOR SAKE OF TESTING
     //var token = getToken(req,headers);
     //if (token) {
-        Cafe.findOne({ cafe_name : req.params.cafe_name }, (err, cafes) => {
+        Cafe.findOne({ cafe_name : req.params.cafe_name }, (err, cafe) => {
             if (err) res.send(err);
-            res.json(cafes); // returns cafes!
+            CafeBookmark.findOne({ cafe_name: req.params.cafe_name }, (err, bkmk) => {
+                if (err) res.send(err);
+                //console.log(bkmk);
+                res.json({cafe, bkmk}); // returns cafe info and bookmark!
+            });
         });
     //}
 });

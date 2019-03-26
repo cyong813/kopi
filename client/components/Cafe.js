@@ -18,6 +18,7 @@ class Cafe extends Component {
     this.getData = this.getData.bind(this);
     this.onClick = this.onClick.bind(this);
     this.insertNewCafeBookmark = this.insertNewCafeBookmark.bind(this);
+    this.deleteBookmark = this.deleteBookmark.bind(this);
   }
 
   getData(event) {

@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import {Button} from 'react-bootstrap';
 import axios from 'axios';
 var querystring = require('querystring');
 
 class Drink extends Component {
   constructor() {
-      super()
-      this.state = {
-        data: [],
-        drink_name: '',
-        bkmk_id: null,
-        saved: 'Save',
-        messageFromServer: '',
-      };
-      this.getData = this.getData.bind(this);
-      this.onClick = this.onClick.bind(this);
-      this.insertNewDrinkBookmark = this.insertNewDrinkBookmark.bind(this);
-      this.deleteBookmark = this.deleteBookmark.bind(this);
+    super()
+    this.state = {
+      data: [],
+      drink_name: '',
+      bkmk_id: null,
+      saved: 'Save',
+      messageFromServer: '',
+    };
+    this.getData = this.getData.bind(this);
+    this.onClick = this.onClick.bind(this);
+    this.insertNewDrinkBookmark = this.insertNewDrinkBookmark.bind(this);
+    this.deleteBookmark = this.deleteBookmark.bind(this);
   }
 
   getData(event) {
@@ -105,7 +106,12 @@ class Drink extends Component {
         }
             {this.state.data.map(function(cafes) {
               return <div>
-                        <p>{cafes.cafe_name}</p>
+                        <p><Link 
+                              to={{pathname: '/cafe/'+cafes.cafe_name}}
+                              style={{textDecoration: 'none'}}>
+                              {cafes.cafe_name}
+                            </Link>
+                        </p>
                         <p>{cafes.address}</p>
                         <p>{cafes.phone}</p>
                         <p><a href={cafes.website}>{cafes.website}</a></p>
