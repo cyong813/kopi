@@ -11,7 +11,6 @@ class Cafe extends Component {
       data: [],
       loading: true,
       cafe_name: '',
-      bkmk_id: null,
       saved: 'Save',
       messageFromServer: '',
     };
@@ -25,7 +24,21 @@ class Cafe extends Component {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
     axios.get('/api/cafe/'+this.props.match.params.cafe_name)
       .then(function(response) {
-        event.setState({data: response.data, cafe_name: response.data.cafe_name, loading: false});
+        // check for bookmark and accordingly change the bookmark button
+        if (response.data.bkmk) {
+          event.setState({
+            data: response.data.cafe, 
+            cafe_name: response.data.cafe.cafe_name, 
+            loading: false, 
+            saved: 'Saved'});
+        }
+        else {
+          event.setState({
+            data: response.data.cafe, 
+            cafe_name: response.data.cafe.cafe_name, 
+            loading: false, 
+            saved: 'Save'});
+        }
       })
       .catch((error) => {
         // if (error.response.status === 401) {
@@ -34,23 +47,47 @@ class Cafe extends Component {
     });
   }
     
-  onClick(event) {
-    this.insertNewCafeBookmark(this);
+  onClick() {
+    if (this.state.saved === 'Save') {
+      this.insertNewCafeBookmark(this);
+      this.setState({saved: 'Saved'});
+    }
+    else {
+      this.deleteBookmark();
+      this.setState({saved: 'Save'});
+    }
   }
 
   insertNewCafeBookmark(event) {
-      axios.post('/addCafeBookmark',
-      querystring.stringify({
-          cafe_name: event.state.cafe_name
-      }), {
-          headers: {
-              "Content-Type": "application/x-www-form-urlencoded"
-          }
-      }).then(function(response) {
-          event.setState({
-              messageFromServer: response.data
+    console.log(event.state.cafe_name);
+    axios.post('/addCafeBookmark',
+    querystring.stringify({
+      cafe_name: event.state.cafe_name
+    }), {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      }
+    }).then(function(response) {
+      event.setState({ messageFromServer: response.data });
+    });
+  }
+
+  deleteBookmark() {
+    axios.get('/api/cafe/'+this.props.match.params.cafe_name)
+      .then(function(response) {
+        // check for bookmark and accordingly change the bookmark button
+        if (response.data.bkmk) {
+          console.log(response.data.bkmk._id);
+          return axios.get('/deleteBookmark?id='+response.data.bkmk._id)
+            .then(function(result) {
+              console.log(result.data);
+            }).catch((error) => {
+              // if (error.response.status === 401) {
+              //   this.props.history.push("/login");
+              // }
           });
-      });
+        }
+    });
   }
 
   componentDidMount() {
@@ -88,9 +125,9 @@ class Cafe extends Component {
                 })}
               </p>  
               <Button 
-                bsStyle='success' 
+                bsStyle='light' 
                 bsSize='small'
-                onClick={this.onClick}>Save  
+                onClick={this.onClick}>{this.state.saved}
               </Button>
             </div>
     }

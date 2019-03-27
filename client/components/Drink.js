@@ -10,7 +10,6 @@ class Drink extends Component {
     this.state = {
       data: [],
       drink_name: '',
-      bkmk_id: null,
       saved: 'Save',
       messageFromServer: '',
     };
@@ -61,9 +60,7 @@ class Drink extends Component {
             "Content-Type": "application/x-www-form-urlencoded"
         }
     }).then(function(response) {
-        event.setState({
-          messageFromServer: response.data
-        });
+        event.setState({ messageFromServer: response.data });
     });
   }
 
