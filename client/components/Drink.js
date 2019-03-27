@@ -97,18 +97,20 @@ class Drink extends Component {
 
   render() {
     return (
-      <div className="Drink">
+      <div>
         {localStorage.getItem('jwtToken') &&
           <button class="btn btn-primary" onClick={this.logout}>Logout</button>
         }
+        <div className="Drink">
             {this.state.data.map(function(cafes) {
               return <div>
-                        <p><Link 
+                        <h1><Link 
                               to={{pathname: '/cafe/'+cafes.cafe_name}}
-                              style={{textDecoration: 'none'}}>
+                              style={{color: 'black',
+                                    textDecoration: 'none'}}>
                               {cafes.cafe_name}
                             </Link>
-                        </p>
+                        </h1>
                         <p>{cafes.address}</p>
                         <p>{cafes.phone}</p>
                         <p><a href={cafes.website}>{cafes.website}</a></p>
@@ -119,6 +121,7 @@ class Drink extends Component {
               bsSize='small'
               onClick={this.onClick}>{this.state.saved}  
             </Button>
+        </div>
       </div>
     );
   }

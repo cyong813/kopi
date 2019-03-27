@@ -59,17 +59,20 @@ class App extends Component {
             <div className='navlinks'>
               <Link 
                 to={{pathname: '/bookmarks'}}
-                style={{textDecoration: 'none'}}>
+                style={{color: 'black',
+                        textDecoration: 'none'}}>
                 Bookmarks
               </Link>
               <Link 
                 to={{pathname: '/cafes'}}
-                style={{textDecoration: 'none'}}>
+                style={{color: 'black',
+                        textDecoration: 'none'}}>
                 Cafes
               </Link>
               <Link 
                 to={{pathname: '/drinks'}}
-                style={{textDecoration: 'none'}}>
+                style={{color: 'black',
+                        textDecoration: 'none'}}>
                 Drinks
               </Link>
             </div>

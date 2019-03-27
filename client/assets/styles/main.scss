@@ -24,6 +24,11 @@ $head-font: 'Playfair Display';
   }
 }
 
+.Cafe {
+  margin: 0 auto;
+  text-align: center;
+}
+
 .Bookmarks {
   table {
     margin: 0 auto;
@@ -34,6 +39,11 @@ $head-font: 'Playfair Display';
   table {
     margin: 0 auto;
   }
+}
+
+.Drink {
+  margin: 0 auto;
+  text-align: center;
 }
 
 body {
@@ -49,32 +59,6 @@ body {
 
 .button-center {
  text-align: center;
-}
-
-.Modal {
-   position: relative;
-   top: 250px;
-   left: 400px;
-   right: 20px;
-   bottom: 20px;
-   background-color: #F5F5F5;
-   width: 500px;
-   border: 1px solid #000;
-   border-radius: 4px;
-   padding: 20px;
- }
-
-.Overlay {
-   position: fixed;
-   top: 0;
-   left: 0;
-   right: 0;
-   bottom: 0;
-   background-color: rebeccapurple;
- }
-
-.button-center {
-  text-align: center;
 }
 
 label {

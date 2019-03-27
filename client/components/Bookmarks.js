@@ -68,7 +68,8 @@ class Bookmarks extends Component {
                         <td className='col'>
                           <Link 
                             to={{pathname: '/cafe/'+cbkmk.cafe_name}}
-                            style={{textDecoration: 'none'}}>
+                            style={{color: 'black',
+                                    textDecoration: 'none'}}>
                             {cbkmk.cafe_name}
                           </Link>
                         </td>
@@ -81,7 +82,8 @@ class Bookmarks extends Component {
                         <td className='col'>
                           <Link 
                             to={{pathname: '/drink/'+dbkmk.drink_name}}
-                            style={{textDecoration: 'none'}}>
+                            style={{color: 'black',
+                                    textDecoration: 'none'}}>
                             {dbkmk.drink_name}
                           </Link>
                         </td>

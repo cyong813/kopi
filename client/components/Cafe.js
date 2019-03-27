@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import {Button} from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import axios from 'axios';
 var querystring = require('querystring');
 
@@ -104,8 +104,8 @@ class Cafe extends Component {
     let cafe;
 
     if (!loading) {
-      cafe = <div>
-              <p>{this.state.data.cafe_name}</p>
+      cafe = <div className="Cafe">
+              <h1>{this.state.data.cafe_name}</h1>
               <p>{this.state.data.categories}</p>
               <p>{this.state.data.address}</p>
               <p>{this.state.data.phone}</p>
@@ -136,7 +136,7 @@ class Cafe extends Component {
     }
 
     return (
-      <div className="Cafes">
+      <div>
         {localStorage.getItem('jwtToken') &&
           <button class="btn btn-primary" onClick={this.logout}>Logout</button>
         }

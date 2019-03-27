@@ -57,7 +57,8 @@ class Cafes extends Component {
                         <td className='col'>
                           <Link 
                             to={{pathname: '/cafe/'+cafe.cafe_name}}
-                            style={{textDecoration: 'none'}}>
+                            style={{color: 'black',
+                                    textDecoration: 'none'}}>
                             {cafe.cafe_name}
                           </Link>
                         </td>
