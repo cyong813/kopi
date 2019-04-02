@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { Parallax } from 'react-parallax';
 import CoffeeHeader from '../assets/images/coffeeparallax.jpg';
-import Register from './Register';
 import Map from './Map';
 
 const insideStyles = {
@@ -26,61 +24,20 @@ const pStyles = {
 };
 
 class App extends Component {
-  constructor() {
-    super()
-    this.state = {};
-  }
-
   render() {
     return (
       <div className="App">
         <Parallax bgImage={CoffeeHeader} strength={500}>
           <div style={{ height: 500 }}>
             <div style={insideStyles}>
-              COFFEEEEEEEE
+              kopi
             </div>
             <p style={pStyles}>Coffee culture all in one place.</p>
           </div>
         </Parallax>
-        {!localStorage.getItem('jwtToken') &&
-        <div>
-          <div className='navlinks'>
-            <Link 
-              to={{pathname: '/login'}}
-              style={{textDecoration: 'none'}}>
-              Login
-            </Link>
-          </div> 
-          <Register />
-          </div>
-        }
-        {localStorage.getItem('jwtToken') &&
-          <div>
-            <div className='navlinks'>
-              <Link 
-                to={{pathname: '/bookmarks'}}
-                style={{color: 'black',
-                        textDecoration: 'none'}}>
-                Bookmarks
-              </Link>
-              <Link 
-                to={{pathname: '/cafes'}}
-                style={{color: 'black',
-                        textDecoration: 'none'}}>
-                Cafes
-              </Link>
-              <Link 
-                to={{pathname: '/drinks'}}
-                style={{color: 'black',
-                        textDecoration: 'none'}}>
-                Drinks
-              </Link>
-            </div>
-            {/* <div className='Map'>
-              <Map/>
-            </div> */}
-          </div>
-        }
+        {/* {<div className='Map'>
+          <Map/>
+        </div>} */}
       </div>
     );
   }

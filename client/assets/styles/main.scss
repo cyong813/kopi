@@ -5,12 +5,41 @@
 $main-font: 'Didact Gothic';
 $head-font: 'Playfair Display';
 
-.navlinks {
-  position: absolute;
-  top: 25px;
-  right: 0;
+/* Navbar */
+.navbar-container {
+  padding: 20px 20px;
+  position: relative;
+  z-index: 1;
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    img {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+
   a {
-    padding: 10px;
+    color: black;
+    transition: 0.15s ease-in-out;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    color: #0099F7;
+  }
+}
+
+.navlinks {
+  padding: 0;
+
+  li {
+    display: inline-block;
+    padding: 0 0.5em;
+    font-weight: 300;
   }
 }
 
@@ -93,47 +122,83 @@ table {
   height: 850px;
 }
 
+/* Login/Register */
+
 .Auth {
   body {
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     background-color: #eee;
   }
   
+  label {
+    display: inline-block;
+    color: rgba(0, 0, 0, 0.486);
+    margin-bottom: 5px;
+    font-size: 12px;
+    text-transform: uppercase;
+    text-align: left;
+  }
+
   .form-signin {
     max-width: 330px;
     padding: 15px;
     margin: 0 auto;
+    
+    .form-control {
+      position: relative;
+      height: auto;
+      -webkit-box-sizing: border-box;
+              box-sizing: border-box;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    input[type="email"] {
+      margin-bottom: 10px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    input[type="password"] {
+      margin-bottom: 10px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+
+    .form-control:focus {
+      z-index: 2;
+      border-color: #2c3e50;
+    }
+
+    .form-button {
+      background-color: white;
+      color: black;
+      border: 2px solid white;
+      transition: 0.15s ease-in-out;
+      width: 100%;
+      cursor: pointer;
+      font-size: 1.2em;
+    }
+
+    .form-button:focus {
+      outline: none;
+    }
+
+    .form-button:hover {
+      background-color: black;
+      color: white;
+    }
+
+    p {
+      margin-top: 10px;
+      text-align: center;
+    }
   }
+
   .form-signin .form-signin-heading,
   .form-signin .checkbox {
     margin-bottom: 10px;
-  }
-  .form-signin .checkbox {
-    font-weight: normal;
-  }
-  .form-signin .form-control {
-    position: relative;
-    height: auto;
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-    padding: 10px;
-    font-size: 16px;
-  }
-  .form-signin .form-control:focus {
-    z-index: 2;
-  }
-  .form-signin input[type="email"] {
-    margin-bottom: -1px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-  }
-  .form-signin input[type="password"] {
-    margin-bottom: 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
-  .form-signin p {
-    margin-top: 10px;
+    padding-bottom: 10px;
   }
 }

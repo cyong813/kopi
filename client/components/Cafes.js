@@ -27,11 +27,6 @@ class Cafes extends Component {
   componentDidMount() {
     this.getData(this);
   }
-    
-  logout() {
-    localStorage.removeItem('jwtToken');
-    window.location.reload();
-  }
 
   componentWillReceiveProps(nextProps) {
     this.getData(this);
@@ -40,9 +35,6 @@ class Cafes extends Component {
   render() {
     return (
       <div className="Cafes">
-        {localStorage.getItem('jwtToken') &&
-          <button class="btn btn-primary" onClick={this.logout}>Logout</button>
-        }
         <table>
           <thead>
             <tr>

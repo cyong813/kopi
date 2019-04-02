@@ -51,11 +51,25 @@ class Login extends Component {
                             </div>
                         }
                         <h2 class="form-signin-heading">Sign in</h2>
-                        <label for="inputEmail" class="sr-only">Email address</label>
-                        <input type="email" class="form-control" placeholder="Email address" name="username" value={username} onChange={this.handleTextChange} required/>
-                        <label for="inputPassword" class="sr-only">Password</label>
-                        <input type="password" class="form-control" placeholder="Password" name="password" value={password} onChange={this.handleTextChange} required/>
-                        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+                        <label for="inputEmail">Email address</label>
+                        <input 
+                            type="email" 
+                            class="form-control" 
+                            autoComplete="off" 
+                            name="username" 
+                            value={username} 
+                            onChange={this.handleTextChange} required
+                        />
+                        <label for="inputPassword">Password</label>
+                        <input 
+                            type="password" 
+                            class="form-control" 
+                            autoComplete="off" 
+                            name="password" 
+                            value={password} 
+                            onChange={this.handleTextChange} required
+                        />
+                        <button class="form-button" type="submit">Login</button>
                         <p>
                             Not a member? <Link to="/register"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Register here</Link>
                         </p>

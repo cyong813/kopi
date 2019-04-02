@@ -85,11 +85,6 @@ class Drink extends Component {
   componentDidMount() {
     this.getData(this);
   }
-
-  logout() {
-    localStorage.removeItem('jwtToken');
-    window.location.reload();
-  }
   
   componentWillReceiveProps(nextProps) {
       this.getData(this);
@@ -98,9 +93,6 @@ class Drink extends Component {
   render() {
     return (
       <div>
-        {localStorage.getItem('jwtToken') &&
-          <button class="btn btn-primary" onClick={this.logout}>Logout</button>
-        }
         <div className="Drink">
             {this.state.data.map(function(cafes) {
               return <div>

@@ -39,11 +39,6 @@ class Bookmarks extends Component {
     this.getData(this);
   }
 
-  logout() {
-    localStorage.removeItem('jwtToken');
-    window.location.reload();
-  }
-
   componentWillReceiveProps(nextProps) {
     this.getData(this);
   }
@@ -51,9 +46,6 @@ class Bookmarks extends Component {
   render() {
     return (
       <div className="Bookmarks">
-        {localStorage.getItem('jwtToken') &&
-          <button class="btn btn-primary" onClick={this.logout}>Logout</button>
-        }
         <table>
           <thead>
             <tr>

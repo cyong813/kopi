@@ -93,11 +93,6 @@ class Cafe extends Component {
   componentDidMount() {
     this.getData(this);
   }
-    
-  logout() {
-    localStorage.removeItem('jwtToken');
-    window.location.reload();
-  }
 
   render() {
     const { loading } = this.state;
@@ -137,9 +132,6 @@ class Cafe extends Component {
 
     return (
       <div>
-        {localStorage.getItem('jwtToken') &&
-          <button class="btn btn-primary" onClick={this.logout}>Logout</button>
-        }
         {cafe}
       </div>
     );
