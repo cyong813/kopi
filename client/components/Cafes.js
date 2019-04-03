@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
+import CafeItem from '../layout/CafeItem';
 
 class Cafes extends Component {
   constructor() {
     super()
     this.state = {
-      data: []
+      data: [],
+      loading: true
     };
     this.getData = this.getData.bind(this);
   }
@@ -15,7 +16,8 @@ class Cafes extends Component {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
     axios.get('/getAllCafes')
       .then(function(response) {
-        event.setState({data: response.data});
+        console.log(response.data);
+        event.setState({data: response.data, loading: false});
       })
       .catch((error) => {
         // if (error.response.status === 401) {
@@ -28,36 +30,31 @@ class Cafes extends Component {
     this.getData(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.getData(this);
-  }
-
   render() {
+    const { loading } = this.state;
+    let cafes;
+
+    if (!loading) {
+      cafes = <div className="cafe-list">
+                <ol>
+                  {this.state.data.map(function(cafe) {
+                    return (
+                      <li>
+                        <CafeItem key={cafe._id} cafe={cafe} />
+                      </li> 
+                    )
+                  })}
+                </ol>
+              </div>
+    }
+    else {
+      cafes = null;
+    }
+
     return (
       <div className="Cafes">
-        <table>
-          <thead>
-            <tr>
-              <th></th>
-              <th className='col'>Cafes</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.data.map(function(cafe) {
-              return <tr>
-                        <td className='counterCell'></td>
-                        <td className='col'>
-                          <Link 
-                            to={{pathname: '/cafe/'+cafe.cafe_name}}
-                            style={{color: 'black',
-                                    textDecoration: 'none'}}>
-                            {cafe.cafe_name}
-                          </Link>
-                        </td>
-                     </tr>
-            })}
-          </tbody>
-        </table>
+        <h1 className="cafes-header">Cafes</h1>
+        { cafes }
       </div>
     );
   }

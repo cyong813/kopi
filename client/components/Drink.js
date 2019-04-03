@@ -96,16 +96,16 @@ class Drink extends Component {
         <div className="Drink">
             {this.state.data.map(function(cafes) {
               return <div>
-                        <h1><Link 
-                              to={{pathname: '/cafe/'+cafes.cafe_name}}
-                              style={{color: 'black',
-                                    textDecoration: 'none'}}>
-                              {cafes.cafe_name}
-                            </Link>
+                        <h1>
+                          <Link to={{pathname: '/cafe/'+cafes.cafe_name}}>
+                            {cafes.cafe_name}
+                          </Link>
                         </h1>
                         <p>{cafes.address}</p>
                         <p>{cafes.phone}</p>
-                        <p><a href={cafes.website}>{cafes.website}</a></p>
+                        <p>
+                          <a href={cafes.website}>{cafes.website}</a>
+                        </p>
                     </div>
             })}
             <Button 

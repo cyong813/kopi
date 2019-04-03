@@ -46,13 +46,8 @@ class Bookmarks extends Component {
   render() {
     return (
       <div className="Bookmarks">
+        <h1 className="bookmarks-header">Bookmarks</h1>
         <table>
-          <thead>
-            <tr>
-              <th></th>
-              <th className='col'>Bookmarks</th>
-            </tr>
-          </thead>
           <tbody>
             {this.state.cafeBkmkData.map(function(cbkmk) {
               return <tr>

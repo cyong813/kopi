@@ -100,31 +100,31 @@ class Cafe extends Component {
 
     if (!loading) {
       cafe = <div className="Cafe">
-              <h1>{this.state.data.cafe_name}</h1>
-              <p>{this.state.data.categories}</p>
-              <p>{this.state.data.address}</p>
-              <p>{this.state.data.phone}</p>
-              <p>
-                <a href={this.state.data.website}>{this.state.data.website}</a>
-              </p>
-              <p>Drinks:</p>
-              <p>
-                {this.state.data.drinks.map(drink => {
-                  return (
-                    <Link 
-                      to={{pathname: '/drink/'+drink.drink_name}}
-                      style={{textDecoration: 'none'}}>
-                      {drink.drink_name}
-                    </Link>
-                  );
-                })}
-              </p>  
-              <Button 
-                bsStyle='light' 
-                bsSize='small'
-                onClick={this.onClick}>{this.state.saved}
-              </Button>
-            </div>
+                <h1>{this.state.data.cafe_name}</h1>
+                <p>{this.state.data.categories}</p>
+                <p>{this.state.data.address}</p>
+                <p>{this.state.data.phone}</p>
+                <p>
+                  <a href={this.state.data.website}>{this.state.data.website}</a>
+                </p>
+                <p>Drinks:</p>
+                <p>
+                  {this.state.data.drinks.map(drink => {
+                    return (
+                      <Link 
+                        to={{pathname: '/drink/'+drink.drink_name}}
+                        style={{textDecoration: 'none'}}>
+                        {drink.drink_name}
+                      </Link>
+                    );
+                  })}
+                </p>  
+                <Button 
+                  bsStyle='light' 
+                  bsSize='small'
+                  onClick={this.onClick}>{this.state.saved}
+                </Button>
+              </div>
     }
     else {
       cafe = null;

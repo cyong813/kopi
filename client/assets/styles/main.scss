@@ -1,12 +1,26 @@
 @import url('https://fonts.googleapis.com/css?family=Didact+Gothic');
 @import url('https://fonts.googleapis.com/css?family=Playfair+Display:400,700');
 
-/* Variables */
+/* Global Variables */
 $main-font: 'Didact Gothic';
 $head-font: 'Playfair Display';
 
+body {
+  font-family: $main-font;
+}
+
+a {
+  color: black;
+  transition: 0.15s ease-in-out;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #0099F7;
+}
+
 /* Navbar */
-.navbar-container {
+.Navbar {
   padding: 20px 20px;
   position: relative;
   z-index: 1;
@@ -45,81 +59,6 @@ $head-font: 'Playfair Display';
 
 .Map {
   padding: 10px;
-}
-
-.Cafes {
-  table {
-    margin: 0 auto;
-  }
-}
-
-.Cafe {
-  margin: 0 auto;
-  text-align: center;
-}
-
-.Bookmarks {
-  table {
-    margin: 0 auto;
-  }
-}
-
-.Drinks {
-  table {
-    margin: 0 auto;
-  }
-}
-
-.Drink {
-  margin: 0 auto;
-  text-align: center;
-}
-
-body {
-  font-family: $main-font;
-}
-
-/* ref: https://github.com/umairraslam/expense-manager-mern/blob/master/client/css/App.css */
-
-.col {
-    width: 100px;
-    text-align: center;
-}
-
-.button-center {
- text-align: center;
-}
-
-label {
-  display: inline-block;
-  width: 200px;
-  margin-right: 30px;
-  text-align: right;
-}
-
-fieldset {
-  border: none;
-  margin: 0px auto;
-}
- 
-.closebtn {
-  float: right;
-}
-
-table {
-  counter-reset: tableCount;
-}
-.counterCell:before {
-  content: counter(tableCount);
-  counter-increment: tableCount;
-}
-.counterCell {
-  text-align: center;
-  width: 50px;
-}
-
-.bookmarks {
-  height: 850px;
 }
 
 /* Login/Register */
@@ -201,4 +140,148 @@ table {
     margin-bottom: 10px;
     padding-bottom: 10px;
   }
+}
+
+/* Drinks */
+
+.Drink {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.Drinks {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding: 20px 20px;
+
+  .drinks-header {
+    text-align: center;
+  }
+
+  .drinks-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 50px;
+    margin: 50px 0;
+  }
+}
+
+.DrinkItem {
+  box-shadow: 0 1px 4px 0 rgba(85,85,85,.3);
+  box-sizing: border-box;
+  border-radius: 5px;
+  cursor: pointer;
+
+  a {
+    color: black;
+    transition: 0.15s ease-in-out;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    color: #0099F7;
+  }
+
+  .drink-title {
+    text-align: center;
+  }
+}
+
+/* Cafes */
+
+.Cafe {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.Cafes {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding: 20px 20px;
+
+  .cafes-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .cafe-list {
+    ol {
+      display: table;
+      text-align: center;
+      margin: 0 auto;
+    }
+  }
+}
+
+.CafeItem {
+  cursor: pointer;
+
+  a {
+    color: black;
+    transition: 0.15s ease-in-out;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    color: #0099F7;
+  }
+
+  .cafe-title {
+    text-align: center;
+  }
+}
+
+/* Bookmarks */
+
+/* ref: https://github.com/umairraslam/expense-manager-mern/blob/master/client/css/App.css */
+
+.Bookmarks {
+  .bookmarks-header {
+    text-align: center;
+  }
+
+  table {
+    margin: 0 auto;
+  }
+}
+
+.col {
+    width: 100px;
+    text-align: center;
+}
+
+.button-center {
+ text-align: center;
+}
+
+label {
+  display: inline-block;
+  width: 200px;
+  margin-right: 30px;
+  text-align: right;
+}
+
+fieldset {
+  border: none;
+  margin: 0px auto;
+}
+ 
+.closebtn {
+  float: right;
+}
+
+table {
+  counter-reset: tableCount;
+}
+.counterCell:before {
+  content: counter(tableCount);
+  counter-increment: tableCount;
+}
+.counterCell {
+  text-align: center;
+  width: 50px;
+}
+
+.bookmarks {
+  height: 850px;
 }

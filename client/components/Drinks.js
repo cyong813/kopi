@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
+import DrinkItem from '../layout/DrinkItem';
 
 class Drinks extends Component {
   constructor() {
       super()
       this.state = {
-        data: []
+        data: [],
+        loading: true
       };
       this.getData = this.getData.bind(this);
   }
@@ -15,7 +16,7 @@ class Drinks extends Component {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
     axios.get('/getAllDrinks')
       .then(function(response) {
-        event.setState({data: response.data});
+        event.setState({data: response.data, loading: false});
       })
       .catch((error) => {
         // if (error.response.status === 401) {
@@ -23,42 +24,33 @@ class Drinks extends Component {
         // }
       });
   }
-  
+
   componentDidMount() {
-      this.getData(this);
-  }
-  
-  componentWillReceiveProps(nextProps) {
       this.getData(this);
   }
 
   render() {
-      return (
-        <div className="Drinks">
-          <table>
-            <thead>
-              <tr>
-                <th></th>
-                <th className='col'>Drinks</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.data.map(function(drink) {
-                return <tr>
-                          <td className='counterCell'></td>
-                          <td className='col'>
-                          <Link 
-                            to={{pathname: '/drink/'+drink.drink_name}}
-                            style={{color: 'black',
-                                    textDecoration: 'none'}}>
-                            {drink.drink_name}
-                          </Link>
-                          </td>
-                        </tr>
-              })}
-            </tbody>
-          </table>
-        </div>
+    const { loading } = this.state;
+    let drinks;
+
+    if (!loading) {
+      drinks = <div className="drinks-grid">
+                  {this.state.data.map(function(drink) {
+                    return (
+                      <DrinkItem key={drink._id} drink={drink} /> 
+                    )
+                  })}
+              </div>
+    }
+    else {
+      drinks = null;
+    }
+
+    return (
+      <div className="Drinks">
+        <h1 className="drinks-header">Drinks</h1>
+        { drinks }
+      </div>
     );
   }
 }

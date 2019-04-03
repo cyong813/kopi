@@ -46,7 +46,7 @@ class Navbar extends Component {
     )
 
     return (
-      <div className='navbar-container'>
+      <div className='Navbar'>
         <header className='max-width'>
           <div className='logo'>
             <Link to='/'>
