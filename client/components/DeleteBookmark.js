@@ -54,7 +54,7 @@ class DeleteBookmark extends Component {
         }
         else {
             return (
-                <div>
+                <div className='DeleteBookmark'>
                     <Link 
                         to={{pathname: '/bookmarks'}}
                         style={{textDecoration: 'none'}}>

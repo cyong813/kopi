@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import DeleteBookmark from './DeleteBookmark';
 import axios from 'axios';
+import DrinkBookmarkItem from './DrinkBookmarkItem';
+import CafeBookmarkItem from './CafeBookmarkItem';
 
 class Bookmarks extends Component {
   constructor() {
@@ -47,40 +47,26 @@ class Bookmarks extends Component {
     return (
       <div className="Bookmarks">
         <h1 className="bookmarks-header">Bookmarks</h1>
-        <table>
-          <tbody>
-            {this.state.cafeBkmkData.map(function(cbkmk) {
-              return <tr>
-                        <td className='counterCell'></td>
-                        <td className='col'>
-                          <Link 
-                            to={{pathname: '/cafe/'+cbkmk.cafe_name}}
-                            style={{color: 'black',
-                                    textDecoration: 'none'}}>
-                            {cbkmk.cafe_name}
-                          </Link>
-                        </td>
-                        <td className='col'><DeleteBookmark id={cbkmk._id} bookmark={cbkmk} /></td>
-                      </tr>
-            })}
-            {this.state.drinkBkmkData.map(function(dbkmk) {
-              return <tr>
-                        <td className='counterCell'></td>
-                        <td className='col'>
-                          <Link 
-                            to={{pathname: '/drink/'+dbkmk.drink_name}}
-                            style={{color: 'black',
-                                    textDecoration: 'none'}}>
-                            {dbkmk.drink_name}
-                          </Link>
-                        </td>
-                        <td className='col'>
-                          <DeleteBookmark id={dbkmk._id} bookmark={dbkmk} />
-                        </td>
-                      </tr>
-            })}
-          </tbody>
-        </table>
+        <h2 className="cafe-bookmarks-header">Cafes</h2>
+        <ol>
+          {this.state.cafeBkmkData.map(function(cbkmk) {
+            return (
+              <li>
+                <CafeBookmarkItem key={cbkmk._id} cbkmk={cbkmk} />
+              </li>
+            )
+          })}
+        </ol>
+        <h2 className="drink-bookmarks-header">Drinks</h2>
+        <ol>
+          {this.state.drinkBkmkData.map(function(dbkmk) {
+            return (
+              <li>
+                <DrinkBookmarkItem key={dbkmk._id} dbkmk={dbkmk} />
+              </li>
+            )
+          })}
+        </ol>
       </div>
     );
   }

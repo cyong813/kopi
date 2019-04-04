@@ -164,14 +164,24 @@ a:hover {
     grid-gap: 50px;
     margin: 50px 0;
   }
+
+  .DrinkItem {
+    border-radius: 5px;
+    cursor: pointer;
+  
+    .drink-title {
+      text-align: center;
+    }
+  }
+  
+  .DrinkItem:hover {
+    transition: 0.15s ease-in-out;
+    box-shadow: 0 1px 4px 0 rgba(85,85,85,.3);
+    box-sizing: border-box;
+  }  
 }
 
 .DrinkItem {
-  box-shadow: 0 1px 4px 0 rgba(85,85,85,.3);
-  box-sizing: border-box;
-  border-radius: 5px;
-  cursor: pointer;
-
   a {
     color: black;
     transition: 0.15s ease-in-out;
@@ -180,10 +190,6 @@ a:hover {
   
   a:hover {
     color: #0099F7;
-  }
-
-  .drink-title {
-    text-align: center;
   }
 }
 
@@ -236,52 +242,44 @@ a:hover {
 /* ref: https://github.com/umairraslam/expense-manager-mern/blob/master/client/css/App.css */
 
 .Bookmarks {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding: 20px 20px;
+
+  .CafeBookmarkItem {
+    .CafeItem {
+      display: inline-block;
+      margin: 10px;
+    }
+    .DeleteBookmark {
+      display: inline-block;
+    }
+  }
+
+  .DrinkBookmarkItem {
+    .DrinkItem {
+      display: inline-block;
+      margin: 10px;
+    }
+    .DeleteBookmark {
+      display: inline-block;
+    }
+  }
+
   .bookmarks-header {
     text-align: center;
   }
 
-  table {
-    margin: 0 auto;
+  .cafe-bookmarks-header {
+    padding: 20px 20px;
   }
-}
 
-.col {
-    width: 100px;
-    text-align: center;
-}
+  .drink-bookmarks-header {
+    padding: 20px 20px;
+  }
 
-.button-center {
- text-align: center;
-}
-
-label {
-  display: inline-block;
-  width: 200px;
-  margin-right: 30px;
-  text-align: right;
-}
-
-fieldset {
-  border: none;
-  margin: 0px auto;
 }
  
 .closebtn {
   float: right;
-}
-
-table {
-  counter-reset: tableCount;
-}
-.counterCell:before {
-  content: counter(tableCount);
-  counter-increment: tableCount;
-}
-.counterCell {
-  text-align: center;
-  width: 50px;
-}
-
-.bookmarks {
-  height: 850px;
 }
