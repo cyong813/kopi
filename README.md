@@ -185,3 +185,6 @@ Webpack on my code: ![list](documentation/webpack.gif)
 1. [MERN Stack Tutorial](https://blog.cloudboost.io/creating-your-first-mern-stack-application-b6604d12e4d3) [code] (https://github.com/umairraslam/expense-manager-mern)
 2. [Securing MERN Stack Web-Application Using Passport](https://www.djamware.com/post/5a90c37980aca7059c14297a/securing-mern-stack-web-application-using-passport)
 3. [React Google Maps](https://tomchentw.github.io/react-google-maps/#usage--configuration)
+
+## Image/Other Resources Used
+1. Bookmark Icons by [smashicons](https://www.flaticon.com/authors/smashicons) from [www.flaticon.com](https://www.flaticon.com/)

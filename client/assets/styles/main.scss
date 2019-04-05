@@ -9,16 +9,6 @@ body {
   font-family: $main-font;
 }
 
-a {
-  color: black;
-  transition: 0.15s ease-in-out;
-  text-decoration: none;
-}
-
-a:hover {
-  color: #0099F7;
-}
-
 /* Navbar */
 .Navbar {
   padding: 20px 20px;
@@ -199,8 +189,53 @@ a:hover {
   margin: 0 auto;
   text-align: center;
 
+  h1 {
+    display: inline-block;
+  }
+
+  button {
+    display: inline-block;
+    border: none;
+    background-color: transparent;
+    background-size: 100%;
+    width: 50px;
+    height: 50px;
+    padding-left: 25px;
+
+    img {
+      width: inherit;
+    }
+  }
+
   li {
-    list-style: none;
+    list-style: none; 
+    display: inline-block;
+    padding: 5px 10px;
+    color: white;
+
+    a {
+      color: black;
+      transition: 0.15s ease-in-out;
+      text-decoration: none;
+      padding: 5px 10px;
+    }
+
+    a:hover {
+      transition: 0.15s ease-in-out;
+      box-shadow: 0 1px 4px 0 rgb(214, 164, 212);
+      box-sizing: border-box;
+    }
+  }
+
+  .drink-list-container {
+    padding: 10px;
+    margin-left: 300px;
+    margin-right: 300px;
+
+    ul {
+      padding-left: 50px;
+      padding-right: 50px;
+    }
   }
 }
 
