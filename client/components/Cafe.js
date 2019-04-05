@@ -108,17 +108,19 @@ class Cafe extends Component {
                   <a href={this.state.data.website}>{this.state.data.website}</a>
                 </p>
                 <p>Drinks:</p>
-                <p>
+                <ul>
                   {this.state.data.drinks.map(drink => {
                     return (
-                      <Link 
-                        to={{pathname: '/drink/'+drink.drink_name}}
-                        style={{textDecoration: 'none'}}>
-                        {drink.drink_name}
-                      </Link>
+                      <li>
+                        <Link 
+                          to={{pathname: '/drink/'+drink.drink_name}}
+                          style={{textDecoration: 'none'}}>
+                          {drink.drink_name}
+                        </Link>
+                      </li>
                     );
                   })}
-                </p>  
+                </ul>  
                 <Button 
                   bsStyle='light' 
                   bsSize='small'
