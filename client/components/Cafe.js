@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 var querystring = require('querystring');
-
 import BookmarkedIcon from '../assets/images/bookmarked.png';
 import NotBookmarkedIcon from '../assets/images/bookmark.png';
 

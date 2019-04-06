@@ -33,7 +33,7 @@ body {
   }
   
   a:hover {
-    color: #0099F7;
+    color: rgb(214, 164, 212);
   }
 }
 
@@ -137,6 +137,40 @@ body {
 .Drink {
   text-align: center;
   margin: 0 auto;
+
+  h1 {
+    display: inline-block;
+  }
+
+  button {
+    display: inline-block;
+    border: none;
+    background-color: transparent;
+    background-size: 100%;
+    width: 50px;
+    height: 50px;
+    padding-left: 25px;
+
+    img {
+      width: inherit;
+    }
+  }
+
+  button:focus {
+    outline: 0;
+  }
+
+  .drink-cafe-list {
+    a {
+      color: black;
+      transition: 0.15s ease-in-out;
+      text-decoration: none;
+    }
+    
+    a:hover {
+      color: rgb(214, 164, 212);
+    }
+  }
 }
 
 .Drinks {
@@ -179,7 +213,7 @@ body {
   }
   
   a:hover {
-    color: #0099F7;
+    color: rgb(214, 164, 212);
   }
 }
 
@@ -205,6 +239,10 @@ body {
     img {
       width: inherit;
     }
+  }
+
+  button:focus {
+    outline: 0;
   }
 
   li {
@@ -268,7 +306,7 @@ body {
   }
   
   a:hover {
-    color: #0099F7;
+    color: rgb(214, 164, 212);
   }
 
   .cafe-title {

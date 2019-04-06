@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import {Button} from 'react-bootstrap';
 import axios from 'axios';
 var querystring = require('querystring');
+import BookmarkedIcon from '../assets/images/bookmarked.png';
+import NotBookmarkedIcon from '../assets/images/bookmark.png';
 
 class Drink extends Component {
   constructor() {
@@ -10,7 +11,7 @@ class Drink extends Component {
     this.state = {
       data: [],
       drink_name: '',
-      saved: 'Save',
+      saved: false,
       messageFromServer: '',
     };
     this.getData = this.getData.bind(this);
@@ -26,10 +27,16 @@ class Drink extends Component {
       .then(function(response) {
         // check for bookmark and accordingly change the bookmark button
         if (response.data.bkmk) {
-          event.setState({data: response.data.cafes, saved: 'Saved'});
+          event.setState({
+            data: response.data.cafes, 
+            saved: true
+          });
         }
         else {
-          event.setState({data: response.data.cafes, saved: 'Save'});
+          event.setState({
+            data: response.data.cafes, 
+            saved: false
+          });
         }
       })
       .catch((error) => {
@@ -41,13 +48,13 @@ class Drink extends Component {
 
   // note: for some reason, onClick does not work with event as parameter.
   onClick() {
-    if (this.state.saved === 'Save') {
+    if (!this.state.saved) {
       this.insertNewDrinkBookmark(this);
-      this.setState({saved: 'Saved'});
+      this.setState({saved: true});
     }
     else {
       this.deleteBookmark();
-      this.setState({saved: 'Save'});
+      this.setState({saved: false});
     }
   }
 
@@ -91,28 +98,44 @@ class Drink extends Component {
   }
 
   render() {
+    const { drink_name, saved } = this.state;
+    let saveButton;
+
+    if (saved) {
+      saveButton = <button 
+                      className='isBookmarked'
+                      onClick={this.onClick}>
+                      <img src={BookmarkedIcon}/>
+                  </button>
+    }
+    else {
+      saveButton = <button 
+                      className='notBookmarked'
+                      onClick={this.onClick}>
+                      <img src={NotBookmarkedIcon}/>
+                  </button>
+    }
+
     return (
       <div>
-        <div className="Drink">
-            {this.state.data.map(function(cafes) {
-              return <div>
-                        <h1>
-                          <Link to={{pathname: '/cafe/'+cafes.cafe_name}}>
-                            {cafes.cafe_name}
-                          </Link>
-                        </h1>
-                        <p>{cafes.address}</p>
-                        <p>{cafes.phone}</p>
-                        <p>
-                          <a href={cafes.website}>{cafes.website}</a>
-                        </p>
-                    </div>
-            })}
-            <Button 
-              bsStyle='light' 
-              bsSize='small'
-              onClick={this.onClick}>{this.state.saved}  
-            </Button>
+        <div className='Drink'>
+          <h1>{drink_name}</h1>
+          { saveButton }
+          <h2>locations</h2>
+          {this.state.data.map(function(cafes) {
+            return <div className='drink-cafe-list'>
+                      <h3>
+                        <Link to={{pathname: '/cafe/'+cafes.cafe_name}}>
+                          {cafes.cafe_name}
+                        </Link>
+                      </h3>
+                      <p>{cafes.address}</p>
+                      <p>{cafes.phone}</p>
+                      <p>
+                        <a href={cafes.website}>{cafes.website}</a>
+                      </p>
+                  </div>
+          })}
         </div>
       </div>
     );
