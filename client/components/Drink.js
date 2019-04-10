@@ -4,6 +4,9 @@ import axios from 'axios';
 var querystring = require('querystring');
 import BookmarkedIcon from '../assets/images/bookmarked.png';
 import NotBookmarkedIcon from '../assets/images/bookmark.png';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 class Drink extends Component {
   constructor() {
@@ -50,10 +53,26 @@ class Drink extends Component {
   onClick() {
     if (!this.state.saved) {
       this.insertNewDrinkBookmark(this);
+      toast.success('Drink saved!', {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true
+      });
       this.setState({saved: true});
     }
     else {
       this.deleteBookmark();
+      toast.warn('Drink removed.', {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true
+      });
       this.setState({saved: false});
     }
   }
@@ -118,6 +137,7 @@ class Drink extends Component {
 
     return (
       <div>
+        <ToastContainer />
         <div className='Drink'>
           <h1>{drink_name}</h1>
           { saveButton }

@@ -229,8 +229,46 @@ body {
   margin: 0 auto;
   text-align: center;
 
+  .cafe-container {
+    color: white;
+    position: absolute;
+    top: 75px; right: 0; bottom: 0; left: 0;
+
+    img {
+      width: 100%;
+      opacity: 0.75;
+    }
+
+    .cafe-info {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: black;
+      opacity: 0.70;
+      padding: 50px 100px 50px 100px;
+    }
+  }
+
   h1 {
     display: inline-block;
+    font-size: 50px;
+  }
+
+  p {
+    font-size: 15px;
+  }
+
+  a {
+    color: #A78C9E;
+    transition: 0.15s ease-in-out;
+    text-decoration: none;
+  }
+
+  a:hover {
+    transition: 0.15s ease-in-out;
+    color: white;
+    text-decoration: none;
   }
 
   button {
@@ -238,8 +276,8 @@ body {
     border: none;
     background-color: transparent;
     background-size: 100%;
-    width: 50px;
-    height: 50px;
+    width: 75px;
+    height: 75px;
     padding-left: 25px;
 
     img {
@@ -262,6 +300,7 @@ body {
       transition: 0.15s ease-in-out;
       text-decoration: none;
       padding: 5px 10px;
+      background-color: white;
     }
 
     a:hover {
@@ -273,8 +312,10 @@ body {
 
   .drink-list-container {
     padding: 10px;
-    margin-left: 300px;
-    margin-right: 300px;
+
+    h3 {
+      font-size: 25px;
+    }
 
     ul {
       padding-left: 50px;

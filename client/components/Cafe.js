@@ -4,6 +4,9 @@ import axios from 'axios';
 var querystring = require('querystring');
 import BookmarkedIcon from '../assets/images/bookmarked.png';
 import NotBookmarkedIcon from '../assets/images/bookmark.png';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 class Cafe extends Component {
   constructor() {
@@ -51,10 +54,26 @@ class Cafe extends Component {
   onClick() {
     if (!this.state.saved) {
       this.insertNewCafeBookmark(this);
+      toast.success('Cafe saved!', {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true
+      });
       this.setState({saved: true});
     }
     else {
       this.deleteBookmark();
+      toast.warning('Cafe removed.', {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true
+      });
       this.setState({saved: false});
     }
   }
@@ -117,29 +136,34 @@ class Cafe extends Component {
 
     if (!loading) {
       cafe = <div className='Cafe'>
-                <h1>{this.state.data.cafe_name}</h1>
-                { saveButton }
-                <p>{this.state.data.categories}</p>
-                <p>{this.state.data.address}</p>
-                <p>{this.state.data.phone}</p>
-                <p>
-                  <a href={this.state.data.website}>{this.state.data.website}</a>
-                </p>
-                <div className='drink-list-container'>
-                  <h3>Drinks</h3>
-                  <ul>
-                    {this.state.data.drinks.map(drink => {
-                      return (
-                        <li>
-                          <Link 
-                            to={{pathname: '/drink/'+drink.drink_name}}
-                            style={{textDecoration: 'none'}}>
-                            {drink.drink_name}
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
+                <div className='cafe-container'>
+                  <img src={this.state.data.cafe_image} />
+                  <div className='cafe-info'>
+                    <h1>{this.state.data.cafe_name}</h1>
+                    { saveButton }
+                    <p>{this.state.data.categories}</p>
+                    <p>{this.state.data.address}</p>
+                    <p>{this.state.data.phone}</p>
+                    <p>
+                      <a href={this.state.data.website}>{this.state.data.website}</a>
+                    </p>
+                    <div className='drink-list-container'>
+                      <h3>Drinks</h3>
+                      <ul>
+                        {this.state.data.drinks.map(drink => {
+                          return (
+                            <li>
+                              <Link 
+                                to={{pathname: '/drink/'+drink.drink_name}}
+                                style={{textDecoration: 'none'}}>
+                                {drink.drink_name}
+                              </Link>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
     }
@@ -149,6 +173,7 @@ class Cafe extends Component {
 
     return (
       <div>
+        <ToastContainer />
         {cafe}
       </div>
     );
