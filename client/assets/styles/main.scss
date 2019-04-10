@@ -232,7 +232,7 @@ body {
   .cafe-container {
     color: white;
     position: absolute;
-    top: 75px; right: 0; bottom: 0; left: 0;
+    top: 90px; right: 0; bottom: 0; left: 0;
 
     img {
       width: 100%;
@@ -245,7 +245,7 @@ body {
       left: 50%;
       transform: translate(-50%, -50%);
       background-color: black;
-      opacity: 0.70;
+      opacity: 0.75;
       padding: 50px 100px 50px 100px;
     }
   }
@@ -278,7 +278,7 @@ body {
     background-size: 100%;
     width: 75px;
     height: 75px;
-    padding-left: 25px;
+    padding-left: 10px;
 
     img {
       width: inherit;
@@ -289,37 +289,37 @@ body {
     outline: 0;
   }
 
-  li {
-    list-style: none; 
-    display: inline-block;
-    padding: 5px 10px;
-    color: white;
-
-    a {
-      color: black;
-      transition: 0.15s ease-in-out;
-      text-decoration: none;
-      padding: 5px 10px;
-      background-color: white;
-    }
-
-    a:hover {
-      transition: 0.15s ease-in-out;
-      box-shadow: 0 1px 4px 0 #A78C9E;
-      box-sizing: border-box;
-    }
-  }
-
   .drink-list-container {
     padding: 10px;
 
     h3 {
       font-size: 25px;
+      padding-bottom: 10px;
     }
 
     ul {
       padding-left: 50px;
       padding-right: 50px;
+    }
+
+    li {
+      list-style: none; 
+      display: inline-block;
+      padding: 5px 10px;
+  
+      a {
+        color: black;
+        transition: 0.15s ease-in-out;
+        text-decoration: none;
+        padding: 5px 10px;
+        background-color: white;
+      }
+  
+      a:hover {
+        transition: 0.15s ease-in-out;
+        box-shadow: 0 1px 4px 0 #A78C9E;
+        box-sizing: border-box;
+      }
     }
   }
 }
@@ -374,6 +374,16 @@ body {
     .CafeItem {
       display: inline-block;
       margin: 10px;
+
+      a {
+        color: black;
+        transition: 0.15s ease-in-out;
+        text-decoration: none;
+      }
+      
+      a:hover {
+        color: #A78C9E;
+      }
     }
     .DeleteBookmark {
       display: inline-block;
@@ -384,6 +394,16 @@ body {
     .DrinkItem {
       display: inline-block;
       margin: 10px;
+
+      a {
+        color: black;
+        transition: 0.15s ease-in-out;
+        text-decoration: none;
+      }
+      
+      a:hover {
+        color: #A78C9E;
+      }
     }
     .DeleteBookmark {
       display: inline-block;
