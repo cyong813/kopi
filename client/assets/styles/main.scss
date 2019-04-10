@@ -33,7 +33,7 @@ body {
   }
   
   a:hover {
-    color: rgb(214, 164, 212);
+    color: #A78C9E;
   }
 }
 
@@ -168,7 +168,7 @@ body {
     }
     
     a:hover {
-      color: rgb(214, 164, 212);
+      color: #A78C9E;
     }
   }
 }
@@ -193,29 +193,35 @@ body {
     border-radius: 5px;
     cursor: pointer;
   
+    a {
+      color: black;
+      transition: 0.15s ease-in-out;
+      text-decoration: none;
+    }
+    
+    a:hover {
+      color: #A78C9E;
+    }
+
+    img {
+      margin: 0 auto;
+      display: block;
+    }
+
     .drink-title {
       text-align: center;
     }
   }
   
   .DrinkItem:hover {
+    color: rgb(214, 164, 212);
+    text-decoration: none;
     transition: 0.15s ease-in-out;
     box-shadow: 0 1px 4px 0 rgba(85,85,85,.3);
     box-sizing: border-box;
   }  
 }
 
-.DrinkItem {
-  a {
-    color: black;
-    transition: 0.15s ease-in-out;
-    text-decoration: none;
-  }
-  
-  a:hover {
-    color: rgb(214, 164, 212);
-  }
-}
 
 /* Cafes */
 
@@ -260,7 +266,7 @@ body {
 
     a:hover {
       transition: 0.15s ease-in-out;
-      box-shadow: 0 1px 4px 0 rgb(214, 164, 212);
+      box-shadow: 0 1px 4px 0 #A78C9E;
       box-sizing: border-box;
     }
   }
@@ -306,7 +312,7 @@ body {
   }
   
   a:hover {
-    color: rgb(214, 164, 212);
+    color: #A78C9E;
   }
 
   .cafe-title {

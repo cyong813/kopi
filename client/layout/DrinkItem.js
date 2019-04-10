@@ -10,7 +10,10 @@ class DrinkItem extends Component {
         return (
             <div className='DrinkItem'>
                 <Link to={{pathname: '/drink/'+this.props.drink.drink_name}}>
-                    {/* <img className='drink-image'/> */}
+                    <img 
+                        className='drink-image' 
+                        src={this.props.drink.drink_image}
+                    />
                     <div className='drink-title'>
                         <h4>{this.props.drink.drink_name}</h4>
                     </div>
