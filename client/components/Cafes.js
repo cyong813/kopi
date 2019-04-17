@@ -1,22 +1,27 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import CafeItem from '../layout/CafeItem';
+import Search from './Search';
+
+const isSearched = searchField => cafe => cafe.cafe_name.toLowerCase().includes(searchField.toLowerCase());
 
 class Cafes extends Component {
   constructor() {
     super()
     this.state = {
       data: [],
+      searchField: '',
       loading: true
     };
     this.getData = this.getData.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
   }
 
   getData(event) {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
     axios.get('/getAllCafes')
       .then(function(response) {
-        console.log(response.data);
+        //console.log(response.data);
         event.setState({data: response.data, loading: false});
       })
       .catch((error) => {
@@ -25,7 +30,11 @@ class Cafes extends Component {
         // }
     });
   }
-    
+
+  handleSearchChange(event) {
+    this.setState({ searchField: event.target.value })
+  }
+
   componentDidMount() {
     this.getData(this);
   }
@@ -53,7 +62,13 @@ class Cafes extends Component {
 
     return (
       <div className="Cafes">
+        <Search changeHandler={this.handleSearchChange} />
         <h1 className="cafes-header">Cafes</h1>
+        {this.state.data.filter(isSearched(this.state.searchField)).map(item => 
+            <div>
+              {item.cafe_name}
+            </div>
+        )}
         { cafes }
       </div>
     );
