@@ -3,7 +3,12 @@ import axios from 'axios';
 import CafeItem from '../layout/CafeItem';
 import Search from './Search';
 
-const isSearched = searchField => cafe => cafe.cafe_name.toLowerCase().includes(searchField.toLowerCase());
+const isSearched = searchField => cafe => cafe.cafe_name.toLowerCase().includes(searchField.toLowerCase()) 
+  || cafe.filters[0].credit_card === 'yes' && searchField.toLowerCase() === 'credit'
+  || cafe.filters[1].cash_only === 'yes' && searchField.toLowerCase() === 'cash'
+  || cafe.filters[2].can_work === 'yes' && searchField.toLowerCase() === 'work'
+  || cafe.filters[4].restroom === 'yes' && searchField.toLowerCase() === 'restroom'
+  || cafe.filters[5].wifi === 'yes' && searchField.toLowerCase() === 'wifi';
 
 class Cafes extends Component {
   constructor() {
@@ -23,6 +28,7 @@ class Cafes extends Component {
       .then(function(response) {
         //console.log(response.data);
         event.setState({data: response.data, loading: false});
+        console.log(response.data[0].filters);
       })
       .catch((error) => {
         // if (error.response.status === 401) {
@@ -46,13 +52,11 @@ class Cafes extends Component {
     if (!loading) {
       cafes = <div className="cafe-list">
                 <ol>
-                  {this.state.data.map(function(cafe) {
-                    return (
-                      <li>
-                        <CafeItem key={cafe._id} cafe={cafe} />
-                      </li> 
-                    )
-                  })}
+                  {this.state.data.filter(isSearched(this.state.searchField)).map(item => 
+                    <li>
+                      <CafeItem key={item._id} cafe={item} />
+                    </li> 
+                  )}
                 </ol>
               </div>
     }
@@ -64,11 +68,6 @@ class Cafes extends Component {
       <div className="Cafes">
         <Search changeHandler={this.handleSearchChange} />
         <h1 className="cafes-header">Cafes</h1>
-        {this.state.data.filter(isSearched(this.state.searchField)).map(item => 
-            <div>
-              {item.cafe_name}
-            </div>
-        )}
         { cafes }
       </div>
     );
