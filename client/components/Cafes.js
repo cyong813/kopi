@@ -3,12 +3,12 @@ import axios from 'axios';
 import CafeItem from '../layout/CafeItem';
 import Search from './Search';
 
-const isSearched = searchField => cafe => cafe.cafe_name.toLowerCase().includes(searchField.toLowerCase()) 
-  || cafe.filters[0].credit_card === 'yes' && searchField.toLowerCase() === 'credit'
-  || cafe.filters[1].cash_only === 'yes' && searchField.toLowerCase() === 'cash'
-  || cafe.filters[2].can_work === 'yes' && searchField.toLowerCase() === 'work'
-  || cafe.filters[4].restroom === 'yes' && searchField.toLowerCase() === 'restroom'
-  || cafe.filters[5].wifi === 'yes' && searchField.toLowerCase() === 'wifi';
+const isSearched = searchField => cafe => cafe.cafe_name.toLowerCase().includes(searchField.toLowerCase());
+  // || cafe.filters[0].credit_card === 'yes' && searchField.toLowerCase() === 'credit'
+  // || cafe.filters[1].cash_only === 'yes' && searchField.toLowerCase() === 'cash'
+  // || cafe.filters[2].can_work === 'yes' && searchField.toLowerCase() === 'work'
+  // || cafe.filters[4].restroom === 'yes' && searchField.toLowerCase() === 'restroom'
+  // || cafe.filters[5].wifi === 'yes' && searchField.toLowerCase() === 'wifi';
 
 class Cafes extends Component {
   constructor() {
@@ -24,11 +24,10 @@ class Cafes extends Component {
 
   getData(event) {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    axios.get('/getAllCafes')
+    axios.get('/getAllCafeNames')
       .then(function(response) {
         //console.log(response.data);
         event.setState({data: response.data, loading: false});
-        console.log(response.data[0].filters);
       })
       .catch((error) => {
         // if (error.response.status === 401) {
@@ -52,9 +51,9 @@ class Cafes extends Component {
     if (!loading) {
       cafes = <div className="cafe-list">
                 <ol>
-                  {this.state.data.filter(isSearched(this.state.searchField)).map(item => 
+                  {this.state.data.filter(isSearched(this.state.searchField)).map((item,i) => 
                     <li>
-                      <CafeItem key={item._id} cafe={item} />
+                      <CafeItem key={i} cafe={item} />
                     </li> 
                   )}
                 </ol>

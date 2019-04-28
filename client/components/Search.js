@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import AdvancedSearch from './AdvancedSearch';
 
 class Search extends Component {
     render() {
@@ -8,6 +9,7 @@ class Search extends Component {
             type='text' 
             placeholder='⌕' 
             onChange={this.props.changeHandler} />
+          <AdvancedSearch/>
         </div>
       )
     }

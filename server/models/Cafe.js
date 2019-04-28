@@ -15,7 +15,7 @@ const Cave = new mongoose.Schema({
     filters: [
         { credit_card: {type: String} },
         { cash_only: {type: String} },
-        { can_work: {type: String} },
+        { good_for_working: {type: String} },
         { price: {type: String} },
         { restroom: {type: String} },
         { wifi: {type: String} }

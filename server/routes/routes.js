@@ -213,6 +213,10 @@ router.get('/getAllCafes', passport.authenticate('jwt', { session: false }), fun
     }  
 });
 
+router.get('/getCafeFilters', function(req,res) {
+    Cafe.find()
+});
+
 router.get('/api/cafe/:cafe_name', function(req, res) {
     // TEMP REMOVED PASSPORT AUTH FOR SAKE OF TESTING
     //var token = getToken(req,headers);
