@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from "react-router";
 
 class AdvancedSearch extends Component {
   constructor() {
@@ -18,8 +19,14 @@ class AdvancedSearch extends Component {
     let convertedFilter = filter.toLowerCase().replace(/ /g, '_');
     let result = this.state.filters;
     result[convertedFilter] = true;
+    let trueFilters = Object.keys(result).filter(function(key) {
+      return result[key];
+    });
     this.setState({ filters: result });
-    
+    this.props.history.push({
+      pathname: '/cafes',
+      search: '?query='+trueFilters
+    });
   }
 
   render() {
@@ -42,4 +49,4 @@ class AdvancedSearch extends Component {
   }
 }
 
-export default AdvancedSearch;
+export default withRouter(AdvancedSearch);

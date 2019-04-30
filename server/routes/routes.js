@@ -213,8 +213,8 @@ router.get('/getAllCafes', passport.authenticate('jwt', { session: false }), fun
     }  
 });
 
-router.get('/getCafeFilters', function(req,res) {
-    Cafe.find()
+router.get('/api/filteredCafes:filters', function(req,res) {
+    Cafe.find({})
 });
 
 router.get('/api/cafe/:cafe_name', function(req, res) {
