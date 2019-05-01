@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from "react-router";
+import axios from 'axios';
 
 class AdvancedSearch extends Component {
   constructor() {
@@ -11,21 +12,33 @@ class AdvancedSearch extends Component {
         'good_for_working': false,
         'restroom': false,
         'wifi': false
-      }
+      },
+      filterTags: []
     };
   }
 
   filterHandler(filter) {
     let convertedFilter = filter.toLowerCase().replace(/ /g, '_');
     let result = this.state.filters;
-    result[convertedFilter] = true;
+    if (!result[convertedFilter]) {
+      result[convertedFilter] = true;
+    }
+    else {
+      result[convertedFilter] = false;
+    }
     let trueFilters = Object.keys(result).filter(function(key) {
       return result[key];
     });
-    this.setState({ filters: result });
+    this.setState({ filters: result, filterTags: trueFilters });
     this.props.history.push({
       pathname: '/cafes',
       search: '?query='+trueFilters
+    });
+
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+    axios.get('/api/filteredCafes/'+this.props.location.search)
+      .then(function(response) {
+        //this.setState({ data: response.data.cafes });
     });
   }
 

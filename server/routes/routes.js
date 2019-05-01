@@ -213,8 +213,21 @@ router.get('/getAllCafes', passport.authenticate('jwt', { session: false }), fun
     }  
 });
 
-router.get('/api/filteredCafes:filters', function(req,res) {
-    Cafe.find({})
+router.get('/api/filteredCafes/', function(req,res) {
+    // var token = getToken(req.headers);
+    // if (token) {
+        console.log(req.params.filters);
+        // let parsedFilters = req.params.filters.substring(5).split(',');
+        // console.log(parsedFilters);
+
+        // Cafe.find({ filters: { $all: parsedFilters } }, (err, cafes) => {
+        //     if (err) res.send(err);
+        //     res.json({cafes});
+        // });
+    // }
+    // else {
+    //     return res.status(403).send({success: false, msg: 'Unauthorized.'});
+    // }
 });
 
 router.get('/api/cafe/:cafe_name', function(req, res) {

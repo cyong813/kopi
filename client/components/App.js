@@ -35,9 +35,9 @@ class App extends Component {
             <p style={pStyles}>Coffee culture all in one place.</p>
           </div>
         </Parallax>
-        {/* {<div className='Map'>
+        {<div className='Map'>
           <Map/>
-        </div>} */}
+        </div>}
       </div>
     );
   }

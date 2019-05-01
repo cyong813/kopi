@@ -8,7 +8,7 @@ const { InfoBox } = require("react-google-maps/lib/components/addons/InfoBox");
 
 const Map = compose(
   withProps({
-    googleMapURL: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBGFLof5TNqGrfD4gG5LXdVwXKo4pOJNv8&libraries=geometry,drawing,places',
+    googleMapURL: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAxIW6lUSTCd4_srSd869Y8Yem76SQnXWw&libraries=geometry,drawing,places',
     loadingElement: <div style={{ height: '100%' }} />,
     containerElement: <div style={{ height: '400px' }} />,
     mapElement: <div style={{ height: '100%' }} />,
@@ -17,23 +17,9 @@ const Map = compose(
     componentWillMount() {
       const refs = {};
 
-      axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-      axios.get("/getAllCafesPos")
-        .then(result => {
-          this.setState({ markers: result.data });
-        })
-        .catch((error) => {
-          this.setState({ markers: [] });
-      });
-      axios.get("/getAllCafeNames")
-        .then(result => {
-          this.setState({ cafes: result.data });
-        })
-        .catch((error) => {
-          this.setState({ cafes: [] });
-      });
-
       this.setState({
+        markers: [],
+        cafes: [],
         bounds: null,
         center: {
           lat: 40.662895, lng: -73.991554
@@ -71,6 +57,23 @@ const Map = compose(
           });
         },
       });
+
+      axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+      axios.get("/getAllCafesPos")
+        .then(result => {
+          this.setState({ markers: result.data });
+        })
+        .catch((error) => {
+          this.setState({ markers: [] });
+      });
+      axios.get("/getAllCafeNames")
+        .then(result => {
+          this.setState({ cafes: result.data });
+        })
+        .catch((error) => {
+          this.setState({ cafes: [] });
+      });
+
     },
   }),
   withStateHandlers(() => ({
@@ -113,6 +116,7 @@ const Map = compose(
         }}
       />
     </SearchBox>
+    
     {props.markers.map((marker, index) =>
       props.cafes.map((cafe) =>
       <Marker
