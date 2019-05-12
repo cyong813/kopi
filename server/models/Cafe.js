@@ -13,12 +13,12 @@ const Cave = new mongoose.Schema({
     coordinates: Object,
     drinks: [ {drink_name: {type: String, ref: 'Drink'}} ],
     filters: [
-        { credit_card: {type: String} },
-        { cash_only: {type: String} },
-        { good_for_working: {type: String} },
+        "credit_card",
+        "cash_only",
+        "good_for_working",
         { price: {type: String} },
-        { restroom: {type: String} },
-        { wifi: {type: String} }
+        "restroom",
+        "wifi"
     ]
 });
 

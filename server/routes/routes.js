@@ -216,14 +216,19 @@ router.get('/getAllCafes', passport.authenticate('jwt', { session: false }), fun
 router.get('/api/filteredCafes/', function(req,res) {
     // var token = getToken(req.headers);
     // if (token) {
-        console.log(req.params.filters);
-        // let parsedFilters = req.params.filters.substring(5).split(',');
-        // console.log(parsedFilters);
+        if (req.query.query) {
+            let parsedFilters = req.query.query.split(',');
 
-        // Cafe.find({ filters: { $all: parsedFilters } }, (err, cafes) => {
-        //     if (err) res.send(err);
-        //     res.json({cafes});
-        // });
+            Cafe.find({ filters: {$all: parsedFilters} }, (err, cafes) => {
+                if (err) res.send(err);
+                else {
+                    let cafes_names = cafes.map(function(aCafe) {
+                        return aCafe.cafe_name;
+                    });
+                    res.json({cafes_names});
+                }
+            });
+        }
     // }
     // else {
     //     return res.status(403).send({success: false, msg: 'Unauthorized.'});

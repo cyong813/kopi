@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { withRouter } from "react-router";
 import axios from 'axios';
+import CafeItem from '../layout/CafeItem';
 
 class AdvancedSearch extends Component {
   constructor() {
     super()
     this.state = {
+      all_cafes: [],
       data: [],
       filters: {
         'credit_card': false,
@@ -13,8 +15,11 @@ class AdvancedSearch extends Component {
         'restroom': false,
         'wifi': false
       },
-      filterTags: []
+      filterTags: [],
+      loading: true
     };
+
+    this.getAllCafes = this.getAllCafes.bind(this);
   }
 
   filterHandler(filter) {
@@ -34,20 +39,68 @@ class AdvancedSearch extends Component {
       pathname: '/cafes',
       search: '?query='+trueFilters
     });
-
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
     axios.get('/api/filteredCafes/'+this.props.location.search)
       .then(function(response) {
-        //this.setState({ data: response.data.cafes });
+        console.log(response);
+        this.setState({ data: response.data.cafes_names, loading: false });
     });
   }
 
+  getAllCafes(event) {
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+    axios.get('/getAllCafeNames')
+      .then(function(response) {
+        event.setState({all_cafes: response.data, loading: false});
+      })
+      .catch((error) => {
+        // if (error.response.status === 401) {
+        //   this.props.history.push("/login");
+        // }
+    });
+  }
+
+  componentDidMount() {
+    this.getAllCafes(this);
+  }
+
   render() {
+    let cafes;
+    
+    if (!this.state.loading) {
+      if (this.state.data.length === 0) {
+        cafes = <div className="cafe-list">
+                  <ol>
+                    {this.state.all_cafes.map((item,i) => 
+                      <li>
+                        <CafeItem key={i} cafe={item} />
+                      </li> 
+                    )}
+                  </ol>
+                </div>
+      }
+      else {
+        cafes = <div className="cafe-list">
+                  <ol>
+                    {this.state.data.map((item,i) => 
+                      <li>
+                        <CafeItem key={i} cafe={item} />
+                      </li> 
+                    )}
+                  </ol>
+                </div>
+      }
+    }
+    else {
+      cafes = null;
+    }
+
     const filters = Object.keys(this.state.filters).map(function(item) {
       return item.replace(/_{1,}/g,' ').replace(/(\s{1,}|\b)(\w)/g, function(m, space, letter) {
         return space + letter.toUpperCase();
       });
     }, this);
+
     return (
       <div className='adv-search-container'>
         {filters.map(filter =>
@@ -57,6 +110,7 @@ class AdvancedSearch extends Component {
             {filter}
           </button>
         )}
+        { cafes }
       </div>
     )
   }
