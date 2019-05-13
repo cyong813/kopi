@@ -219,13 +219,10 @@ router.get('/api/filteredCafes/', function(req,res) {
         if (req.query.query) {
             let parsedFilters = req.query.query.split(',');
 
-            Cafe.find({ filters: {$all: parsedFilters} }, (err, cafes) => {
+            Cafe.find({ filters: {$all: parsedFilters} }, (err, filteredCafes) => {
                 if (err) res.send(err);
                 else {
-                    let cafes_names = cafes.map(function(aCafe) {
-                        return aCafe.cafe_name;
-                    });
-                    res.json({cafes_names});
+                    res.json({filteredCafes});
                 }
             });
         }

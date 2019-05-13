@@ -118,7 +118,6 @@ const Map = compose(
     </SearchBox>
     
     {props.markers.map((marker, index) =>
-      props.cafes.map((cafe) =>
       <Marker
         key={index} 
         position={marker.position}
@@ -129,12 +128,11 @@ const Map = compose(
               options={{ closeBoxURL: ``, enableEventPropagation: true }}>
                 <div style={{ backgroundColor: `white`, opacity: 0.75, padding: `12px` }}>
                   <div style={{ fontSize: `16px`, fontColor: `#08233B`, margin: `0 auto` }}>
-                    {cafe.cafe_name}
+                    {props.cafes[index].cafe_name}
                   </div>
                 </div>
           </InfoBox>}
       </Marker>
-      )
     )}
   </GoogleMap>
 );

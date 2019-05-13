@@ -39,11 +39,12 @@ class AdvancedSearch extends Component {
       pathname: '/cafes',
       search: '?query='+trueFilters
     });
+    
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
     axios.get('/api/filteredCafes/'+this.props.location.search)
-      .then(function(response) {
-        console.log(response);
-        this.setState({ data: response.data.cafes_names, loading: false });
+      .then((response) => {
+        console.log(response.data.filteredCafes);
+        this.setState({ data: response.data.filteredCafes, loading: false });
     });
   }
 
@@ -64,11 +65,21 @@ class AdvancedSearch extends Component {
     this.getAllCafes(this);
   }
 
+  componentDidUpdate(prevState) {
+    // if (this.state.filterTags !== prevState.filterTags) {
+    //   console.log("workin");
+    //   axios.get('/api/filteredCafes/'+this.props.location.search)
+    //     .then((response) => {
+    //       this.setState({ data: response.data.cafes_names });
+    //   });
+    // }
+  }
+
   render() {
     let cafes;
     
     if (!this.state.loading) {
-      if (this.state.data.length === 0) {
+      if (this.state.data !== undefined && this.state.data.length === 0) {
         cafes = <div className="cafe-list">
                   <ol>
                     {this.state.all_cafes.map((item,i) => 
