@@ -78,9 +78,11 @@ const Map = compose(
   }),
   withStateHandlers(() => ({
     isOpen: false,
+    activeKey: null
   }), {
-    onToggleOpen: ({ isOpen }) => () => ({
+    onToggleOpen: ({ isOpen, activeKey }) => (index) => ({
       isOpen: !isOpen,
+      activeKey: index
     })
   }),
   withScriptjs,
@@ -121,8 +123,11 @@ const Map = compose(
       <Marker
         key={index} 
         position={marker.position}
-        onClick={props.onToggleOpen} >
-          {props.isOpen && 
+        onClick={() => {
+          props.onToggleOpen(index)
+        }
+        } >
+          {props.isOpen && props.activeKey === index && 
             <InfoBox
               onCloseClick={props.onToggleOpen}
               options={{ closeBoxURL: ``, enableEventPropagation: true }}>
