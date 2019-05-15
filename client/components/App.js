@@ -25,6 +25,8 @@ const pStyles = {
 
 class App extends Component {
   render() {
+    const isAuthed = localStorage.getItem('jwtToken');
+
     return (
       <div className="App">
         <Parallax bgImage={CoffeeHeader} strength={500}>
@@ -35,7 +37,7 @@ class App extends Component {
             <p style={pStyles}>Coffee culture all in one place.</p>
           </div>
         </Parallax>
-        {<div className='Map'>
+        { isAuthed && <div className='Map'>
           <Map/>
         </div>}
       </div>

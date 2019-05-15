@@ -1,0 +1,2 @@
+export const GET_MESSAGE = 'GET_MESSAGE'
+export const SET_CURRENT_USER = 'SET_CURRENT_USER'

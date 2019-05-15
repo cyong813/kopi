@@ -8,7 +8,7 @@ const { InfoBox } = require("react-google-maps/lib/components/addons/InfoBox");
 
 const Map = compose(
   withProps({
-    googleMapURL: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAxIW6lUSTCd4_srSd869Y8Yem76SQnXWw&libraries=geometry,drawing,places',
+    googleMapURL: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAQPV3EIdzAIRr-epyJlcXgP7D0rjuoA3M&libraries=geometry,drawing,places',
     loadingElement: <div style={{ height: '100%' }} />,
     containerElement: <div style={{ height: '400px' }} />,
     mapElement: <div style={{ height: '100%' }} />,
@@ -39,6 +39,7 @@ const Map = compose(
         onPlacesChanged: () => {
           const places = refs.searchBox.getPlaces();
           const bounds = new google.maps.LatLngBounds();
+          console.log(places);
 
           places.forEach(place => {
             if (place.geometry.viewport) {
@@ -57,7 +58,7 @@ const Map = compose(
           });
         },
       });
-
+      // Get all cafe lat/lng and names
       axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
       axios.get("/getAllCafesPos")
         .then(result => {
@@ -66,7 +67,7 @@ const Map = compose(
         .catch((error) => {
           this.setState({ markers: [] });
       });
-      axios.get("/getAllCafeNames")
+      axios.get("/getAllCafes")
         .then(result => {
           this.setState({ cafes: result.data });
         })
@@ -90,7 +91,7 @@ const Map = compose(
 )(props =>
   <GoogleMap
     ref={props.onMapMounted}
-    defaultZoom={16}
+    defaultZoom={12}
     center={props.center}
     onBoundsChanged={props.onBoundsChanged}
   >
@@ -123,17 +124,16 @@ const Map = compose(
       <Marker
         key={index} 
         position={marker.position}
-        onClick={() => {
-          props.onToggleOpen(index)
-        }
-        } >
+        onClick={() => { props.onToggleOpen(index) }} >
           {props.isOpen && props.activeKey === index && 
             <InfoBox
               onCloseClick={props.onToggleOpen}
               options={{ closeBoxURL: ``, enableEventPropagation: true }}>
                 <div style={{ backgroundColor: `white`, opacity: 0.75, padding: `12px` }}>
-                  <div style={{ fontSize: `16px`, fontColor: `#08233B`, margin: `0 auto` }}>
-                    {props.cafes[index].cafe_name}
+                  <div style={{ fontSize: `12px`, fontColor: `#08233B`, margin: `0 auto` }}>
+                    <p><b>{props.cafes[index].cafe_name}</b></p>
+                    <p>{props.cafes[index].address}</p>
+                    <p><i>{(props.cafes[index].categories).toString()}</i></p>
                   </div>
                 </div>
           </InfoBox>}

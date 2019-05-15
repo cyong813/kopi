@@ -121,6 +121,7 @@ class AdvancedSearch extends Component {
             {filter}
           </button>
         )}
+        <h1 className="cafes-header">Filter Results</h1>
         { cafes }
       </div>
     )

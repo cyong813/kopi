@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import Logo from '../assets/images/coffee_icon.png';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { logoutUser } from '../actions/authActions';
 
 class Navbar extends Component {
-
   handleLogout() {
     localStorage.removeItem('jwtToken');
     window.location.reload();
+    //this.props.logoutUser();
   }
 
   render() {
@@ -61,5 +64,14 @@ class Navbar extends Component {
     )
   }
 }
+
+Navbar.propTypes = {
+  logoutUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+})
 
 export default Navbar;

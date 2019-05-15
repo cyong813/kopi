@@ -240,7 +240,6 @@ router.get('/api/cafe/:cafe_name', function(req, res) {
             if (err) res.send(err);
             CafeBookmark.findOne({ cafe_name: req.params.cafe_name }, (err, bkmk) => {
                 if (err) res.send(err);
-                //console.log(bkmk);
                 res.json({cafe, bkmk}); // returns cafe info and bookmark!
             });
         });
