@@ -15,7 +15,6 @@ body {
   font-size: 20px;
 
   .adv-search-container {
-
     .filters {
       margin: 5px;
       background-color: transparent;
@@ -25,24 +24,38 @@ body {
   }
 }
 
+/* Layout */
+.Content {
+  margin-top: 70px;
+}
 
 /* Navbar */
 .Navbar {
-  padding: 20px 20px;
-  position: relative;
-  z-index: 1;
-
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    img {
-      display: inline-block;
-      vertical-align: middle;
+  height: 56px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+  z-index: 90;
+  nav {
+    height: 100%;
+  }
+  .Logo {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  @media (max-width: 499px) {
+    .DesktopOnly {
+        display: none;
     }
   }
-
+  
   a {
     color: black;
     transition: 0.15s ease-in-out;
@@ -54,13 +67,64 @@ body {
   }
 }
 
-.navlinks {
-  padding: 0;
+.Logo {
+  background-color: white;
+  padding: 4px;
+  height: 100%;
+  box-sizing: border-box;
+  border-radius: 5px;
+  img {
+    height: 100%;
+  }
+}
 
-  li {
-    display: inline-block;
-    padding: 0 0.5em;
-    font-weight: 300;
+.NavigationItem {
+  margin: 10px 0;
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  a {
+    text-decoration: none;
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+  }
+}
+
+@media (min-width: 500px) {
+  .NavigationItem {
+    margin: 0;
+    display: flex;
+    height: 100%;
+    width: auto;
+    align-items: center;
+    a {
+      height: 100%;
+      padding: 16px 10px;
+      border-bottom: 4px solid transparent;
+    }
+  }
+
+  .NavigationItem a:hover,
+  .NavigationItem a:active,
+  .NavigationItem a.active {
+      border-bottom: 4px solid black;
+  }
+}
+
+.NavigationItems {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  height: 100%;
+}
+
+@media (min-width: 500px) {
+  .NavigationItems {
+      flex-flow: row;
   }
 }
 
@@ -153,7 +217,7 @@ body {
 
 .Drink {
   text-align: center;
-  margin: 0 auto;
+  margin-top: 70px;
 
   h1 {
     display: inline-block;
@@ -191,7 +255,7 @@ body {
 }
 
 .Drinks {
-  margin-top: 30px;
+  margin-top: 70px;
   margin-bottom: 30px;
   padding: 20px 20px;
 
@@ -243,7 +307,7 @@ body {
 /* Cafes */
 
 .Cafe {
-  margin: 0 auto;
+  margin-top: 70px;
   text-align: center;
 
   .cafe-container {
@@ -342,7 +406,7 @@ body {
 }
 
 .Cafes {
-  margin-top: 30px;
+  margin-top: 70px;
   margin-bottom: 30px;
   padding: 20px 20px;
 
@@ -383,7 +447,7 @@ body {
 /* ref: https://github.com/umairraslam/expense-manager-mern/blob/master/client/css/App.css */
 
 .Bookmarks {
-  margin-top: 30px;
+  margin-top: 70px;
   margin-bottom: 30px;
   padding: 20px 20px;
 

@@ -1,14 +1,14 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import App from './components/App.js';
+import App from './components/App';
 import Login from './components/Login';
 import Register from './components/Register';
-import Bookmarks from './components/Bookmarks';
-import Cafe from './components/Cafe';
-import Cafes from './components/Cafes';
-import Drinks from './components/Drinks';
-import Drink from './components/Drink';
-import Navbar from './layout/Navbar';
+import Bookmarks from './containers/Bookmarks/Bookmarks';
+import Cafe from './containers/Cafes/Cafe/Cafe';
+import Cafes from './containers/Cafes/Cafes';
+import Drinks from './containers/Drinks/Drinks';
+import Drink from './containers/Drinks/Drink/Drink';
+import Navbar from './components/Navigation/Navbar/Navbar';
 
 const Routes = () => (
   <div>

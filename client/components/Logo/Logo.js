@@ -1,10 +1,12 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import coffeeLogo from '../../assets/images/coffee_icon.png';
-import classes from './Logo.scss';
 
 const logo = (props) => (
-    <div className={classes.Logo} style={{height: props.height}}>
-        <img src={coffeeLogo} alt="Kopi" />
+    <div className='Logo'>
+        <Link to='/'>
+            <img src={coffeeLogo} alt="Kopi" />
+        </Link>
     </div>
 );
 

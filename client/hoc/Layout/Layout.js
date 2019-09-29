@@ -1,13 +1,21 @@
-import React from 'react';
-import classes from './Layout.scss';
+import React, {Component} from 'react';
+import Navbar from '../../components/Navigation/Navbar/Navbar';
 
-const layout = ( props ) => (
-    <React.Fragment>
-        <div>Toolbar, SideDrawer</div>
-        <main className={classes}>
-            {props.children}
-        </main>
-    </React.Fragment>
-);
+class Layout extends Component {
+    constructor(props) {
+        super(props)
+    }
+    
+    render() {
+        return (
+            <React.Fragment>
+                <Navbar />
+                <main className='Content'>
+                    {this.props.children}
+                </main>
+            </React.Fragment>
+        );
+    }
+}
 
-export default layout;
+export default Layout;

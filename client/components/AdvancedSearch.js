@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from "react-router";
 import axios from 'axios';
-import CafeItem from '../layout/CafeItem';
+import CafeItem from '../components/Cafe/CafeItem/CafeItem';
 
 class AdvancedSearch extends Component {
   constructor() {

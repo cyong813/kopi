@@ -1,5 +1,5 @@
 import React from 'react';
-import CafeItem from '../../Cafe/CafeItem';
+import CafeItem from '../../Cafe/CafeItem/CafeItem';
 import DeleteBookmark from '../../../containers/Bookmarks/DeleteBookmark';
 
 const cafeBookmarkItem = (props) => (

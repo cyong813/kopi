@@ -6,8 +6,7 @@ class App extends Component {
   render() {
     const isAuthed = localStorage.getItem('jwtToken');
     return (
-      <Layout>
-        
+      <Layout>       
         { isAuthed && <div className='Map'>
           <Map/>
         </div>}
