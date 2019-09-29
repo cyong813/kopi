@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import CafeItem from '../layout/CafeItem';
-import Search from './Search';
+import CafeItem from '../../components/Cafe/CafeItem/CafeItem';
+import Search from '../../components/Search';
 
 const isSearched = searchField => cafe => cafe.cafe_name.toLowerCase().includes(searchField.toLowerCase());
 

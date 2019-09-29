@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import DrinkBookmarkItem from './DrinkBookmarkItem';
-import CafeBookmarkItem from './CafeBookmarkItem';
+import DrinkBookmarkItem from '../../components/Bookmark/BookmarkItems/DrinkBookmarkItem';
+import CafeBookmarkItem from '../../components/Bookmark/BookmarkItems/CafeBookmarkItem';
 
 class Bookmarks extends Component {
   constructor() {
