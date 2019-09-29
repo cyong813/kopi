@@ -4,7 +4,7 @@
   "description": "I love going to coffee shops to study and enjoy the vibes. But there are times where I crave a specific drink, or the place I want to go to doesn't approve of laptops (totally understandable), or maybe there's no space and I'd like to try a different place.",
   "main": "index.js",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
     "ejs": "^2.6.1",

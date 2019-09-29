@@ -111,10 +111,6 @@ class Drink extends Component {
   componentDidMount() {
     this.getData(this);
   }
-  
-  componentWillReceiveProps(nextProps) {
-      this.getData(this);
-  }
 
   render() {
     const { drink_name, saved } = this.state;

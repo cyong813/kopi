@@ -39,10 +39,6 @@ class Bookmarks extends Component {
     this.getData(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.getData(this);
-  }
-
   render() {
     return (
       <div className="Bookmarks">
