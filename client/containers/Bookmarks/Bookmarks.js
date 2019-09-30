@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import DrinkBookmarkItem from '../../components/Bookmark/BookmarkItems/DrinkBookmarkItem';
-import CafeBookmarkItem from '../../components/Bookmark/BookmarkItems/CafeBookmarkItem';
+//import CafeBookmarkItem from '../../components/Bookmark/BookmarkItems/CafeBookmarkItem';
+import CafeItem from '../../components/Cafe/CafeItem/CafeItem';
 
 class Bookmarks extends Component {
   constructor() {
@@ -11,6 +12,16 @@ class Bookmarks extends Component {
       drinkBkmkData: []
     };
     this.getData = this.getData.bind(this);
+  }
+
+  deleteBookmark(bookmarkId) {
+    axios.get('/deleteBookmark?id='+bookmarkId)
+      .then(console.log('Deleted.'))
+      .catch(err => console.log(err));
+    const newState=[...this.state.cafeBkmkData].filter(bkmk => bkmk._id !== bookmarkId);
+    this.setState({
+      cafeBkmkData: newState
+    });
   }
 
   getData(event) {
@@ -39,19 +50,32 @@ class Bookmarks extends Component {
     this.getData(this);
   }
 
+  // re-render when removing a bookmark
+  shouldComponentUpdate(nextProps,nextState) {
+    if (this.state.cafeBkmkData !== nextState.cafeBkmkData) {
+      return true;
+    }
+    if (this.state.drinkBkmkData !== nextState.drinkBkmkData) {
+      return true;
+    }
+    return false;
+  }
+
   render() {
     return (
       <div className="Bookmarks">
         <h1 className="bookmarks-header">Bookmarks</h1>
         <h2 className="cafe-bookmarks-header">Cafes</h2>
         <ol>
-          {this.state.cafeBkmkData.map(function(cbkmk) {
+          {this.state.cafeBkmkData.map((cbkmk) => {
             return (
               <li>
-                <CafeBookmarkItem key={cbkmk._id} cbkmk={cbkmk} />
+                <div className='CafeBookmarkItem'>
+                  <CafeItem key={cbkmk._id} cafe={cbkmk}/>
+                  <button onClick={() => this.deleteBookmark(cbkmk._id)}></button>
+                </div>
               </li>
-            )
-          })}
+            )})}
         </ol>
         <h2 className="drink-bookmarks-header">Drinks</h2>
         <ol>

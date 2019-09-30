@@ -16,7 +16,7 @@ class DeleteBookmark extends Component {
         this.deleteBookmark = this.deleteBookmark.bind(this);
     }
 
-    onClick(event) {
+    onClickHandler() {
         this.deleteBookmark(this);
     }
 
@@ -26,14 +26,10 @@ class DeleteBookmark extends Component {
                 event.setState({
                     messageFromServer: response.data
                 });
-            });
+        });
     }
 
     componentDidMount() {
-        this.setState({id: this.props.bookmark._id})
-    }
-
-    componentWillReceiveProps() {
         this.setState({id: this.props.bookmark._id})
     }
 
@@ -61,7 +57,7 @@ class DeleteBookmark extends Component {
                         <Button 
                             bsStyle='danger'
                             bsSize='xsmall'
-                            onClick={this.onClick}>
+                            onClick={this.onClickHandler}>
                             <span className='glyphicon glyphicon-remove'></span>
                         </Button>
                     </Link>
