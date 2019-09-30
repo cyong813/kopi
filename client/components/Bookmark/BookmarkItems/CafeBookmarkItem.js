@@ -1,11 +1,11 @@
 import React from 'react';
 import CafeItem from '../../Cafe/CafeItem/CafeItem';
-import DeleteBookmark from '../../../containers/Bookmarks/DeleteBookmark';
+import Button from '../../UI/Button/Button';
 
 const cafeBookmarkItem = (props) => (
     <div className='CafeBookmarkItem'>
-        <CafeItem key={props.cbkmk._id} cafe={props.cbkmk}/>
-        <DeleteBookmark id={props.cbkmk._id} bookmark={props.cbkmk} />
+        <CafeItem cafe={props.cafe}/>
+        <Button btnType={props.type} clicked={props.clicked}>x</Button>
     </div>
 );
 

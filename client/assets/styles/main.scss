@@ -29,6 +29,26 @@ body {
   margin-top: 70px;
 }
 
+/* UI */
+.Button {
+  border: none;
+  color: white;
+  outline: none;
+  cursor: pointer;
+  font: inherit;
+  padding: 5px;
+  margin: 10px;
+  font-weight: bold;
+}
+
+.Success {
+  background-color: #5C9210;
+}
+
+.Danger {
+  background-color: #941717;
+}
+
 /* Navbar */
 .Navbar {
   height: 56px;

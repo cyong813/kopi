@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import DrinkBookmarkItem from '../../components/Bookmark/BookmarkItems/DrinkBookmarkItem';
-//import CafeBookmarkItem from '../../components/Bookmark/BookmarkItems/CafeBookmarkItem';
-import CafeItem from '../../components/Cafe/CafeItem/CafeItem';
+import CafeBookmarkItem from '../../components/Bookmark/BookmarkItems/CafeBookmarkItem';
 
 class Bookmarks extends Component {
   constructor() {
@@ -11,20 +10,29 @@ class Bookmarks extends Component {
       cafeBkmkData: [],
       drinkBkmkData: []
     };
-    this.getData = this.getData.bind(this);
+    this.getCafeBookmarkData = this.getCafeBookmarkData.bind(this);
+    this.getDrinkBookmarkData = this.getDrinkBookmarkData.bind(this);
   }
 
-  deleteBookmark(bookmarkId) {
+  deleteBookmark(bookmarkId,isCafe) {
     axios.get('/deleteBookmark?id='+bookmarkId)
       .then(console.log('Deleted.'))
       .catch(err => console.log(err));
-    const newState=[...this.state.cafeBkmkData].filter(bkmk => bkmk._id !== bookmarkId);
-    this.setState({
-      cafeBkmkData: newState
-    });
+    if (isCafe) {
+      const newCafeState=[...this.state.cafeBkmkData].filter(bkmk => bkmk._id !== bookmarkId);
+      this.setState({
+        cafeBkmkData: newCafeState
+      });
+    }
+    else {
+      const newDrinkState=[...this.state.drinkBkmkData].filter(bkmk => bkmk._id !== bookmarkId);
+      this.setState({
+        drinkBkmkData: newDrinkState
+      });
+    }
   }
 
-  getData(event) {
+  getCafeBookmarkData(event) {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
     axios.get('/api/getAllCafeBookmarks')
       .then(function(cresponse) {
@@ -35,6 +43,10 @@ class Bookmarks extends Component {
           this.props.history.push("/login");
         }
       });
+  }
+
+  getDrinkBookmarkData(event) {
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
     axios.get('/api/getAllDrinkBookmarks')
       .then(function(dresponse) {
         event.setState({drinkBkmkData: dresponse.data});
@@ -47,7 +59,8 @@ class Bookmarks extends Component {
   }
 
   componentDidMount() {
-    this.getData(this);
+    this.getCafeBookmarkData(this);
+    this.getDrinkBookmarkData(this);
   }
 
   // re-render when removing a bookmark
@@ -69,23 +82,27 @@ class Bookmarks extends Component {
         <ol>
           {this.state.cafeBkmkData.map((cbkmk) => {
             return (
-              <li>
-                <div className='CafeBookmarkItem'>
-                  <CafeItem key={cbkmk._id} cafe={cbkmk}/>
-                  <button onClick={() => this.deleteBookmark(cbkmk._id)}></button>
-                </div>
+              <li key={cbkmk._id}>
+                <CafeBookmarkItem 
+                  cafe={cbkmk}
+                  clicked={() => this.deleteBookmark(cbkmk._id,true)}
+                  type="Danger"
+                />
               </li>
-            )})}
+          )})}
         </ol>
         <h2 className="drink-bookmarks-header">Drinks</h2>
         <ol>
-          {this.state.drinkBkmkData.map(function(dbkmk) {
+          {this.state.drinkBkmkData.map((dbkmk) => {
             return (
-              <li>
-                <DrinkBookmarkItem key={dbkmk._id} dbkmk={dbkmk} />
+              <li key={dbkmk._id}>
+                <DrinkBookmarkItem 
+                  drink={dbkmk}
+                  clicked={() => this.deleteBookmark(dbkmk._id,false)}
+                  type="Danger" 
+                />
               </li>
-            )
-          })}
+          )})}
         </ol>
       </div>
     );
