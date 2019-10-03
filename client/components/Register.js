@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 // ref: https://www.djamware.com/post/5a90c37980aca7059c14297a/securing-mern-stack-web-application-using-passport
 class Register extends Component {
@@ -67,6 +68,9 @@ class Register extends Component {
                             onChange={this.handleTextChange} required
                         />
                         <button class="form-button" type="submit">Register</button>
+                        <p>
+                            Already a member? <Link to="/login"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Sign In</Link>
+                        </p>
                     </form>
                 </div>
             </div>

@@ -8,7 +8,7 @@ class App extends Component {
     return (
       <Layout>       
         { isAuthed && <div className='Map'>
-          <Map/>
+          {/* <Map/> */}
         </div>}
       </Layout>
     );
