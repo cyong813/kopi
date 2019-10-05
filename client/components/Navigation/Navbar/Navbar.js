@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import Logo from '../../Logo/Logo';
 import UnloggedNavigationItems from '../NavigationItems/UnloggedNavigationItems';
 import LoggedNavigationItems from '../NavigationItems/LoggedNavigationItems';
+import { withRouter } from "react-router-dom";
 
 class Navbar extends Component {
   handleLogout() {
     localStorage.removeItem('jwtToken');
-    window.location.reload();
+    this.props.history.push('/login');
   }
 
   render() {
@@ -18,11 +19,11 @@ class Navbar extends Component {
           <Logo />
         </div>
         <nav className='DesktopOnly'>
-          { isAuthed ? <LoggedNavigationItems clicked={this.handleLogout} /> : <UnloggedNavigationItems/> }
+          { isAuthed ? <LoggedNavigationItems clicked={this.handleLogout.bind(this)} /> : <UnloggedNavigationItems/> }
         </nav>
       </header>
     )
   }
 }
 
-export default Navbar;
+export default withRouter(Navbar);

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+
 import App from './components/App';
 import Login from './components/Login';
 import Register from './components/Register';
@@ -15,8 +16,8 @@ const Routes = () => (
     <Navbar />
     <Switch>
       <Route exact path='/' component={App} />
-      <Route path='/login' component={Login} />
-      <Route path='/register' component={Register} />
+      <Route exact path='/login' component={Login} />
+      <Route exact path='/register' component={Register} />
       <Route exact path='/bookmarks' component={Bookmarks} />
       <Route exact path='/cafes' component={Cafes} />
       <Route path="/cafe/:cafe_name" component={Cafe} />

@@ -143,7 +143,8 @@ router.route('/addDrinkBookmark')
     }    
 })
 
-router.get('/deleteBookmark', passport.authenticate('jwt', { session: false }), function(req, res) {
+router.route('/deleteBookmark')
+.delete(passport.authenticate('jwt', { session: false }), function(req, res) {
     var token = getToken(req.headers);
     if (token) {
         var id = req.query.id;
