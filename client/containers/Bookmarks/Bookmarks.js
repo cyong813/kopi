@@ -15,7 +15,7 @@ class Bookmarks extends Component {
   }
 
   deleteBookmark(bookmarkId,isCafe) {
-    axios.delete('/deleteBookmark?id='+bookmarkId)
+    axios.delete('/bookmark?id='+bookmarkId)
       .then(console.log('Deleted.'))
       .catch(err => console.log(err));
     if (isCafe) {

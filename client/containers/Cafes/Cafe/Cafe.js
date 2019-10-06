@@ -80,7 +80,7 @@ class Cafe extends Component {
 
   insertNewCafeBookmark(event) {
     console.log(event.state.cafe_name);
-    axios.post('/addCafeBookmark',
+    axios.post('/bookmark',
     querystring.stringify({
       cafe_name: event.state.cafe_name
     }), {
@@ -98,7 +98,7 @@ class Cafe extends Component {
         // check for bookmark and accordingly change the bookmark button
         if (response.data.bkmk) {
           console.log(response.data.bkmk._id);
-          return axios.get('/deleteBookmark?id='+response.data.bkmk._id)
+          return axios.delete('/bookmark?id='+response.data.bkmk._id)
             .then(function(result) {
               console.log(result.data);
             }).catch((error) => {

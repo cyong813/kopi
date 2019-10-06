@@ -78,7 +78,7 @@ class Drink extends Component {
   }
 
   insertNewDrinkBookmark(event) {
-    axios.post('/addDrinkBookmark',
+    axios.post('/bookmark',
     querystring.stringify({
         drink_name: event.state.drink_name
     }), {
@@ -96,7 +96,7 @@ class Drink extends Component {
         // check for bookmark and accordingly change the bookmark button
         if (response.data.bkmk) {
           console.log(response.data.bkmk._id);
-          return axios.get('/deleteBookmark?id='+response.data.bkmk._id)
+          return axios.delete('/bookmark?id='+response.data.bkmk._id)
             .then(function(result) {
               console.log(result.data);
             }).catch((error) => {

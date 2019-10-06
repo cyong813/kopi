@@ -1,12 +1,12 @@
 var path = require('path');
 var webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     entry: './client/index.js',
     output: {
         path: path.join(__dirname, 'client'),
-        filename: 'bundle.js'
+        filename: 'bundle.js',
+        publicPath: '/'
     },
     module: {
         rules: [{
@@ -30,5 +30,8 @@ module.exports = {
             use: ['style-loader', 'css-loader'],
         }
         ]
+    },
+    devServer: {
+        historyApiFallback: true
     }
 }

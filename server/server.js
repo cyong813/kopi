@@ -34,4 +34,8 @@ mongoose.connect('mongodb://cyong813:cyong813@ds161487.mlab.com:61487/coffee');
 
 app.use('/', router);
 
+app.get('*', (req, res) => {
+    res.render('index');
+});
+
 module.exports = app;
