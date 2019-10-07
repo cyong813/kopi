@@ -80,13 +80,13 @@ class Drink extends Component {
   insertNewDrinkBookmark(event) {
     axios.post('/bookmark',
     querystring.stringify({
-        drink_name: event.state.drink_name
+      drink_name: event.state.drink_name
     }), {
         headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
+          "Content-Type": "application/x-www-form-urlencoded"
         }
     }).then(function(response) {
-        event.setState({ messageFromServer: response.data });
+      event.setState({ messageFromServer: response.data });
     });
   }
 

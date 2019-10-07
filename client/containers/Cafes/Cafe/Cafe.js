@@ -115,7 +115,7 @@ class Cafe extends Component {
   }
 
   render() {
-    const { loading, saved } = this.state;
+    const { loading, saved, cafe_name } = this.state;
     let cafe;
     let saveButton;
 
@@ -139,7 +139,7 @@ class Cafe extends Component {
                 <div className='cafe-container'>
                   <img src={this.state.data.cafe_image} />
                   <div className='cafe-info'>
-                    <h1>{this.state.data.cafe_name}</h1>
+                    <h1>{cafe_name}</h1>
                     { saveButton }
                     <p>{this.state.data.categories}</p>
                     <p>{this.state.data.address}</p>

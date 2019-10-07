@@ -179,7 +179,7 @@ router.route('/bookmark')
         var token = getToken(req.headers);
         if (token) {
             // check for drink name and cafe name
-            if (req.body.drink_name != '') {
+            if ('drink_name' in req.body) {
                 var drinkBookmark = new DrinkBookmark();
                 drinkBookmark.user_id = req.user._id;
                 drinkBookmark.drink_name = req.body.drink_name;
@@ -206,7 +206,7 @@ router.route('/bookmark')
                 });
     
             }
-            else if (req.body.cafe_name != '') {
+            else if ('cafe_name' in req.body) {
                 var cafeBookmark = new CafeBookmark();
                 cafeBookmark.user_id = req.user._id;
                 cafeBookmark.cafe_name = req.body.cafe_name;
