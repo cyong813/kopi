@@ -50,7 +50,7 @@ class AdvancedSearch extends Component {
 
   getAllCafes(event) {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    axios.get('/getAllCafeNames')
+    axios.get('/cafe?names=all')
       .then(function(response) {
         event.setState({all_cafes: response.data, loading: false});
       })

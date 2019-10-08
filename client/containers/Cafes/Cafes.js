@@ -18,7 +18,7 @@ class Cafes extends Component {
 
   getData(event) {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    axios.get('/getAllCafeNames')
+    axios.get('/cafe?names=all')
       .then(function(response) {
         event.setState({data: response.data, loading: false});
       })

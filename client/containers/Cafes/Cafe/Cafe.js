@@ -26,7 +26,7 @@ class Cafe extends Component {
 
   getData(event) {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    axios.get('/api/cafe/'+this.props.match.params.cafe_name)
+    axios.get('/cafes/'+this.props.match.params.cafe_name)
       .then(function(response) {
         // check for bookmark and accordingly change the bookmark button
         if (response.data.bkmk) {

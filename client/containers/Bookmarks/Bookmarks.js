@@ -34,7 +34,7 @@ class Bookmarks extends Component {
 
   getCafeBookmarkData(event) {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    axios.get('/api/getAllCafeBookmarks')
+    axios.get('/bookmark?type=cafe')
       .then(function(cresponse) {
         event.setState({cafeBkmkData: cresponse.data});
       })
@@ -47,7 +47,7 @@ class Bookmarks extends Component {
 
   getDrinkBookmarkData(event) {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    axios.get('/api/getAllDrinkBookmarks')
+    axios.get('/bookmark?type=drink')
       .then(function(dresponse) {
         event.setState({drinkBkmkData: dresponse.data});
       })

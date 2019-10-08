@@ -26,7 +26,7 @@ class Drink extends Component {
   getData(event) {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
     this.setState({drink_name: this.props.match.params.drink_name});
-    axios.get('/api/drink/'+this.props.match.params.drink_name)
+    axios.get('/drinks/'+this.props.match.params.drink_name)
       .then(function(response) {
         // check for bookmark and accordingly change the bookmark button
         if (response.data.bkmk) {
@@ -43,9 +43,9 @@ class Drink extends Component {
         }
       })
       .catch((error) => {
-        // if (error.response.status === 401) {
-        //   this.props.history.push("/login");
-        // }
+        if (error.response.status === 401) {
+          this.props.history.push("/login");
+        }
       });
   }
 

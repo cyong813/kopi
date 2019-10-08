@@ -14,14 +14,14 @@ class Drinks extends Component {
 
   getData(event) {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    axios.get('/getAllDrinks')
+    axios.get('/drink')
       .then(function(response) {
         event.setState({data: response.data, loading: false});
       })
       .catch((error) => {
-        // if (error.response.status === 401) {
-        //   this.props.history.push("/login");
-        // }
+        if (error.response.status === 401) {
+          this.props.history.push("/login");
+        }
       });
   }
 

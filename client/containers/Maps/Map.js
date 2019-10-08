@@ -60,14 +60,14 @@ const Map = compose(
       });
       // Get all cafe lat/lng and names
       axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-      axios.get("/getAllCafesPos")
+      axios.get("/cafe?pos=all")
         .then(result => {
           this.setState({ markers: result.data });
         })
         .catch((error) => {
           this.setState({ markers: [] });
       });
-      axios.get("/getAllCafes")
+      axios.get("/cafe")
         .then(result => {
           this.setState({ cafes: result.data });
         })
