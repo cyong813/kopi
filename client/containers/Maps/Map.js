@@ -8,7 +8,7 @@ const { InfoBox } = require("react-google-maps/lib/components/addons/InfoBox");
 
 const Map = compose(
   withProps({
-    googleMapURL: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAQPV3EIdzAIRr-epyJlcXgP7D0rjuoA3M&libraries=geometry,drawing,places',
+    googleMapURL: 'https://maps.googleapis.com/maps/api/js?key='+process.env.GOOGLE_MAPS_API_KEY+'&libraries=geometry,drawing,places',
     loadingElement: <div style={{ height: '100%' }} />,
     containerElement: <div style={{ height: '400px' }} />,
     mapElement: <div style={{ height: '100%' }} />,

@@ -6,6 +6,7 @@ var path = require('path');
 var app = express();
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+require('dotenv').config();
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../client'));
@@ -30,7 +31,7 @@ app.use(session(sessionOptions));
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect('mongodb://cyong813:cyong813@ds161487.mlab.com:61487/coffee');
+mongoose.connect(process.env.DB_URL);
 
 app.use('/', router);
 
