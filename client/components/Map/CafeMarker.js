@@ -1,44 +1,50 @@
-import React, { Component } from "react";
-import { Marker, InfoWindow } from "react-google-maps";
-import CafeMapCard from "./CafeMapCard";
+import React, { Component } from 'react';
+import { Marker, InfoWindow } from 'react-google-maps';
+
+import MarkerIcon from '../../assets/images/map-marker.png';
+import CafeMapCard from './CafeMapCard';
+
+// Location pin from flaticon.com
 
 class CafeMarker extends Component {
-  state = {
-    isOpen: false,
-    activeMarker: this.props.activeMarker
+  constructor(props) {
+    super(props)
+    this.state = {
+      isOpen: false
+    }
   }
 
   toggleOpen = () => {
-    this.setState({isOpen: !this.state.isOpen}, () =>{
-        if (!this.state.isOpen){
+    this.setState({isOpen: !this.state.isOpen}, () => {
+        if (!this.state.isOpen) {
           this.setState({activeMarker: false}, () => {
-            this.props.closeMarkers(null);
+            this.props.onClick(null);
           })
         } else{
-          this.props.closeMarkers(this.props.cid);
+          this.props.onClick(this.props.cid);
         }
       }
     )
-  };
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({ activeMarker: nextProps.activeMarker });
-  };
+  }
 
   render() {
     return (
       <div>
-        <Marker onClick={this.toggleOpen}
-          position={this.props.location} >
-            { this.state.isOpen && this.state.activeMarker ?
-                <InfoWindow maxWidth={800} defaultPosition={ this.props.location } onCloseClick={this.props.onToggleOpen}>
-                    <CafeMapCard toggleShowPage={this.props.toggleShowPage} cafe={this.props.cafe}/>
-                </InfoWindow> : null
+        <Marker 
+                icon={{ url: MarkerIcon }}
+                onClick={this.toggleOpen}
+                position={this.props.location}>
+            { this.props.activeMarker === this.props.cid && this.state.isOpen ?
+              <InfoWindow
+                maxWidth={800}
+                defaultPosition={this.props.location}
+                onClick={this.toggleOpen}> 
+                  <CafeMapCard cafe={this.props.cafe}/>
+              </InfoWindow> : null
             }
         </Marker>
       </div>
     )
-
   }
 }
 

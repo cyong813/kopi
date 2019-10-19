@@ -9,7 +9,7 @@ class App extends Component {
     return (
       <Layout>       
         { isAuthed && <div className='Map'>
-          {/* <Map/> */}
+          <Map/>
         </div>}
         { !isAuthed && <div className='header-particles'> 
           <Particles

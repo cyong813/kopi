@@ -189,7 +189,7 @@ router.get('/cafe', passport.authenticate('jwt', { session: false }), function(r
     var token = getToken(req.headers);
     if (token) {
         // user params
-        if (req.query) {
+        if (req.query.pos || req.query.names) {
             if (req.query.pos && req.query.pos === 'all') {
                 Cafe.find({}, {position: 1, _id: 0}, function(err, cafes) {
                     if (err) res.send(err);
@@ -282,6 +282,17 @@ router.get('/drinks/:drink_name', passport.authenticate('jwt', { session: false 
         return res.status(403).send({success: false, msg: 'Unauthorized.'});
     } 
 });
+
+// router.get('/googleMapsKey', passport.authenticate('jwt', { session: false }), function(req, res) {
+//     var token = getToken(req.headers);
+//     if (token) {
+//         res.json(`${process.env.GOOGLE_MAPS_API_KEY}`);
+//         console.log(`${process.env.GOOGLE_MAPS_API_KEY}`)
+//     }
+//     else {
+//         return res.status(403).send({success: false, msg: 'Unauthorized.'});
+//     } 
+// });
 
 getToken = function(headers) {
     if (headers && headers.authorization) {
