@@ -283,17 +283,6 @@ router.get('/drinks/:drink_name', passport.authenticate('jwt', { session: false 
     } 
 });
 
-// router.get('/googleMapsKey', passport.authenticate('jwt', { session: false }), function(req, res) {
-//     var token = getToken(req.headers);
-//     if (token) {
-//         res.json(`${process.env.GOOGLE_MAPS_API_KEY}`);
-//         console.log(`${process.env.GOOGLE_MAPS_API_KEY}`)
-//     }
-//     else {
-//         return res.status(403).send({success: false, msg: 'Unauthorized.'});
-//     } 
-// });
-
 getToken = function(headers) {
     if (headers && headers.authorization) {
         var parted = headers.authorization.split(' ');

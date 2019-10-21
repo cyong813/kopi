@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import CafeMap from '../../components/Map/CafeMap';
 
+const GOOGLE_MAPS_API_KEY = process.env.GOOGLE_MAPS_API_KEY;
+
 class Map extends Component {
 	constructor(props) {
 		super(props);
@@ -10,7 +12,7 @@ class Map extends Component {
 			latitude: 40.662895,
 			longitude: -73.991554,
 			activeMarker: false,
-			key: 'https://maps.googleapis.com/maps/api/js?key='+GOOGLE_MAP_API_KEY+'&libraries=geometry,drawing,places'
+			key: 'https://maps.googleapis.com/maps/api/js?key='+GOOGLE_MAPS_API_KEY+'&libraries=geometry,drawing,places'
 		}
 	}
 
@@ -27,22 +29,8 @@ class Map extends Component {
 		});
 	};
 
-	// getGoogleMapsKey(event) {
-	// 	axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-	// 	axios.get('/googleMapsKey')
-	// 	.then(function(res) {
-	// 		event.setState({key: 'https://maps.googleapis.com/maps/api/js?key='+GOOGLE_MAP_API_KEY+'&libraries=geometry,drawing,places'});
-	// 	})
-	// 	.catch((error) => {
-	// 		// if (error.response.status === 401) {
-	// 		//   this.props.history.push("/login");
-	// 		// }
-	// 	});
-	// };
-
 	componentDidMount() {
 		this.getCafeNamesAndPos(this);
-		//this.getGoogleMapsKey(this);
 	};
 
 	closeOtherMarkers = (cid) => {
@@ -62,7 +50,7 @@ class Map extends Component {
 				location={ {lat: this.state.latitude, lng: this.state.longitude} }
 				googleMapURL={this.state.key}
 				loadingElement={<div style={{ height: `100%` }} />}
-				containerElement={<div style={{ height: `600px`, width: `600px` }} />}
+				containerElement={<div style={{ height: `800px`, width: `100%` }} />}
 				mapElement={<div style={{ height: `100%` }} />}
 				activeMarker={this.state.activeMarker}
 				onClick={this.closeOtherMarkers}
