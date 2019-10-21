@@ -8,7 +8,7 @@ class Cafes extends Component {
   constructor() {
     super();
     this.state = {
-      data: [],
+      cafe_data: [],
       searchField: '',
       filters: {
         'credit_card': false,
@@ -23,16 +23,16 @@ class Cafes extends Component {
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
   }
 
-  getCafeNames(event) {
+  getCafeNamesData(event) {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    axios.get('/cafe?names=all')
-      .then(function(response) {
-        event.setState({data: response.data, loading: false});
+    axios.get('/cafe?category=names,id&sort=names_asc')
+      .then(function(res) {
+        event.setState({cafe_data: res.data, loading: false});
       })
-      .catch((error) => {
-        // if (error.response.status === 401) {
-        //   this.props.history.push('/login');
-        // }
+      .catch((err) => {
+        if (err.res.status === 401) {
+          this.props.history.push('/login');
+        }
     });
   };
 
@@ -86,7 +86,7 @@ class Cafes extends Component {
   };
 
   componentDidMount() {
-    this.getCafeNames(this);
+    this.getCafeNamesData(this);
   };
 
   // re-render when loading user search query, or user clicks on filters
@@ -116,7 +116,7 @@ class Cafes extends Component {
     if (!loading) {
       cafes = <div className='cafe-list'>
                 <ol>
-                  {this.state.data.map(function(cafe) {
+                  {this.state.cafe_data.map(function(cafe) {
                     return (
                       <li>
                         <CafeItem key={cafe._id} cafe={cafe} />

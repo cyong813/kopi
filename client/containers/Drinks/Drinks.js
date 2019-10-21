@@ -1,32 +1,33 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+
 import DrinkItem from '../../components/Drink/DrinkItem/DrinkItem';
+import Spinner from '../../components/UI/Spinner/Spinner'
 
 class Drinks extends Component {
   constructor() {
       super()
       this.state = {
-        data: [],
+        drink_data: [],
         loading: true
       };
-      this.getData = this.getData.bind(this);
   }
 
-  getData(event) {
+  getSortedDrinkData(event) {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    axios.get('/drink')
-      .then(function(response) {
-        event.setState({data: response.data, loading: false});
+    axios.get('/drink?sort=names_asc')
+      .then(function(res) {
+        event.setState({drink_data: res.data, loading: false});
       })
-      .catch((error) => {
-        if (error.response.status === 401) {
+      .catch((err) => {
+        if (err.res.status === 401) {
           this.props.history.push("/login");
         }
       });
   }
 
   componentDidMount() {
-      this.getData(this);
+      this.getSortedDrinkData(this);
   }
 
   render() {
@@ -35,7 +36,7 @@ class Drinks extends Component {
 
     if (!loading) {
       drinks = <div className="drinks-grid">
-                  {this.state.data.map(function(drink) {
+                  {this.state.drink_data.map(function(drink) {
                     return (
                       <DrinkItem key={drink._id} drink={drink} /> 
                     )
@@ -43,7 +44,7 @@ class Drinks extends Component {
               </div>
     }
     else {
-      drinks = null;
+      drinks = <Spinner />;
     }
 
     return (

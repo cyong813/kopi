@@ -18,7 +18,7 @@ class Map extends Component {
 
 	getCafeNamesAndPos(event) {
 		axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-		axios.get('/cafe')
+		axios.get('/cafe?category=names,pos')
 		.then(function(res) {
 			event.setState({cafes: res.data});
 		})

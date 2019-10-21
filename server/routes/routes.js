@@ -10,6 +10,12 @@ var CafeBookmark = require('../models/CafeBookmark');
 var Cafe = require('../models/Cafe');
 var Drink = require('../models/Drink');
 
+// Useful Functions
+function containsAll(arr1, arr2) {
+    return arr2.map(function (ele) { 
+        return arr1.indexOf(ele);
+    }).indexOf(-1) == -1;
+};
 
 router.post('/register', function(req, res) {
     if (!req.body.username || !req.body.password) {
@@ -189,15 +195,38 @@ router.get('/cafe', passport.authenticate('jwt', { session: false }), function(r
     var token = getToken(req.headers);
     if (token) {
         // user params
-        if (req.query.pos || req.query.names) {
-            if (req.query.pos && req.query.pos === 'all') {
-                Cafe.find({}, {position: 1, _id: 0}, function(err, cafes) {
+        if (req.query.category) {
+            let categoryList = req.query.category.split(',');
+            if ( containsAll(categoryList, ['names','pos','id']) ) {
+                Cafe.find({}, {cafe_name: 1, position: 1, _id: 1}, function(err, cafes) {
                     if (err) res.send(err);
                     res.json(cafes);
                 });
             }
-            else if (req.query.names && req.query.names === 'all') {
+            else if ( containsAll(categoryList, ['names','id']) ) {
+                if (req.query.sort) {
+                    if (req.query.sort === 'names_asc') {
+                        Cafe.find({}, {cafe_name: 1, _id: 1}, function(err, cafes) {
+                            if (err) res.send(err);
+                            res.json(cafes);
+                        }).sort( { cafe_name: 1 } );
+                    }
+                }
+                else {
+                    Cafe.find({}, {cafe_name: 1, _id: 1}, function(err, cafes) {
+                        if (err) res.send(err);
+                        res.json(cafes);
+                    });
+                }
+            }
+            else if ( containsAll(categoryList, ['names']) ) {
                 Cafe.find({}, {cafe_name: 1, _id: 0}, function(err, cafes) {
+                    if (err) res.send(err);
+                    res.json(cafes);
+                });
+            }
+            else if ( containsAll(categoryList, ['pos']) ) {
+                Cafe.find({}, {position: 1, _id: 0}, function(err, cafes) {
                     if (err) res.send(err);
                     res.json(cafes);
                 });
@@ -274,10 +303,58 @@ router.get('/cafes/:cafe_name', passport.authenticate('jwt', { session: false })
 router.get('/drink', passport.authenticate('jwt', { session: false }), function(req, res) {
     var token = getToken(req.headers);
     if (token) {
-        Drink.find(function(err, drinks) {
-            if (err) res.send(err);
-            res.json(drinks);
-        });
+        // user params
+        if (req.query.category) {
+            let categoryList = req.query.category.split(',');
+            if ( containsAll(categoryList, ['names','id']) ) {
+                if (req.query.sort) {
+                    if (req.query.sort === 'names_asc') {
+                        Drink.find({}, { drink_name: 1, _id: 1 }, function(err, drinks) {
+                            if (err) res.send(err);
+                            res.json(drinks);
+                        }).sort({ drink_name: 1 });
+                    }
+                }
+                else {
+                    Drink.find({}, { drink_name: 1, _id: 1 }, function(err, drinks) {
+                        if (err) res.send(err);
+                        res.json(drinks);
+                    });
+                }
+            }
+            else if ( containsAll(categoryList, ['names']) ) {
+                if (req.query.sort) {
+                    if (req.query.sort === 'asc') {
+                        Drink.find({}, { drink_name: 1, _id: 0 }, function(err, drinks) {
+                            if (err) res.send(err);
+                            res.json(drinks);
+                        }).sort({ drink_name: 1 });
+                    }
+                }
+                else {
+                    Drink.find({}, { drink_name: 1, _id: 0 }, function(err, drinks) {
+                        if (err) res.send(err);
+                        res.json(drinks);
+                    });
+                }
+            }
+        }
+        else {
+            if (req.query.sort) {
+                if (req.query.sort === 'names_asc') {
+                    Drink.find({}, function(err, drinks) {
+                        if (err) res.send(err);
+                        res.json(drinks);
+                    }).sort({ drink_name: 1 });
+                }
+            }
+            else { // get everything
+                Drink.find(function(err, drinks) {
+                    if (err) res.send(err);
+                    res.json(drinks);
+                });
+            }
+        }
     }
     else {
         return res.status(403).send({success: false, msg: 'Unauthorized.'});
