@@ -215,16 +215,37 @@ router.get('/cafe', passport.authenticate('jwt', { session: false }), function(r
     }
 });
 
-router.get('/api/filteredCafes/', passport.authenticate('jwt', { session: false }), function(req,res) {
+router.get('/filter', passport.authenticate('jwt', { session: false }), function(req,res) {
     var token = getToken(req.headers);
     if (token) {
-        if (req.query.query) {
-            let parsedFilters = req.query.query.split(',');
-
-            Cafe.find({ filters: {$all: parsedFilters} }, (err, filteredCafes) => {
+        if (req.query.filters) {
+            let parsedFilters = req.query.filters.split(',');
+            let userQuery = '';
+            if (req.query.findQuery) {
+                userQuery = req.query.findQuery
+            }
+            Cafe.find({ filters: {$all: parsedFilters}, cafe_name: {'$regex': userQuery, '$options': 'i' } }, (err, filteredCafes) => {
                 if (err) res.send(err);
                 else {
                     res.json({filteredCafes});
+                }
+            });
+        }
+    }
+    else {
+        return res.status(403).send({success: false, msg: 'Unauthorized.'});
+    }
+});
+
+router.get('/search', passport.authenticate('jwt', { session: false }), function(req,res) {
+    var token = getToken(req.headers);
+    if (token) {
+        const userQuery = req.query.findQuery;
+        if (userQuery) {
+            Cafe.find({ cafe_name: {'$regex': userQuery, '$options': 'i' } }, (err, searchedCafes) => {
+                if (err) res.send(err);
+                else {
+                    res.json({searchedCafes});
                 }
             });
         }

@@ -64,7 +64,7 @@ class Bookmarks extends Component {
   }
 
   // re-render when removing a bookmark
-  shouldComponentUpdate(nextProps,nextState) {
+  shouldComponentUpdate(nextState) {
     if (this.state.cafeBkmkData !== nextState.cafeBkmkData) {
       return true;
     }
