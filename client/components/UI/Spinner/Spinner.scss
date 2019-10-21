@@ -1,0 +1,120 @@
+.full_screen {
+    z-index: 9999; 
+    width: 100%; 
+    height: 100%; 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    margin: 0;
+    background-color: #6f4e37;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.9;
+
+    p {
+        position: absolute;
+        color: white;
+        margin-top: 50px;
+    }
+}
+
+.coffee_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    width: 200px;
+
+    .coffee_mug {
+        position: relative;
+        background-color: #fff;
+        height: 65px;
+        width: 65px;
+        border-radius: 2px;
+        
+        &:after {
+            position: absolute;
+            content: " ";
+            top: 5px;
+            right: -20px;
+            height: 40px;
+            width: 30px;
+            background-color: #fff;
+            z-index: 3;
+            border-radius: 5px;
+        }
+
+        &:before {
+            position: absolute;
+            content: " ";
+            right: -10px;
+            top: 15px;
+            height: 20px;
+            width: 10px;
+            background-color: #6f4e37;
+            z-index: 4;
+            border-top-right-radius: 2px;
+            border-bottom-right-radius: 2px;
+        }
+    
+        .steam {
+            position: absolute;
+            background-color: #fff;
+            content: " ";
+            top: 0px;
+            left: 45%;
+            margin-right: -2.5px;
+            height: 50px;
+            width: 5px;
+            z-index: -1;
+            animation: steamRise 3500ms infinite;
+            animation-delay: 1000ms;
+            animation-timing-function: linear;
+        }
+
+        .steam1 {
+            position: absolute;
+            background-color: #fff;
+            content: " ";
+            top: 0px;
+            left: 10%;
+            height: 50px;
+            width: 5px;
+            z-index: -1;
+            animation: steamRise 2500ms infinite;
+            animation-delay: 2500ms;
+            animation-timing-function: linear;
+        }
+        
+        .steam2 {
+            position: absolute;
+            background-color: #fff;
+            content: " ";
+            top: 0px;
+            right: 20%;
+            height: 50px;
+            width: 5px;
+            z-index: -1;
+            animation: steamRise 3000ms infinite;
+            animation-delay: 4000ms;
+            animation-timing-function: linear;
+        }
+    }
+}
+  
+// Animation
+@keyframes steamRise {
+    0% {
+      opacity: 0;
+      top: 0px;
+    }
+    50% {
+      top: -20px;
+      opacity: 0.5;
+    }
+    100% {
+      top: -30px;
+      opacity: 0;
+    }
+}

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import CafeItem from '../../components/Cafe/CafeItem/CafeItem';
-import SearchBar from '../../components/SearchBar';
+import SearchBar from '../../components/Search/SearchBar';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 class Cafes extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
       data: [],
       searchField: '',
@@ -30,7 +31,7 @@ class Cafes extends Component {
       })
       .catch((error) => {
         // if (error.response.status === 401) {
-        //   this.props.history.push("/login");
+        //   this.props.history.push('/login');
         // }
     });
   };
@@ -73,7 +74,7 @@ class Cafes extends Component {
 
     this.props.history.push({
       pathname: '/cafes',
-      search: '?filters='+trueFilters
+      search: '?filters='+trueFilters+'&findQuery='+this.state.searchField
     });
 
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
@@ -86,7 +87,7 @@ class Cafes extends Component {
 
   componentDidMount() {
     this.getCafeNames(this);
-  }
+  };
 
   // re-render when loading user search query, or user clicks on filters
   shouldComponentUpdate(nextProps,nextState) {
@@ -100,7 +101,7 @@ class Cafes extends Component {
       return true;
     }
     return false;
-  }
+  };
 
   render() {
     const { loading } = this.state;
@@ -113,7 +114,7 @@ class Cafes extends Component {
     }, this);
 
     if (!loading) {
-      cafes = <div className="cafe-list">
+      cafes = <div className='cafe-list'>
                 <ol>
                   {this.state.data.map(function(cafe) {
                     return (
@@ -126,17 +127,17 @@ class Cafes extends Component {
               </div>
     }
     else {
-      cafes = null;
+      cafes = <Spinner />;
     }
 
     return (
-      <div className="Cafes">
+      <div className='Cafes'>
         <SearchBar 
           changeHandler={this.handleSearchChange}
           submitHandler={this.onSearchSubmit}
           filterHandler={this.handleFilter}
           filterList={filters} />
-        <h1 className="cafes-header">Cafes</h1>
+        <h1 className='cafes-header'>Cafes</h1>
         { cafes }
       </div>
     );

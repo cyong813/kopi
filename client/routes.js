@@ -2,8 +2,8 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import App from './components/App';
-import Login from './components/Login';
-import Register from './components/Register';
+import Login from './containers/Auth/Login';
+import Register from './containers/Auth/Register';
 import Bookmarks from './containers/Bookmarks/Bookmarks';
 import Cafe from './containers/Cafes/Cafe/Cafe';
 import Cafes from './containers/Cafes/Cafes';

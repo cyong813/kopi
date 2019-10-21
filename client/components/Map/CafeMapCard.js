@@ -5,7 +5,7 @@ const CafeMapCard = (props) => {
 
 	return (
 		<div>
-			<p>{cafe.cafe_name}</p>
+			<p>{ cafe.cafe_name }</p>
 		</div>
 	);
 }
