@@ -244,46 +244,14 @@ router.get('/cafe', passport.authenticate('jwt', { session: false }), function(r
     }
 });
 
-router.get('/filter', passport.authenticate('jwt', { session: false }), function(req,res) {
-    var token = getToken(req.headers);
-    if (token) {
-        if (req.query.filters) {
-            let parsedFilters = req.query.filters.split(',');
-            let userQuery = '';
-            if (req.query.find_query) {
-                userQuery = req.query.find_query;
-            }
-            if (req.query.sort) {
-                if (req.query.sort === 'names_asc') {
-                    Cafe.find({ filters: {$all: parsedFilters}, cafe_name: {'$regex': userQuery, '$options': 'i' } }, (err, filteredCafes) => {
-                        if (err) res.send(err);
-                        else {
-                            res.json({filteredCafes});
-                        }
-                    }).sort( {cafe_name: 1} );    
-                }
-            }
-            else {
-                Cafe.find({ filters: {$all: parsedFilters}, cafe_name: {'$regex': userQuery, '$options': 'i' } }, (err, filteredCafes) => {
-                    if (err) res.send(err);
-                    else {
-                        res.json({filteredCafes});
-                    }
-                });
-            }
-        }
-    }
-    else {
-        return res.status(403).send({success: false, msg: 'Unauthorized.'});
-    }
-});
-
 router.get('/search', passport.authenticate('jwt', { session: false }), function(req,res) {
     var token = getToken(req.headers);
     if (token) {
-        if (req.query.filters && req.query.find_query) {
-            if (req.query.filters.length > 0 && req.query.find_query.length > 0) {
-                const parsedFilters = req.query.filters.split(',');
+        const userQuery = req.query.find_query;
+        const filterQuery = req.query.filters;
+        if (filterQuery && userQuery) {
+            if (filterQuery.length > 0 && userQuery.length > 0) {
+                const parsedFilters = filterQuery.split(',');
                 if (req.query.sort) {
                     if (req.query.sort === 'names_asc') {
                         Cafe.find({ filters: {$all: parsedFilters}, cafe_name: {'$regex': userQuery, '$options': 'i' } }, (err, searchedCafes) => {
@@ -304,8 +272,8 @@ router.get('/search', passport.authenticate('jwt', { session: false }), function
                 }
             }
         }
-        else if (req.query.find_query) {
-            if (req.query.find_query.length > 0) {
+        else if (userQuery) {
+            if (userQuery.length > 0) {
                 if (req.query.sort) {
                     if (req.query.sort === 'names_asc') {
                         Cafe.find({ cafe_name: {'$regex': userQuery, '$options': 'i' } }, (err, searchedCafes) => {
@@ -326,9 +294,9 @@ router.get('/search', passport.authenticate('jwt', { session: false }), function
                 }
             }
         }
-        else if (req.query.filters) {
-            if (req.query.filters.length > 0) {
-                const parsedFilters = req.query.filters.split(',');
+        else if (filterQuery) {
+            if (filterQuery.length > 0) {
+                const parsedFilters = filterQuery.split(',');
                 if (req.query.sort) {
                     if (req.query.sort === 'names_asc') {
                         Cafe.find({ filters: {$all: parsedFilters} }, (err, searchedCafes) => {

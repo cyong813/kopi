@@ -47,20 +47,29 @@ class Cafes extends Component {
       
       this.props.history.push({
         pathname: '/cafes',
-        search: '?find_query='+this.state.searchField
+        search: '?find_query='+this.state.searchField+'&filters='+this.state.filterTags
       });
 
-      axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-      axios.get('/search?find_query='+this.state.searchField+'&filters='+this.state.filterTags+'&sort=names_asc')
-        .then((res) => {
-          this.setState({ cafe_data: res.data.searchedCafes, loading: false });
-      });
+      if (this.state.filterTags.length > 0) {
+        axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+        axios.get('/search?find_query='+this.state.searchField+'&filters='+this.state.filterTags+'&sort=names_asc')
+          .then((res) => {
+            this.setState({ cafe_data: res.data.searchedCafes, loading: false });
+        });
+      }
+      else {
+        axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+        axios.get('/search?find_query='+this.state.searchField+'&sort=names_asc')
+          .then((res) => {
+            this.setState({ cafe_data: res.data.searchedCafes, loading: false });
+        });
+      }
     }
   };
 
   handleFilter = (filter) => {
     let convertedFilter = filter.toLowerCase().replace(/ /g, '_');
-    let updatedFilters = JSON.parse(JSON.stringify(this.state.filters));
+    let updatedFilters = JSON.parse(JSON.stringify(this.state.filters)); // deep copy of state object
     if (!updatedFilters[convertedFilter]) {
       updatedFilters[convertedFilter] = true;
     }
@@ -74,7 +83,7 @@ class Cafes extends Component {
     this.setState({ filters: updatedFilters, filterTags: querifiedFilters, loading: true });
     this.props.history.push({
       pathname: '/cafes',
-      search: '?filters='+querifiedFilters+'&find_query='+this.state.searchField
+      search: '?find_query='+this.state.searchField+'&filters='+querifiedFilters
     });
 
     if (querifiedFilters.length > 0) {
@@ -91,7 +100,30 @@ class Cafes extends Component {
   };
 
   componentDidMount() {
-    this.getCafeNamesData(this);
+    // if user refreshes, reload query submission data
+    if (this.props.location.search.length > 0) {
+      // parse filters from user's query, and update mounted state
+      const filterQuery = this.props.location.search.substring(this.props.location.search.indexOf('filters=')+8,this.props.location.search.length).split(',');
+      let updatedFilters = JSON.parse(JSON.stringify(this.state.filters));
+      filterQuery.forEach(filter => {
+        if (filter in updatedFilters) {
+          updatedFilters[filter] = true;
+        }
+      });
+      console.log(updatedFilters);
+      axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+      axios.get('/search'+this.props.location.search)
+        .then((res) => {
+          this.setState({
+            cafe_data: res.data.searchedCafes,
+            filters: updatedFilters,
+            loading: false
+          });
+      });
+    }
+    else {
+      this.getCafeNamesData(this);
+    }
   };
 
   // re-render when loading user search query, or user clicks on filters
