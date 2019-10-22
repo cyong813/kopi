@@ -64,12 +64,19 @@ body {
   text-align: center;
   font-size: 20px;
 
-  .adv-search-container {
-    .filters {
+  .filter-container {
+    .filter {
       margin: 5px;
       background-color: transparent;
       border: 1px solid $main-color;
       border-radius: 3px;
+    }
+    .clickedFilter {
+      margin: 5px;
+      background-color: $main-color;
+      border: 1px solid $main-color;
+      border-radius: 3px;
+      color: white;
     }
   }
 }

@@ -1,14 +1,14 @@
 import React from 'react';
 
 const filterSearch = (props) => (
-  <div className='adv-search-container'>
-    {props.filters.map(filter =>
+  <div className='filter-container'>
+    { Object.keys(props.filters).map((filter,i) => (
       <button 
-          className='filters'
-          onClick={ props.filterHandler.bind(this,filter) }>
-        {filter}
+        className={ props.filters[filter] ? 'clickedFilter' : 'filter' }
+        onClick={ props.filterHandler.bind(this,filter) }>
+          { props.formattedFilters[i] }
       </button>
-    )}
+    )) }
   </div>
 );
 

@@ -250,15 +250,27 @@ router.get('/filter', passport.authenticate('jwt', { session: false }), function
         if (req.query.filters) {
             let parsedFilters = req.query.filters.split(',');
             let userQuery = '';
-            if (req.query.findQuery) {
-                userQuery = req.query.findQuery
+            if (req.query.find_query) {
+                userQuery = req.query.find_query;
             }
-            Cafe.find({ filters: {$all: parsedFilters}, cafe_name: {'$regex': userQuery, '$options': 'i' } }, (err, filteredCafes) => {
-                if (err) res.send(err);
-                else {
-                    res.json({filteredCafes});
+            if (req.query.sort) {
+                if (req.query.sort === 'names_asc') {
+                    Cafe.find({ filters: {$all: parsedFilters}, cafe_name: {'$regex': userQuery, '$options': 'i' } }, (err, filteredCafes) => {
+                        if (err) res.send(err);
+                        else {
+                            res.json({filteredCafes});
+                        }
+                    }).sort( {cafe_name: 1} );    
                 }
-            });
+            }
+            else {
+                Cafe.find({ filters: {$all: parsedFilters}, cafe_name: {'$regex': userQuery, '$options': 'i' } }, (err, filteredCafes) => {
+                    if (err) res.send(err);
+                    else {
+                        res.json({filteredCafes});
+                    }
+                });
+            }
         }
     }
     else {
@@ -269,14 +281,76 @@ router.get('/filter', passport.authenticate('jwt', { session: false }), function
 router.get('/search', passport.authenticate('jwt', { session: false }), function(req,res) {
     var token = getToken(req.headers);
     if (token) {
-        const userQuery = req.query.findQuery;
-        if (userQuery) {
-            Cafe.find({ cafe_name: {'$regex': userQuery, '$options': 'i' } }, (err, searchedCafes) => {
-                if (err) res.send(err);
-                else {
-                    res.json({searchedCafes});
+        if (req.query.filters && req.query.find_query) {
+            if (req.query.filters.length > 0 && req.query.find_query.length > 0) {
+                const parsedFilters = req.query.filters.split(',');
+                if (req.query.sort) {
+                    if (req.query.sort === 'names_asc') {
+                        Cafe.find({ filters: {$all: parsedFilters}, cafe_name: {'$regex': userQuery, '$options': 'i' } }, (err, searchedCafes) => {
+                            if (err) res.send(err);
+                            else {
+                                res.json({searchedCafes});
+                            }
+                        }).sort( {cafe_name: 1} );    
+                    }
                 }
-            });
+                else {
+                    Cafe.find({ filters: {$all: parsedFilters}, cafe_name: {'$regex': userQuery, '$options': 'i' } }, (err, searchedCafes) => {
+                        if (err) res.send(err);
+                        else {
+                            res.json({searchedCafes});
+                        }
+                    });
+                }
+            }
+        }
+        else if (req.query.find_query) {
+            if (req.query.find_query.length > 0) {
+                if (req.query.sort) {
+                    if (req.query.sort === 'names_asc') {
+                        Cafe.find({ cafe_name: {'$regex': userQuery, '$options': 'i' } }, (err, searchedCafes) => {
+                            if (err) res.send(err);
+                            else {
+                                res.json({searchedCafes});
+                            }
+                        }).sort( {cafe_name: 1} );    
+                    }
+                }
+                else {
+                    Cafe.find({ cafe_name: {'$regex': userQuery, '$options': 'i' } }, (err, searchedCafes) => {
+                        if (err) res.send(err);
+                        else {
+                            res.json({searchedCafes});
+                        }
+                    });
+                }
+            }
+        }
+        else if (req.query.filters) {
+            if (req.query.filters.length > 0) {
+                const parsedFilters = req.query.filters.split(',');
+                if (req.query.sort) {
+                    if (req.query.sort === 'names_asc') {
+                        Cafe.find({ filters: {$all: parsedFilters} }, (err, searchedCafes) => {
+                            if (err) res.send(err);
+                            else {
+                                res.json({searchedCafes});
+                            }
+                        }).sort( {cafe_name: 1} );    
+                    }
+                }
+                else {
+                    Cafe.find({ filters: {$all: parsedFilters} }, (err, searchedCafes) => {
+                        if (err) res.send(err);
+                        else {
+                            res.json({searchedCafes});
+                        }
+                    });
+                }
+            }
+        }
+        else { // fallback by retrieving cafes
+
         }
     }
     else {

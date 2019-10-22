@@ -47,42 +47,47 @@ class Cafes extends Component {
       
       this.props.history.push({
         pathname: '/cafes',
-        search: '?findQuery='+this.state.searchField
+        search: '?find_query='+this.state.searchField
       });
 
       axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-      axios.get('/search?findQuery='+this.state.searchField)
+      axios.get('/search?find_query='+this.state.searchField+'&filters='+this.state.filterTags+'&sort=names_asc')
         .then((res) => {
-          this.setState({ data: res.data.searchedCafes, loading: false });
+          this.setState({ cafe_data: res.data.searchedCafes, loading: false });
       });
     }
   };
 
   handleFilter = (filter) => {
     let convertedFilter = filter.toLowerCase().replace(/ /g, '_');
-    let result = this.state.filters;
-    if (!result[convertedFilter]) {
-      result[convertedFilter] = true;
+    let updatedFilters = JSON.parse(JSON.stringify(this.state.filters));
+    if (!updatedFilters[convertedFilter]) {
+      updatedFilters[convertedFilter] = true;
     }
     else {
-      result[convertedFilter] = false;
+      updatedFilters[convertedFilter] = false;
     }
-    let trueFilters = Object.keys(result).filter(function(key) {
-      return result[key];
+    let querifiedFilters = Object.keys(updatedFilters).filter(function(key) {
+      return updatedFilters[key];
     });
-    this.setState({ filters: result, filterTags: trueFilters, loading: true });
 
+    this.setState({ filters: updatedFilters, filterTags: querifiedFilters, loading: true });
     this.props.history.push({
       pathname: '/cafes',
-      search: '?filters='+trueFilters+'&findQuery='+this.state.searchField
+      search: '?filters='+querifiedFilters+'&find_query='+this.state.searchField
     });
 
-    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    axios.get('/filter?filters='+trueFilters+'&findQuery='+this.state.searchField)
-      .then((res) => {
-        console.log(res.data.filteredCafes);
-        this.setState({ data: res.data.filteredCafes, loading: false });
-    });
+    if (querifiedFilters.length > 0) {
+      axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+      axios.get('/search?find_query='+this.state.searchField+'&filters='+querifiedFilters+'&sort=names_asc')
+        .then((res) => {
+          this.setState({ cafe_data: res.data.searchedCafes, loading: false });
+      });
+    }
+    else {
+      this.setState({ loading: false });
+      this.props.history.push('/cafes');
+    }
   };
 
   componentDidMount() {
@@ -97,6 +102,9 @@ class Cafes extends Component {
     if (this.state.data !== nextState.data) {
       return true;
     }
+    if (this.state.filters !== nextState.filters) {
+      return true;
+    }
     if (this.props.location !== nextProps.location) {
       return true;
     }
@@ -108,7 +116,7 @@ class Cafes extends Component {
     let cafes;
     
     const filters = Object.keys(this.state.filters).map(function(item) {
-      return item.replace(/_{1,}/g,' ').replace(/(\s{1,}|\b)(\w)/g, function(m, space, letter) {
+      return item.replace(/_{1,}/g,' ').replace(/(\s{1,}|\b)(\w)/g, function(m,space, letter) {
         return space + letter.toUpperCase();
       });
     }, this);
@@ -136,7 +144,8 @@ class Cafes extends Component {
           changeHandler={this.handleSearchChange}
           submitHandler={this.onSearchSubmit}
           filterHandler={this.handleFilter}
-          filterList={filters} />
+          filters={this.state.filters}
+          formattedFilters={filters} />
         <h1 className='cafes-header'>Cafes</h1>
         { cafes }
       </div>

@@ -12,8 +12,9 @@ const searchBar = (props) => (
       <Button btnType='Main'>⌕</Button>
     </form>
     <FilterSearch
-      filters={ props.filterList }
-      filterHandler={ props.filterHandler } />
+      filterHandler={ props.filterHandler }
+      filters={ props.filters }
+      formattedFilters={ props.formattedFilters } />
   </div>
 );
 

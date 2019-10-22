@@ -28,19 +28,19 @@ const CafeMap = withScriptjs(withGoogleMap((props) => {
         streetViewControl: false,
         fullscreenControl: false,
         styles: customMap}}>
-        <MarkerClusterer
-          onClick={props.clusterClick}
-          averageCenter
-          enableRetinaIcons
-          gridSize={60}
-          styles={[{
-              url: ClusterMarkerIcon,
-              height: 32,
-              width: 32,
-              textColor:"#FFF"
-            }]}>
-          {markers}
-        </MarkerClusterer>
+          <MarkerClusterer
+            onClick={props.clusterClick}
+            averageCenter
+            enableRetinaIcons
+            gridSize={60}
+            styles={[{
+                url: ClusterMarkerIcon,
+                height: 32,
+                width: 32,
+                textColor:"#FFF"
+              }]}>
+            {markers}
+          </MarkerClusterer>
     </GoogleMap>
   )
 }));

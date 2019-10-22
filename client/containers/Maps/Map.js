@@ -18,14 +18,14 @@ class Map extends Component {
 
 	getCafeNamesAndPos(event) {
 		axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-		axios.get('/cafe?category=names,pos')
+		axios.get('/cafe?category=names,pos,id')
 		.then(function(res) {
 			event.setState({cafes: res.data});
 		})
-		.catch((error) => {
-			// if (error.response.status === 401) {
-			//   this.props.history.push("/login");
-			// }
+		.catch((err) => {
+			if (err.response.status === 401) {
+			  this.props.history.push("/login");
+			}
 		});
 	};
 
@@ -39,8 +39,8 @@ class Map extends Component {
 
 	onMarkerClustererClick = (markerClusterer) => {
 		const clickedMarkers = markerClusterer.getMarkers()
-		console.log(`Current clicked markers length: ${clickedMarkers.length}`)
-		console.log(clickedMarkers)
+		//console.log(`Current clicked markers length: ${clickedMarkers.length}`)
+		//console.log(clickedMarkers)
 	};
 
 	render() {
