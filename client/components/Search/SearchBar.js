@@ -7,7 +7,8 @@ const searchBar = (props) => (
     <form class="form-signin" onSubmit={ props.submitHandler }>
       <input 
           type='text' 
-          placeholder='Enter a cafe...' 
+          placeholder='Enter a cafe...'
+          value={ props.searchValue }
           onChange={ props.changeHandler } required />
       <Button btnType='Main'>⌕</Button>
     </form>

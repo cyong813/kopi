@@ -10,6 +10,7 @@ class Cafes extends Component {
     this.state = {
       cafe_data: [],
       searchField: '',
+      firstSearch: '',
       filters: {
         'credit_card': false,
         'good_for_working': false,
@@ -37,7 +38,8 @@ class Cafes extends Component {
   };
 
   handleSearchChange(event) {
-    this.setState({ searchField: event.target.value })
+    this.setState({ searchField: event.target.value });
+    console.log('handler '+event.target.value);
   };
 
   onSearchSubmit(event) {
@@ -104,19 +106,20 @@ class Cafes extends Component {
     if (this.props.location.search.length > 0) {
       // parse filters from user's query, and update mounted state
       const filterQuery = this.props.location.search.substring(this.props.location.search.indexOf('filters=')+8,this.props.location.search.length).split(',');
+      const userQuery = this.props.location.search.substring(this.props.location.search.indexOf('find_query=')+11,this.props.location.search.indexOf('&'));
       let updatedFilters = JSON.parse(JSON.stringify(this.state.filters));
       filterQuery.forEach(filter => {
         if (filter in updatedFilters) {
           updatedFilters[filter] = true;
         }
       });
-      console.log(updatedFilters);
       axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-      axios.get('/search'+this.props.location.search)
+      axios.get('/search'+this.props.location.search+'&sort=names_asc')
         .then((res) => {
           this.setState({
             cafe_data: res.data.searchedCafes,
             filters: updatedFilters,
+            searchField: userQuery,
             loading: false
           });
       });
@@ -131,13 +134,16 @@ class Cafes extends Component {
     if (this.state.loading !== nextState.loading) {
       return true;
     }
-    if (this.state.data !== nextState.data) {
+    else if (this.state.data !== nextState.data) {
       return true;
     }
-    if (this.state.filters !== nextState.filters) {
+    else if (this.state.filters !== nextState.filters) {
       return true;
     }
-    if (this.props.location !== nextProps.location) {
+    else if (this.state.searchField !== nextState.searchField) {
+      return true;
+    }
+    else if (this.props.location !== nextProps.location) {
       return true;
     }
     return false;
@@ -176,6 +182,7 @@ class Cafes extends Component {
           changeHandler={this.handleSearchChange}
           submitHandler={this.onSearchSubmit}
           filterHandler={this.handleFilter}
+          searchValue={this.state.searchField}
           filters={this.state.filters}
           formattedFilters={filters} />
         <h1 className='cafes-header'>Cafes</h1>
