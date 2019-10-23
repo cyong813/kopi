@@ -27,25 +27,25 @@ class Cafe extends Component {
   getData(event) {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
     axios.get('/cafes/'+this.props.match.params.cafe_name)
-      .then(function(response) {
+      .then(function(res) {
         // check for bookmark and accordingly change the bookmark button
-        if (response.data.bkmk) {
+        if (res.data.bkmk) {
           event.setState({
-            data: response.data.cafe, 
-            cafe_name: response.data.cafe.cafe_name, 
+            data: res.data.cafe, 
+            cafe_name: res.data.cafe.cafe_name, 
             loading: false, 
             saved: true});
         }
         else {
           event.setState({
-            data: response.data.cafe, 
-            cafe_name: response.data.cafe.cafe_name, 
+            data: res.data.cafe, 
+            cafe_name: res.data.cafe.cafe_name, 
             loading: false, 
             saved: false});
         }
       })
-      .catch((error) => {
-        // if (error.response.status === 401) {
+      .catch((err) => {
+        // if (err.res.status === 401) {
         //   this.props.history.push("/login");
         // }
     });
@@ -79,7 +79,6 @@ class Cafe extends Component {
   }
 
   insertNewCafeBookmark(event) {
-    console.log(event.state.cafe_name);
     axios.post('/bookmark',
     querystring.stringify({
       cafe_name: event.state.cafe_name
@@ -87,22 +86,20 @@ class Cafe extends Component {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
       }
-    }).then(function(response) {
-      event.setState({ messageFromServer: response.data });
+    }).then(function(res) {
+      event.setState({ messageFromServer: res.data });
     });
   }
 
   deleteBookmark() {
-    axios.get('/api/cafe/'+this.props.match.params.cafe_name)
-      .then(function(response) {
+    axios.get('/cafes/'+this.props.match.params.cafe_name)
+      .then(function(res) {
         // check for bookmark and accordingly change the bookmark button
-        if (response.data.bkmk) {
-          console.log(response.data.bkmk._id);
-          return axios.delete('/bookmark?id='+response.data.bkmk._id)
+        if (res.data.bkmk) {
+          return axios.delete('/bookmark?id='+res.data.bkmk._id)
             .then(function(result) {
-              console.log(result.data);
-            }).catch((error) => {
-              // if (error.response.status === 401) {
+            }).catch((err) => {
+              // if (err.res.status === 401) {
               //   this.props.history.push("/login");
               // }
           });

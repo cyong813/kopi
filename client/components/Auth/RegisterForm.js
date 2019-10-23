@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const registerForm = (props) => (
     <div class='Auth'>
@@ -37,5 +38,13 @@ const registerForm = (props) => (
         </div>
     </div>
 );
+
+registerForm.propTypes = {
+    username: PropTypes.string.isRequired,
+    password: PropTypes.string.isRequired,
+    message: PropTypes.string.isRequired,
+    submitHandler: PropTypes.func.isRequired,
+    textChangeHandler: PropTypes.func.isRequired
+};
 
 export default registerForm;

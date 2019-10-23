@@ -1,0 +1,87 @@
+.Drink {
+    text-align: center;
+    margin-top: 70px;
+  
+    h1 {
+        display: inline-block;
+    }
+  
+    button {
+        display: inline-block;
+        border: none;
+        background-color: transparent;
+        background-size: 100%;
+        width: 50px;
+        height: 50px;
+        padding-left: 25px;
+    
+        img {
+            width: inherit;
+        }
+    }
+  
+    button:focus {
+        outline: 0;
+    }
+  
+    .drink-cafe-list {
+        a {
+            color: black;
+            transition: 0.15s ease-in-out;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            color: $main-color;
+        }
+    }
+}
+  
+.Drinks {
+    margin-top: 70px;
+    margin-bottom: 30px;
+    padding: 20px 20px;
+  
+    .drinks-header {
+        text-align: center;
+    }
+  
+    .drinks-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 50px;
+        margin: 50px 0;
+    }
+  
+    .DrinkItem {
+        border-radius: 5px;
+        cursor: pointer;
+        
+        a {
+            color: black;
+            transition: 0.15s ease-in-out;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            color: $main-color;
+        }
+    
+        img {
+            margin: 0 auto;
+            display: block;
+        }
+    
+        .drink-title {
+            text-align: center;
+        }
+    }
+    
+    .DrinkItem:hover {
+        color: $main-color;
+        text-decoration: none;
+        transition: 0.15s ease-in-out;
+        box-shadow: 0 1px 4px 0 rgba(85,85,85,.3);
+        box-sizing: border-box;
+    }  
+}

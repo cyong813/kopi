@@ -1,5 +1,6 @@
 import React from 'react';
 import NavigationItem from './NavigationItem/NavigationItem';
+import PropTypes from 'prop-types';
 
 const loggedNavigationItems = (props) => (
   <ul className='NavigationItems'>
@@ -16,5 +17,9 @@ const loggedNavigationItems = (props) => (
     </li>
   </ul>
 );
+
+loggedNavigationItems.propTypes = {
+  clicked: PropTypes.func.isRequired
+};
 
 export default loggedNavigationItems;

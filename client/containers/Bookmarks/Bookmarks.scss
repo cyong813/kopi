@@ -1,0 +1,58 @@
+.Bookmarks {
+    margin-top: 70px;
+    margin-bottom: 30px;
+    padding: 20px 20px;
+  
+    .CafeBookmarkItem {
+        .CafeItem {
+            display: inline-block;
+            margin: 10px;
+    
+            a {
+            color: black;
+            transition: 0.15s ease-in-out;
+            text-decoration: none;
+            }
+            
+            a:hover {
+            color: $main-color;
+            }
+        }
+        .DeleteBookmark {
+            display: inline-block;
+        }
+    }
+  
+    .DrinkBookmarkItem {
+        .DrinkItem {
+            display: inline-block;
+            margin: 10px;
+    
+            a {
+            color: black;
+            transition: 0.15s ease-in-out;
+            text-decoration: none;
+            }
+            
+            a:hover {
+            color: $main-color;
+            }
+        }
+        .DeleteBookmark {
+            display: inline-block;
+        }
+    }
+  
+    .bookmarks-header {
+        text-align: center;
+    }
+  
+    .cafe-bookmarks-header {
+        padding: 20px 20px;
+    }
+  
+    .drink-bookmarks-header {
+        padding: 20px 20px;
+    }
+}
+  

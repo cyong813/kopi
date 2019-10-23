@@ -10,7 +10,6 @@ class Cafes extends Component {
     this.state = {
       cafe_data: [],
       searchField: '',
-      firstSearch: '',
       filters: {
         'credit_card': false,
         'good_for_working': false,
@@ -39,7 +38,6 @@ class Cafes extends Component {
 
   handleSearchChange(event) {
     this.setState({ searchField: event.target.value });
-    console.log('handler '+event.target.value);
   };
 
   onSearchSubmit(event) {

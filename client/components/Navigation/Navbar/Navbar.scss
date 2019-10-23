@@ -1,0 +1,41 @@
+.Navbar {
+    height: 56px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+    z-index: 90;
+    nav {
+         height: 100%;
+    }
+    .Logo {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    
+    @media (max-width: 499px) {
+        .DesktopOnly {
+            display: none;
+        }
+    }
+    
+    a {
+        color: black;
+        transition: 0.15s ease-in-out;
+        text-decoration: none;
+    }
+    
+    a:hover {
+        color: $main-color;
+    }
+}
+  
+.LoggedNavbar {
+    background-color: white;
+}
+  

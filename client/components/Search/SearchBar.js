@@ -1,9 +1,10 @@
 import React from 'react';
 import Button from '../UI/Button/Button';
 import FilterSearch from './FilterSearch';
+import PropTypes from 'prop-types';
 
 const searchBar = (props) => (
-  <div className='search-container'>
+  <div className='SearchBar'>
     <form class="form-signin" onSubmit={ props.submitHandler }>
       <input 
           type='text' 
@@ -18,5 +19,14 @@ const searchBar = (props) => (
       formattedFilters={ props.formattedFilters } />
   </div>
 );
+
+searchBar.propTypes = {
+  searchValue: PropTypes.string.isRequired,
+  filters: PropTypes.object.isRequired,
+  formattedFilters: PropTypes.array.isRequired,
+  filterHandler: PropTypes.func.isRequired,
+  submitHandler: PropTypes.func.isRequired,
+  changeHandler: PropTypes.func.isRequired
+};
 
 export default searchBar;

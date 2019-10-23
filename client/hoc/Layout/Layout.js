@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from '../../components/Navigation/Navbar/Navbar';
+import PropTypes from 'prop-types';
 
 const Layout = (props) => (
     <React.Fragment>
@@ -9,5 +10,9 @@ const Layout = (props) => (
         </main>
     </React.Fragment>
 );
+
+Layout.propTypes = {
+    children: PropTypes.element.isRequired
+};
 
 export default Layout;

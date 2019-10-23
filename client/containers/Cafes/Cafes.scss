@@ -1,0 +1,135 @@
+.Cafe {
+    margin-top: 70px;
+    text-align: center;
+  
+    .cafe-container {
+        color: white;
+        position: absolute;
+        top: 90px; right: 0; bottom: 0; left: 0;
+  
+        img {
+            width: 100%;
+            opacity: 0.75;
+        }
+    
+        .cafe-info {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: black;
+            opacity: 0.75;
+            padding: 50px 100px 50px 100px;
+        }
+    }
+  
+    h1 {
+        display: inline-block;
+        font-size: 50px;
+    }
+  
+    p {
+        font-size: 15px;
+    }
+  
+    a {
+        color: $main-color;
+        transition: 0.15s ease-in-out;
+        text-decoration: none;
+    }
+  
+    a:hover {
+        transition: 0.15s ease-in-out;
+        color: white;
+        text-decoration: none;
+    }
+  
+    button {
+        display: inline-block;
+        border: none;
+        background-color: transparent;
+        background-size: 100%;
+        width: 75px;
+        height: 75px;
+        padding-left: 10px;
+    
+        img {
+            width: inherit;
+        }
+    }
+  
+    button:focus {
+        outline: 0;
+    }
+  
+    .drink-list-container {
+        padding: 10px;
+    
+        h3 {
+            font-size: 25px;
+            padding-bottom: 10px;
+        }
+    
+        ul {
+            padding-left: 50px;
+            padding-right: 50px;
+        }
+    
+        li {
+            list-style: none; 
+            display: inline-block;
+            padding: 5px 10px;
+        
+            a {
+            color: black;
+            transition: 0.15s ease-in-out;
+            text-decoration: none;
+            padding: 5px 10px;
+            background-color: white;
+            }
+        
+            a:hover {
+            transition: 0.15s ease-in-out;
+            box-shadow: 0 1px 4px 0 $main-color;
+            box-sizing: border-box;
+            }
+        }
+    }
+}
+  
+.Cafes {
+    margin-top: 70px;
+    margin-bottom: 30px;
+    padding: 20px 20px;
+  
+    .cafes-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+  
+    .cafe-list {
+        ol {
+            display: table;
+            text-align: center;
+            margin: 0 auto;
+        }
+    }
+}
+  
+.CafeItem {
+    cursor: pointer;
+  
+    a {
+        color: black;
+        transition: 0.15s ease-in-out;
+        text-decoration: none;
+    }
+    
+    a:hover {
+        color: $main-color;
+    }
+  
+    .cafe-title {
+        text-align: center;
+    }
+}

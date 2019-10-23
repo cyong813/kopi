@@ -13,7 +13,7 @@ class Map extends Component {
 			longitude: -73.991554,
 			activeMarker: false,
 			key: 'https://maps.googleapis.com/maps/api/js?key='+GOOGLE_MAPS_API_KEY+'&libraries=geometry,drawing,places'
-		}
+		};
 	}
 
 	getCafeNamesAndPos(event) {
@@ -23,7 +23,7 @@ class Map extends Component {
 			event.setState({cafes: res.data});
 		})
 		.catch((err) => {
-			if (err.response.status === 401) {
+			if (err.res.status === 401) {
 			  this.props.history.push("/login");
 			}
 		});

@@ -189,8 +189,7 @@ router.route('/bookmark')
         }
     });
 
-// GET all cafes (or all cafe locations, names, etc.)
-// Params: pos, names
+// GET all cafes (or params: pos, names, ids)
 router.get('/cafe', passport.authenticate('jwt', { session: false }), function(req, res) {
     var token = getToken(req.headers);
     if (token) {
@@ -342,6 +341,7 @@ router.get('/cafes/:cafe_name', passport.authenticate('jwt', { session: false })
     } 
 });
 
+// GET all drinks
 router.get('/drink', passport.authenticate('jwt', { session: false }), function(req, res) {
     var token = getToken(req.headers);
     if (token) {

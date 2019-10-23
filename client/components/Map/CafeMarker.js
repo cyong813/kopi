@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Marker, InfoWindow } from 'react-google-maps';
 
 import MarkerIcon from '../../assets/images/MapMarker.png';
@@ -19,7 +20,7 @@ class CafeMarker extends Component {
           this.setState({activeMarker: false}, () => {
             this.props.onClick(null);
           })
-        } else{
+        } else {
           this.props.onClick(this.props.cid);
         }
       }
@@ -46,5 +47,13 @@ class CafeMarker extends Component {
     )
   }
 }
+
+CafeMarker.propTypes = {
+  cid: PropTypes.string.isRequired,
+  cafe: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+  activeMarker: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired
+};
 
 export default CafeMarker;

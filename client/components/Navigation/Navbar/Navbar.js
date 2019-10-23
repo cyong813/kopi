@@ -13,7 +13,7 @@ class Navbar extends Component {
     const isAuthed = localStorage.getItem('jwtToken');
 
     return (
-      <header className='Navbar'>
+      <header className={isAuthed ? ['Navbar','LoggedNavbar'].join(' ') : 'Navbar'}>
         <div className='Logo'>
           <Logo />
         </div>

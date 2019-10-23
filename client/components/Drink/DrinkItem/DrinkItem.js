@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const drinkItem = (props) => (
     <div className='DrinkItem'>
@@ -14,5 +15,9 @@ const drinkItem = (props) => (
         </Link>
     </div>
 );
+
+drinkItem.propTypes = {
+    drink: PropTypes.object.isRequired
+};
 
 export default drinkItem;

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 const CafeMapCard = (props) => {
 	const { cafe } = props;
@@ -9,5 +10,9 @@ const CafeMapCard = (props) => {
 		</div>
 	);
 }
+
+CafeMapCard.propTypes = {
+	cafe: PropTypes.object.isRequired
+};
 
 export default CafeMapCard;

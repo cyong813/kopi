@@ -7,7 +7,6 @@ import NotBookmarkedIcon from '../../../assets/images/bookmark.png';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 class Drink extends Component {
   constructor() {
     super()
@@ -27,23 +26,23 @@ class Drink extends Component {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
     this.setState({drink_name: this.props.match.params.drink_name});
     axios.get('/drinks/'+this.props.match.params.drink_name)
-      .then(function(response) {
+      .then(function(res) {
         // check for bookmark and accordingly change the bookmark button
-        if (response.data.bkmk) {
+        if (res.data.bkmk) {
           event.setState({
-            data: response.data.cafes, 
+            data: res.data.cafes, 
             saved: true
           });
         }
         else {
           event.setState({
-            data: response.data.cafes, 
+            data: res.data.cafes, 
             saved: false
           });
         }
       })
       .catch((error) => {
-        if (error.response.status === 401) {
+        if (error.res.status === 401) {
           this.props.history.push("/login");
         }
       });
@@ -85,22 +84,20 @@ class Drink extends Component {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
         }
-    }).then(function(response) {
-      event.setState({ messageFromServer: response.data });
+    }).then(function(res) {
+      event.setState({ messageFromServer: res.data });
     });
   }
 
   deleteBookmark() {
-    axios.get('/api/drink/'+this.props.match.params.drink_name)
-      .then(function(response) {
+    axios.get('/drinks/'+this.props.match.params.drink_name)
+      .then(function(res) {
         // check for bookmark and accordingly change the bookmark button
-        if (response.data.bkmk) {
-          console.log(response.data.bkmk._id);
-          return axios.delete('/bookmark?id='+response.data.bkmk._id)
+        if (res.data.bkmk) {
+          return axios.delete('/bookmark?id='+res.data.bkmk._id)
             .then(function(result) {
-              console.log(result.data);
-            }).catch((error) => {
-              // if (error.response.status === 401) {
+            }).catch((err) => {
+              // if (err.res.status === 401) {
               //   this.props.history.push("/login");
               // }
           });

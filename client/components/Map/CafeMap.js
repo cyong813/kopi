@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withScriptjs, withGoogleMap, GoogleMap } from 'react-google-maps';
 const { MarkerClusterer } = require('react-google-maps/lib/components/addons/MarkerClusterer');
 
@@ -44,5 +45,11 @@ const CafeMap = withScriptjs(withGoogleMap((props) => {
     </GoogleMap>
   )
 }));
+
+CafeMap.propTypes = {
+  location: PropTypes.object.isRequired,
+  onClick: PropTypes.func.isRequired,
+  clusterClick: PropTypes.func.isRequired
+};
 
 export default CafeMap;
