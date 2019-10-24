@@ -15,7 +15,7 @@ const registerForm = (props) => (
                 <label for='inputEmail'>Email address</label>
                 <input 
                     type='email' 
-                    class='form-control' 
+                    class='formControl' 
                     autoComplete='off' 
                     name='username' 
                     value={ props.username } 
@@ -24,13 +24,13 @@ const registerForm = (props) => (
                 <label for='inputPassword'>Password</label>
                 <input 
                     type='password' 
-                    class='form-control' 
+                    class='formControl' 
                     autoComplete='off' 
                     name='password' 
                     value={ props.password } 
                     onChange={ props.textChangeHandler } required
                 />
-                <button class='form-button' type='submit'>Register</button>
+                <button class='formButton' type='submit'>Register</button>
                 <p>
                     Already a member? <Link to='/login'><span class='glyphicon glyphicon-plus-sign' aria-hidden='true' /> Sign In</Link>
                 </p>

@@ -5,6 +5,7 @@
 @import '../../components/Logo/Logo';
 @import '../../components/UI/Spinner/Spinner';
 @import '../../components/UI/Button/Button';
+@import '../../components/UI/Backdrop/Backdrop';
 @import '../../components/Auth/Auth';
 @import '../../components/Search/Search';
 
@@ -18,6 +19,11 @@
 
 body {
   font-family: $main-font;
+}
+
+input:focus {
+  outline: none !important;
+  box-shadow: 0 0 5px $main-color;
 }
 
 /* Homepage */

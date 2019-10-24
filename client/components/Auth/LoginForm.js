@@ -15,7 +15,7 @@ const loginForm = (props) => (
                 <label for='inputEmail'>Email address</label>
                 <input 
                     type='email' 
-                    class='form-control' 
+                    class='formControl' 
                     autoComplete='off' 
                     name='username' 
                     value={ props.username } 
@@ -24,13 +24,13 @@ const loginForm = (props) => (
                 <label for='inputPassword'>Password</label>
                 <input 
                     type='password' 
-                    class='form-control' 
+                    class='formControl' 
                     autoComplete='off' 
                     name='password' 
                     value={ props.password } 
                     onChange={ props.textChangeHandler } required
                 />
-                <button class='form-button' type='submit'>Login</button>
+                <button class='formButton' type='submit'>Login</button>
                 <p>
                     Not a member? <Link to='/register'><span class='glyphicon glyphicon-plus-sign' aria-hidden='true' /> Register here</Link>
                 </p>
@@ -38,6 +38,7 @@ const loginForm = (props) => (
         </div>  
     </div>
 );
+
 
 loginForm.propTypes = {
     username: PropTypes.string.isRequired,

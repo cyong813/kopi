@@ -7,7 +7,20 @@
     align-items: center;
     height: 100%;
 }
-  
+
+.UnloggedNavItems {
+    a {
+        color: white;
+        text-shadow: #feffc2 0 0 5px;
+    }
+    a:hover,
+    a:active,
+    a.active {
+        color: white;
+        text-shadow: #feffc2 0 0 5px;
+    }
+}
+
 @media (min-width: 500px) {
     .NavigationItems {
         flex-flow: row;
