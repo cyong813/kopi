@@ -1,7 +1,8 @@
 import React from 'react';
 
 import Logo from '../../Logo/Logo';
-import NavigationItems from '../NavigationItems/LoggedNavigationItems';
+import LoggedNavigationItems from '../NavigationItems/LoggedNavigationItems';
+import UnloggedNavigationItems from '../NavigationItems/UnloggedNavigationItems';
 import Backdrop from '../../UI/Backdrop/Backdrop';
 
 const sideDrawer = (props) => {
@@ -9,6 +10,8 @@ const sideDrawer = (props) => {
     if (props.open) {
         attachedClasses = ['SideDrawer','Open'];
     }
+
+    const isAuthed = localStorage.getItem('jwtToken');
 
     return (
         <React.Fragment>
@@ -18,7 +21,10 @@ const sideDrawer = (props) => {
                     <Logo />
                 </div>
                 <nav>
-                    <NavigationItems />
+                    { isAuthed ? 
+                        <LoggedNavigationItems clicked={props.logout.bind(this)} /> : 
+                        <UnloggedNavigationItems sideNav='SideNavItem' /> 
+                    }
                 </nav>
             </div>
         </React.Fragment>

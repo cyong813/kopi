@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const navigationItem = (props) => (
-    <li className='NavigationItem'>
+    <li className={props.sideNav === 'SideNavItem' ? ['NavigationItem', 'SideNavItem'].join(' ') : 'NavigationItem'}>
         <Link to={props.path}> {props.name} </Link>
     </li>
 );

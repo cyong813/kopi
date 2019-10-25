@@ -5,10 +5,20 @@
     width: 100%;
     a {
         text-decoration: none;
-        color: black;
         width: 100%;
         box-sizing: border-box;
         display: block;
+    }
+}
+
+.SideNavItem {
+    a {
+        color: black;
+    }
+    a:hover,
+    a:active,
+    a.active {
+        border-bottom: 4px solid black;
     }
 }
 

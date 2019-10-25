@@ -10,24 +10,30 @@ class Layout extends Component {
     };
 
     sideDrawerClosedHandler = () => {
-        console.log('closed')
         this.setState({ showSideDrawer: false });
     };
 
     sideDrawerToggleHandler = () => {
-        console.log('toggle')
-        this.setState({showSideDrawer: !this.state.showSideDrawer });
+        this.setState(prevState => ({
+            showSideDrawer: !prevState.showSideDrawer 
+        }));
     };
+
+    handleLogout() {
+        localStorage.removeItem('jwtToken');
+        window.location.reload();
+    }
 
     render() {
         return (
             <React.Fragment>
                 <Navbar 
-                    pName={ this.props.pName }
-                    drawerToggleClicked={this.sideDrawerToggleHandler} />
+                    drawerToggleClicked={this.sideDrawerToggleHandler}
+                    logout={this.handleLogout} />
                 <SideDrawer
                     open={this.state.showSideDrawer}
-                    closed={this.sideDrawerClosedHandler} />
+                    closed={this.sideDrawerClosedHandler}
+                    logout={this.handleLogout} />
                 <main className='Content'>
                     { this.props.children }
                 </main>

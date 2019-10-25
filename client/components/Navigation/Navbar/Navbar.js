@@ -5,11 +5,6 @@ import LoggedNavigationItems from '../NavigationItems/LoggedNavigationItems';
 import DrawerToggle from '../SideDrawer/DrawerToggle/DrawerToggle';
 
 class Navbar extends Component {
-  handleLogout() {
-    localStorage.removeItem('jwtToken');
-    window.location.reload();
-  }
-
   render() {
     const isAuthed = localStorage.getItem('jwtToken');
 
@@ -22,8 +17,8 @@ class Navbar extends Component {
         <nav className='DesktopOnly'>
           { isAuthed ? 
             <LoggedNavigationItems 
-              clicked={this.handleLogout.bind(this)} /> : 
-            <UnloggedNavigationItems pName={ this.props.pName } /> 
+              clicked={this.props.logout.bind(this)} /> : 
+            <UnloggedNavigationItems /> 
           }
         </nav>
       </header>

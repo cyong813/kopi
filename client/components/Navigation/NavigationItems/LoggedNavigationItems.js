@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 
 const loggedNavigationItems = (props) => (
   <ul className='NavigationItems'>
-    <NavigationItem path='/bookmarks' name='Bookmarks' />
-    <NavigationItem path='/cafes' name='Cafes' />
-    <NavigationItem path='/drinks' name='Drinks' />
-    <li className='NavigationItem'>
+    <NavigationItem path='/bookmarks' name='Bookmarks' sideNav='SideNavItem' />
+    <NavigationItem path='/cafes' name='Cafes' sideNav='SideNavItem' />
+    <NavigationItem path='/drinks' name='Drinks' sideNav='SideNavItem' />
+    <li className={['NavigationItem', 'SideNavItem'].join(' ')}>
       <a
         href="#"
         onClick={props.clicked}

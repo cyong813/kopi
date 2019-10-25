@@ -30,7 +30,7 @@ class Bookmarks extends Component {
         drinkBkmkData: newDrinkState
       });
     }
-  }
+  };
 
   getCafeBookmarkData(event) {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
@@ -43,7 +43,7 @@ class Bookmarks extends Component {
           this.props.history.push("/login");
         }
       });
-  }
+  };
 
   getDrinkBookmarkData(event) {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
@@ -56,7 +56,7 @@ class Bookmarks extends Component {
           this.props.history.push("/login");
         }
       });
-  }
+  };
 
   componentDidMount() {
     this.getCafeBookmarkData(this);
