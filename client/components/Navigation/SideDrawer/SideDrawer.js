@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Logo from '../../Logo/Logo';
 import LoggedNavigationItems from '../NavigationItems/LoggedNavigationItems';
@@ -29,6 +30,12 @@ const sideDrawer = (props) => {
             </div>
         </React.Fragment>
     );
+};
+
+sideDrawer.propTypes = {
+    open: PropTypes.bool.isRequired,
+    closed: PropTypes.func.isRequired,
+    logout: PropTypes.func.isRequired
 };
 
 export default sideDrawer;

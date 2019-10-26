@@ -22,14 +22,15 @@ class Layout extends Component {
     handleLogout() {
         localStorage.removeItem('jwtToken');
         window.location.reload();
-    }
+    };
 
     render() {
         return (
             <React.Fragment>
                 <Navbar 
                     drawerToggleClicked={this.sideDrawerToggleHandler}
-                    logout={this.handleLogout} />
+                    logout={this.handleLogout}
+                    isAuthed={localStorage.getItem('jwtToken')} />
                 <SideDrawer
                     open={this.state.showSideDrawer}
                     closed={this.sideDrawerClosedHandler}

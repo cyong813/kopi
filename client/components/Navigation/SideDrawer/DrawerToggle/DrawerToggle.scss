@@ -12,7 +12,18 @@
     div {
         width: 75%;
         height: 3px;
+    }
+}
+
+.LoggedDrawerToggle {
+    div {
         background-color: black;
+    }
+}
+
+.UnloggedDrawerToggle {
+    div {
+        background-color: white;
     }
 }
 
