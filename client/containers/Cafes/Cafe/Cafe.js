@@ -96,8 +96,9 @@ class Cafe extends Component {
       .then(function(res) {
         // check for bookmark and accordingly change the bookmark button
         if (res.data.bkmk) {
+          console.log(res.data.bkmk)
           return axios.delete('/bookmark?id='+res.data.bkmk._id)
-            .then(function(result) {
+            .then(function(res) {
             }).catch((err) => {
               // if (err.res.status === 401) {
               //   this.props.history.push("/login");
@@ -169,10 +170,10 @@ class Cafe extends Component {
     }
 
     return (
-      <div>
+      <React.Fragment>
         <ToastContainer />
         {cafe}
-      </div>
+      </React.Fragment>
     );
   }
 }

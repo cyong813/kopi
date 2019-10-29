@@ -61,7 +61,7 @@ router.post('/login', function(req, res) {
     });
 });
 
-router.get('/', function(req, res){
+router.get('/', function(req, res) {
     res.render('index');
 });
 
@@ -330,7 +330,7 @@ router.get('/cafes/:cafe_name', passport.authenticate('jwt', { session: false })
     if (token) {
         Cafe.findOne({ cafe_name : req.params.cafe_name }, (err, cafe) => {
             if (err) res.send(err);
-            CafeBookmark.findOne({ cafe_name: req.params.cafe_name }, (err, bkmk) => {
+            CafeBookmark.findOne({ cafe_name: req.params.cafe_name, user_id: req.user._id }, (err, bkmk) => {
                 if (err) res.send(err);
                 res.json({cafe, bkmk}); // returns cafe info and bookmark!
             });
@@ -411,7 +411,7 @@ router.get('/drinks/:drink_name', passport.authenticate('jwt', { session: false 
             // Find cafes associated with this drink
             Cafe.find({ drinks: {$elemMatch: {drink_name: result.drink_name}} }, function(err, cafes) {
                 if (err) res.send(err);
-                DrinkBookmark.findOne({ drink_name: req.params.drink_name }, (err, bkmk) => {
+                DrinkBookmark.findOne({ drink_name: req.params.drink_name, user_id: req.user._id }, (err, bkmk) => {
                     if (err) res.send(err);
                     res.json({cafes, bkmk}); // returns cafes and bookmark!
                 });
