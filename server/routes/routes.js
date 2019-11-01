@@ -248,7 +248,76 @@ router.get('/search', passport.authenticate('jwt', { session: false }), function
     if (token) {
         const userQuery = req.query.find_query;
         const filterQuery = req.query.filters;
-        if (filterQuery && userQuery) {
+        const categoryQuery = req.query.category;
+        if (categoryQuery && filterQuery && userQuery) {
+            if (categoryQuery.length > 0 && filterQuery.length > 0 && userQuery.length > 0) {
+                const parsedFilters = filterQuery.split(',');
+                if (req.query.sort) {
+                    if (req.query.sort === 'names_asc') {
+                        Cafe.find({ categories: categoryQuery, filters: {$all: parsedFilters}, cafe_name: {'$regex': userQuery, '$options': 'i' } }, (err, searchedCafes) => {
+                            if (err) res.send(err);
+                            else {
+                                res.json({searchedCafes});
+                            }
+                        }).sort( {cafe_name: 1} );    
+                    }
+                }
+                else {
+                    Cafe.find({ categories: categoryQuery, filters: {$all: parsedFilters}, cafe_name: {'$regex': userQuery, '$options': 'i' } }, (err, searchedCafes) => {
+                        if (err) res.send(err);
+                        else {
+                            res.json({searchedCafes});
+                        }
+                    });
+                }
+            }
+        }
+        else if (categoryQuery && filterQuery) {
+            if (categoryQuery.length > 0 && filterQuery.length > 0) {
+                const parsedFilters = filterQuery.split(',');
+                if (req.query.sort) {
+                    if (req.query.sort === 'names_asc') {
+                        Cafe.find({ categories: categoryQuery, filters: {$all: parsedFilters} }, (err, searchedCafes) => {
+                            if (err) res.send(err);
+                            else {
+                                res.json({searchedCafes});
+                            }
+                        }).sort( {cafe_name: 1} );    
+                    }
+                }
+                else {
+                    Cafe.find({ categories: categoryQuery, filters: {$all: parsedFilters} }, (err, searchedCafes) => {
+                        if (err) res.send(err);
+                        else {
+                            res.json({searchedCafes});
+                        }
+                    });
+                }
+            }
+        }
+        else if (categoryQuery && userQuery) {
+            if (categoryQuery.length > 0 && userQuery.length > 0) {
+                if (req.query.sort) {
+                    if (req.query.sort === 'names_asc') {
+                        Cafe.find({ categories: categoryQuery, cafe_name: {'$regex': userQuery, '$options': 'i' } }, (err, searchedCafes) => {
+                            if (err) res.send(err);
+                            else {
+                                res.json({searchedCafes});
+                            }
+                        }).sort( {cafe_name: 1} );    
+                    }
+                }
+                else {
+                    Cafe.find({ categories: categoryQuery, cafe_name: {'$regex': userQuery, '$options': 'i' } }, (err, searchedCafes) => {
+                        if (err) res.send(err);
+                        else {
+                            res.json({searchedCafes});
+                        }
+                    });
+                }
+            }
+        }
+        else if (filterQuery && userQuery) {
             if (filterQuery.length > 0 && userQuery.length > 0) {
                 const parsedFilters = filterQuery.split(',');
                 if (req.query.sort) {
@@ -263,6 +332,28 @@ router.get('/search', passport.authenticate('jwt', { session: false }), function
                 }
                 else {
                     Cafe.find({ filters: {$all: parsedFilters}, cafe_name: {'$regex': userQuery, '$options': 'i' } }, (err, searchedCafes) => {
+                        if (err) res.send(err);
+                        else {
+                            res.json({searchedCafes});
+                        }
+                    });
+                }
+            }
+        }
+        else if (categoryQuery) {
+            if (categoryQuery.length > 0) {
+                if (req.query.sort) {
+                    if (req.query.sort === 'names_asc') {
+                        Cafe.find({ categories: categoryQuery }, (err, searchedCafes) => {
+                            if (err) res.send(err);
+                            else {
+                                res.json({searchedCafes});
+                            }
+                        }).sort( {cafe_name: 1} );    
+                    }
+                }
+                else {
+                    Cafe.find({ categories: categoryQuery }, (err, searchedCafes) => {
                         if (err) res.send(err);
                         else {
                             res.json({searchedCafes});
@@ -316,7 +407,7 @@ router.get('/search', passport.authenticate('jwt', { session: false }), function
                 }
             }
         }
-        else { // fallback by retrieving cafes
+        else { // fallback by retrieving all cafes
 
         }
     }

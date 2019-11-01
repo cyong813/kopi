@@ -135,7 +135,10 @@ class Cafe extends Component {
     if (!loading) {
       cafe = <div className='Cafe'>
                 <div className='cafe-container'>
-                  <img src={this.state.data.cafe_image} />
+                  <div className='side-gallery'>
+                    <h1>Gallery</h1>
+                    <img src={this.state.data.cafe_image} />
+                  </div>
                   <div className='cafe-info'>
                     <h1>{cafe_name}</h1>
                     { saveButton }
@@ -148,7 +151,7 @@ class Cafe extends Component {
                     <div className='drink-list-container'>
                       <h3>Drinks</h3>
                       <ul>
-                        {this.state.data.drinks.map(drink => {
+                        {this.state.data.drinks.sort((a, b) => a.drink_name.localeCompare(b.drink_name)).map(drink => {
                           return (
                             <li>
                               <Link 
