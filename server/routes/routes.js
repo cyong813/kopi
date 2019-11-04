@@ -194,6 +194,8 @@ router.get('/cafe', passport.authenticate('jwt', { session: false }), function(r
     var token = getToken(req.headers);
     if (token) {
         // user params
+        const lim = parseInt(req.query.limit);
+        const pageNum = req.query.page;
         if (req.query.category) {
             let categoryList = req.query.category.split(',');
             if ( containsAll(categoryList, ['names','pos','id']) ) {
@@ -207,8 +209,11 @@ router.get('/cafe', passport.authenticate('jwt', { session: false }), function(r
                     if (req.query.sort === 'names_asc') {
                         Cafe.find({}, {cafe_name: 1, _id: 1}, function(err, cafes) {
                             if (err) res.send(err);
-                            res.json(cafes);
-                        }).sort( { cafe_name: 1 } );
+                            Cafe.count(function(countErr, count) {
+                                if (countErr) res.send(countErr);
+                                res.json({cafes: cafes, count: count});
+                            });
+                        }).sort( { cafe_name: 1 } ).limit(lim).skip(lim * pageNum);
                     }
                 }
                 else {

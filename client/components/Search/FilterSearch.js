@@ -14,7 +14,7 @@ const filterSearch = (props) => (
           { props.formattedFilters[i] }
       </button>
     )) }
-    <select name='categories' value={ props.currentCategory } onChange={ props.categoryHandler }>
+    <select className='categories' value={ props.currentCategory } onChange={ props.categoryHandler }>
       { 
         categories.map(category => (
           <option value={category}>{ category }</option>

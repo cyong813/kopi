@@ -4,6 +4,10 @@ import CafeItem from '../../components/Cafe/CafeItem/CafeItem';
 import SearchBar from '../../components/Search/SearchBar';
 import Spinner from '../../components/UI/Spinner/Spinner';
 
+// Pagination Styling Credits: https://codepen.io/hakimel/pen/gfIsk
+
+const PAGE_LIMIT = 2;
+
 class Cafes extends Component {
   constructor() {
     super();
@@ -18,6 +22,8 @@ class Cafes extends Component {
       },
       filterTags: [],
       categories: '',
+      page: 0,
+      totalItems: 0,
       loading: true
     };
     this.handleSearchChange = this.handleSearchChange.bind(this);
@@ -25,11 +31,25 @@ class Cafes extends Component {
     this.onSearchSubmit = this.onSearchSubmit.bind(this);
   }
 
-  getCafeNamesData(event) {
+  onPaginatedHandler(direction) {
+    if (!direction) { // previous page
+      this.setState({ loading: true }, () => this.getCafeNamesData(this, this.state.page-1));
+    }
+    else { // next page
+      this.setState({ loading: true }, () => this.getCafeNamesData(this, this.state.page+1));
+    }
+  };
+
+  getCafeNamesData(event, curPage) {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    axios.get('/cafe?category=names,id&sort=names_asc')
+    axios.get('/cafe?category=names,id&page='+curPage+'&limit='+PAGE_LIMIT+'&sort=names_asc')
       .then(function(res) {
-        event.setState({cafe_data: res.data, loading: false});
+        event.setState({
+          cafe_data: res.data.cafes, 
+          page: curPage, 
+          totalItems: res.data.count,
+          loading: false
+        });
       })
       .catch((err) => {
         if (err.res.status === 401) {
@@ -150,7 +170,7 @@ class Cafes extends Component {
       });
     }
     else {
-      this.getCafeNamesData(this);
+      this.getCafeNamesData(this, 0);
     }
   };
 
@@ -171,6 +191,9 @@ class Cafes extends Component {
     else if (this.state.searchField !== nextState.searchField) {
       return true;
     }
+    else if (this.state.page !== nextState.page) {
+      return true;
+    }
     else if (this.props.location !== nextProps.location) {
       return true;
     }
@@ -178,7 +201,7 @@ class Cafes extends Component {
   };
 
   render() {
-    const { loading } = this.state;
+    const { loading, page, totalItems } = this.state;
     let cafes;
     
     const filters = Object.keys(this.state.filters).map(function(item) {
@@ -190,14 +213,30 @@ class Cafes extends Component {
     if (!loading) {
       cafes = <div className='cafe-list'>
                 <ol>
-                  {this.state.cafe_data.map(function(cafe) {
+                  {this.state.cafe_data.map(function(cafe, i) {
                     return (
                       <li>
-                        <CafeItem key={cafe._id} cafe={cafe} />
+                        <span>{(page * PAGE_LIMIT) + i + 1}.</span>
+                        <CafeItem 
+                          key={cafe._id} 
+                          cafe={cafe} />
                       </li>
                     )
                   })}
                 </ol>
+                <div className='pagination'>
+                  <div className='counter'>{page + 1} / {Math.ceil(totalItems / PAGE_LIMIT)}</div> 
+                  <button 
+                    type='button'
+                    onClick={page > 0 && this.onPaginatedHandler.bind(this, false)}
+                    className={page > 0 ? 'paginate left' : 'paginate left disabled'}
+                  ><span></span><span></span></button>
+                  <button 
+                    type='button'
+                    onClick={(page+1) < Math.ceil(totalItems / PAGE_LIMIT) && this.onPaginatedHandler.bind(this, true)}
+                    className={(page+1) < Math.ceil(totalItems / PAGE_LIMIT) ? 'paginate right' : 'paginate right disabled'}
+                  ><span></span><span></span></button>
+                </div>
               </div>
     }
     else {
