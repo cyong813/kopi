@@ -7,6 +7,9 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 // Pagination Styling Credits: https://codepen.io/hakimel/pen/gfIsk
 
 const PAGE_LIMIT = 2;
+const CATEGORIES = [
+  '','American', 'Filipino'
+];
 
 class Cafes extends Component {
   constructor() {
@@ -33,29 +36,132 @@ class Cafes extends Component {
 
   onPaginatedHandler(direction) {
     if (!direction) { // previous page
-      this.setState({ loading: true }, () => this.getCafeNamesData(this, this.state.page-1));
+      this.setState({ loading: true }, () => {
+        if (this.state.page-1 > 0) {
+          if (this.props.location.search.length === 0) {
+            this.props.history.push({
+              pathname: '/cafes',
+              search: 'page='+this.state.page
+            });
+          }
+        }
+        else {
+          // change url if first page
+          if (this.props.location.search.indexOf('find_query=') === -1 &&
+              this.props.location.search.indexOf('filters=') === -1 && 
+              this.props.location.search.indexOf('category=') === -1) {
+            this.props.history.push({
+              pathname: '/cafes',
+              search: ''
+            });
+          }
+          else {  // just remove page query
+            const newSearchQuery = this.props.location.search.substring(0,this.props.location.search.indexOf('&page='));
+            console.log(newSearchQuery);
+            this.props.history.push({
+              pathname: '/cafes',
+              search: newSearchQuery
+            });
+          }
+        }
+
+        // separate /search from /cafe requests
+        if (this.props.location.search.indexOf('find_query=') === -1 &&
+              this.props.location.search.indexOf('filters=') === -1 && 
+              this.props.location.search.indexOf('category=') === -1) {
+          this.getCafeNamesData(this, this.state.page-1, false);
+        }
+        else {
+          this.getCafeNamesData(this, this.state.page-1, true);
+        }
+      });
     }
     else { // next page
-      this.setState({ loading: true }, () => this.getCafeNamesData(this, this.state.page+1));
+      this.setState({ loading: true }, () => {
+        console.log('current url: ', this.props.location.search);
+        if (this.props.location.search.length === 0 || this.props.location.search.indexOf('?') === -1) { // no user queries
+          this.props.history.push({
+            pathname: '/cafes',
+            search: 'page='+(this.state.page+2)
+          });
+        }
+        else {
+          const newSearchQuery = this.props.location.search.substring(0,this.props.location.search.indexOf('&page='));
+          this.props.history.push({
+            pathname: '/cafes',
+            search: newSearchQuery+'&page='+(this.state.page+2)
+          });
+        }
+        // separate /search from /cafe requests
+        if (this.props.location.search.indexOf('?') === -1) {
+          this.getCafeNamesData(this, this.state.page+1, false);
+        }
+        else {
+          this.getCafeNamesData(this, this.state.page+1, true);
+        }
+      });
     }
   };
 
-  getCafeNamesData(event, curPage) {
+  getCafeNamesData(event, curPage, search) {
     axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-    axios.get('/cafe?category=names,id&page='+curPage+'&limit='+PAGE_LIMIT+'&sort=names_asc')
-      .then(function(res) {
-        event.setState({
-          cafe_data: res.data.cafes, 
-          page: curPage, 
-          totalItems: res.data.count,
-          loading: false
-        });
-      })
-      .catch((err) => {
-        if (err.res.status === 401) {
-          this.props.history.push('/login');
-        }
-    });
+    if (!search) {  
+      axios.get('/cafe?category=names,id&page='+curPage+'&limit='+PAGE_LIMIT+'&sort=names_asc')
+        .then(function(res) {
+          // if current page is non-existent, redirect to first page
+          // TODO: write message to user?
+          if (curPage < 0 || curPage > res.data.count) {
+            event.setState({
+              cafe_data: res.data.cafes, 
+              page: 0, 
+              totalItems: res.data.count,
+              loading: false
+            });
+          }
+          else {
+            event.setState({
+              cafe_data: res.data.cafes, 
+              page: curPage, 
+              totalItems: res.data.count,
+              loading: false
+            });
+          }
+        })
+        .catch((err) => {
+          if (err.status === 401) {
+            this.props.history.push('/login');
+          }
+      });
+    }
+    else {
+      let querifiedFilters = Object.keys(event.state.filters).filter(function(key) {
+        return event.state.filters[key];
+      });
+      axios.get('/search?find_query='+event.state.searchField+'&filters='+querifiedFilters+'&category='+event.state.categories+'&page='+curPage+'&limit='+PAGE_LIMIT+'&sort=names_asc')
+        .then(function(res) {
+          if (curPage < 0 || curPage > res.data.count) {
+            event.setState({
+              cafe_data: res.data.searchedCafes, 
+              page: 0, 
+              totalItems: res.data.count,
+              loading: false
+            });
+          }
+          else {
+            event.setState({
+              cafe_data: res.data.searchedCafes, 
+              page: curPage, 
+              totalItems: res.data.count,
+              loading: false
+            });
+          }
+        })
+        .catch((err) => {
+          if (err.status === 401) {
+            this.props.history.push('/login');
+          }
+      });
+    }
   };
 
   handleSearchChange(event) {
@@ -109,7 +215,7 @@ class Cafes extends Component {
 
     if (querifiedFilters.length === 0 && this.state.searchField.length === 0 && this.state.categories.length === 0) {
       this.props.history.push('/cafes');
-      this.getCafeNamesData(this);
+      this.getCafeNamesData(this, false);
     }
     else {
       axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
@@ -133,7 +239,7 @@ class Cafes extends Component {
     });
     if (selectedCategory.length === 0 && state.searchField.length === 0 && querifiedFilters.length === 0) {
       this.props.history.push('/cafes');
-      this.getCafeNamesData(this);
+      this.getCafeNamesData(this, false);
     }
     else {
       axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
@@ -145,32 +251,130 @@ class Cafes extends Component {
   };
 
   componentDidMount() {
-    // if user refreshes, reload query submission data
+    // when user refreshes, reload query submission data
     if (this.props.location.search.length > 0) {
-      // parse filters from user's query, and update mounted state
-      const categoryQuery = this.props.location.search.substring(this.props.location.search.indexOf('category=')+9,this.props.location.search.length);
-      const filterQuery = this.props.location.search.split('&')[1].substring(this.props.location.search.split('&')[1].indexOf('filters=')+8,this.props.location.search.split('&')[1].length).split(',');
-      const userQuery = this.props.location.search.substring(this.props.location.search.indexOf('find_query=')+11,this.props.location.search.indexOf('&'));
-      let updatedFilters = JSON.parse(JSON.stringify(this.state.filters));
-      filterQuery.forEach(filter => {
-        if (filter in updatedFilters) {
-          updatedFilters[filter] = true;
+      // parse user's queries, and update mounted state
+      let categoryQuery = '';
+      let filterQuery = '';
+      let userQuery = '';
+      let pageQuery = 0;
+
+      // checking queries to ensure validity, otherwise keep empty
+      if ( this.props.location.search.indexOf('category=') !== -1) {
+        // when user only enters category and no other queries  
+        if ( this.props.location.search.indexOf('page=') !== -1 &&
+              CATEGORIES.includes(this.props.location.search.substring(this.props.location.search.indexOf('category=')+9,this.props.location.search.indexOf('&page='))) ) {
+          categoryQuery = this.props.location.search.substring(this.props.location.search.indexOf('category=')+9,this.props.location.search.indexOf('&page='));
         }
-      });
-      axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
-      axios.get('/search'+this.props.location.search+'&sort=names_asc')
-        .then((res) => {
-          this.setState({
-            cafe_data: res.data.searchedCafes,
-            categories: categoryQuery,
-            filters: updatedFilters,
-            searchField: userQuery,
-            loading: false
+        else if ( CATEGORIES.includes(this.props.location.search.substring(this.props.location.search.indexOf('category=')+9,this.props.location.search.length)) ) {
+          categoryQuery = this.props.location.search.substring(this.props.location.search.indexOf('category=')+9,this.props.location.search.length);
+        }
+      }
+      if (this.props.location.search.indexOf('filters=') !== -1) {
+        if (this.props.location.search.indexOf('find_query=') !== -1 &&
+            this.props.location.search.indexOf('&') !== -1 && 
+            this.props.location.search.split('&').length >= 1 && 
+            this.props.location.search.split('&')[1].substring(this.props.location.search.split('&')[1].indexOf('filters=')+8,this.props.location.search.split('&')[1].length).split(',').every(item => Object.keys(this.state.filters).indexOf(item) >= 0)) {
+          filterQuery = this.props.location.search.split('&')[1].substring(this.props.location.search.split('&')[1].indexOf('filters=')+8,this.props.location.search.split('&')[1].length).split(',');
+        }
+        // when user only enters filters and no other queries
+        else if ( this.props.location.search.indexOf('find_query=') !== -1 && 
+                  this.props.location.search.indexOf('category=') !== -1 &&
+                  this.props.location.search.indexOf('page=') !== -1 &&
+                  this.props.location.search.substring(this.props.location.search.indexOf('filters=')+8,this.props.location.search.length).split(',').every(item => Object.keys(this.state.filters).indexOf(item) >= 0) ) {
+          filterQuery = this.props.location.search.substring(this.props.location.search.indexOf('filters=')+8,this.props.location.search.length).split(',');            
+        }
+
+      }
+      if (this.props.location.search.indexOf('find_query=') !== -1) {
+        if (this.props.location.search.indexOf('filters=') === -1 && 
+            this.props.location.search.indexOf('category=') === -1 &&
+            this.props.location.search.indexOf('page=') === -1) {
+          userQuery = this.props.location.search.substring(this.props.location.search.indexOf('find_query=')+11,this.props.location.search.length);
+        }
+        else { // other queries exist
+          userQuery = this.props.location.search.substring(this.props.location.search.indexOf('find_query=')+11,this.props.location.search.indexOf('&'));
+        }
+      }
+      if ( this.props.location.search.indexOf('page=') !== -1 && 
+          !isNaN(+this.props.location.search.substring(this.props.location.search.indexOf('page=')+5,this.props.location.search.length)) &&
+          (+this.props.location.search.substring(this.props.location.search.indexOf('page=')+5,this.props.location.search.length)) > 1 ) {
+        pageQuery = parseInt(this.props.location.search.substring(this.props.location.search.indexOf('page=')+5,this.props.location.search.length))-1;
+      }
+
+      console.log(categoryQuery);
+      console.log(filterQuery);
+      console.log(userQuery);
+      console.log(pageQuery);
+
+      if (filterQuery.length > 0 || categoryQuery.length > 0 || userQuery.length > 0) {
+        let updatedFilters = JSON.parse(JSON.stringify(this.state.filters));
+        if (filterQuery.length > 0) {
+          filterQuery.forEach(filter => {
+            if (filter in updatedFilters) {
+              updatedFilters[filter] = true;
+            }
           });
-      });
+        }
+        axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+        axios.get('/search?find_query='+userQuery+'&filters='+filterQuery+'&category='+categoryQuery+'&page='+pageQuery+'&limit='+PAGE_LIMIT+'&sort=names_asc')
+          .then((res) => {
+            // prevent incorrect paging in pagination
+            if (res.data.count <= PAGE_LIMIT && pageQuery > 0) {
+              const newSearchQuery = this.props.location.search.substring(0,this.props.location.search.indexOf('&page='));
+              console.log(newSearchQuery);
+              this.props.history.push({ // remove page query since we force to 0
+                pathname: '/cafes',
+                search: newSearchQuery
+              });
+              this.setState({
+                cafe_data: res.data.searchedCafes,
+                categories: categoryQuery,
+                filters: updatedFilters,
+                searchField: userQuery,
+                totalItems: res.data.count,
+                page: 0,
+                loading: false
+              });
+            }
+            else {
+              this.setState({
+                cafe_data: res.data.searchedCafes,
+                categories: categoryQuery,
+                filters: updatedFilters,
+                searchField: userQuery,
+                totalItems: res.data.count,
+                page: pageQuery,
+                loading: false
+              });
+            }
+        });
+      }
+      // when page is the only query
+      else if (filterQuery.length === 0 &&
+                categoryQuery.length === 0 &&
+                userQuery.length === 0 &&
+                pageQuery > 0) {
+        // update url to next pg
+        const newPageQuery = this.props.location.search.substring(0,this.props.location.search.indexOf('&page='));
+        this.props.history.push({
+          pathname: '/cafes',
+          search: newPageQuery+'page='+(pageQuery+1)
+        });
+        this.getCafeNamesData(this, pageQuery-1, false);
+      }
+      else {
+        // in case user manually enters unrecognizable query and refreshes
+        // TODO: maybe redirect to a 404 page/error message?
+        this.props.history.push({
+          pathname: '/cafes',
+          search: ''
+        });
+        this.getCafeNamesData(this, 0, false);
+      }
     }
     else {
-      this.getCafeNamesData(this, 0);
+      this.getCafeNamesData(this, 0, false);
     }
   };
 
@@ -202,13 +406,20 @@ class Cafes extends Component {
 
   render() {
     const { loading, page, totalItems } = this.state;
-    let cafes;
+    let cafes, counter;
     
     const filters = Object.keys(this.state.filters).map(function(item) {
       return item.replace(/_{1,}/g,' ').replace(/(\s{1,}|\b)(\w)/g, function(m,space, letter) {
         return space + letter.toUpperCase();
       });
     }, this);
+ 
+    if ( page === 0 && (totalItems === 0 || totalItems <= PAGE_LIMIT) ) {
+      counter = '1 / 1';
+    }
+    else {
+      counter = (page + 1).toString() + '/' + (Math.ceil(totalItems / PAGE_LIMIT)).toString();
+    }
 
     if (!loading) {
       cafes = <div className='cafe-list'>
@@ -225,7 +436,7 @@ class Cafes extends Component {
                   })}
                 </ol>
                 <div className='pagination'>
-                  <div className='counter'>{page + 1} / {Math.ceil(totalItems / PAGE_LIMIT)}</div> 
+                  <div className='counter'>{counter}</div> 
                   <button 
                     type='button'
                     onClick={page > 0 && this.onPaginatedHandler.bind(this, false)}

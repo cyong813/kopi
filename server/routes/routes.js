@@ -251,9 +251,12 @@ router.get('/cafe', passport.authenticate('jwt', { session: false }), function(r
 router.get('/search', passport.authenticate('jwt', { session: false }), function(req,res) {
     var token = getToken(req.headers);
     if (token) {
+        const lim = parseInt(req.query.limit);
+        let pageNum = req.query.page;
         const userQuery = req.query.find_query;
         const filterQuery = req.query.filters;
         const categoryQuery = req.query.category;
+        
         if (categoryQuery && filterQuery && userQuery) {
             if (categoryQuery.length > 0 && filterQuery.length > 0 && userQuery.length > 0) {
                 const parsedFilters = filterQuery.split(',');
@@ -261,17 +264,19 @@ router.get('/search', passport.authenticate('jwt', { session: false }), function
                     if (req.query.sort === 'names_asc') {
                         Cafe.find({ categories: categoryQuery, filters: {$all: parsedFilters}, cafe_name: {'$regex': userQuery, '$options': 'i' } }, (err, searchedCafes) => {
                             if (err) res.send(err);
-                            else {
-                                res.json({searchedCafes});
-                            }
-                        }).sort( {cafe_name: 1} );    
+                            Cafe.count({ categories: categoryQuery, filters: {$all: parsedFilters}, cafe_name: {'$regex': userQuery, '$options': 'i' } }, (countErr, count) => {
+                                if (countErr) res.send(countErr);
+                                if (count <= lim && pageNum !== 0) pageNum = 0; // prevent over-skipping
+                                res.json({searchedCafes: searchedCafes, count: count});
+                            });
+                        }).sort( { cafe_name: 1 } ).limit(lim).skip(lim * pageNum);
                     }
                 }
                 else {
                     Cafe.find({ categories: categoryQuery, filters: {$all: parsedFilters}, cafe_name: {'$regex': userQuery, '$options': 'i' } }, (err, searchedCafes) => {
                         if (err) res.send(err);
                         else {
-                            res.json({searchedCafes});
+                            res.json({searchedCafes}).limit(lim).skip(lim * pageNum);
                         }
                     });
                 }
@@ -284,17 +289,19 @@ router.get('/search', passport.authenticate('jwt', { session: false }), function
                     if (req.query.sort === 'names_asc') {
                         Cafe.find({ categories: categoryQuery, filters: {$all: parsedFilters} }, (err, searchedCafes) => {
                             if (err) res.send(err);
-                            else {
-                                res.json({searchedCafes});
-                            }
-                        }).sort( {cafe_name: 1} );    
+                            Cafe.count({ categories: categoryQuery, filters: {$all: parsedFilters} }, (countErr, count) => {
+                                if (countErr) res.send(countErr);
+                                if (count <= lim && pageNum !== 0) pageNum = 0; // prevent over-
+                                res.json({searchedCafes: searchedCafes, count: count});
+                            });
+                        }).sort( { cafe_name: 1 } ).limit(lim).skip(lim * pageNum); 
                     }
                 }
                 else {
                     Cafe.find({ categories: categoryQuery, filters: {$all: parsedFilters} }, (err, searchedCafes) => {
                         if (err) res.send(err);
                         else {
-                            res.json({searchedCafes});
+                            res.json({searchedCafes}).limit(lim).skip(lim * pageNum);
                         }
                     });
                 }
@@ -306,17 +313,19 @@ router.get('/search', passport.authenticate('jwt', { session: false }), function
                     if (req.query.sort === 'names_asc') {
                         Cafe.find({ categories: categoryQuery, cafe_name: {'$regex': userQuery, '$options': 'i' } }, (err, searchedCafes) => {
                             if (err) res.send(err);
-                            else {
-                                res.json({searchedCafes});
-                            }
-                        }).sort( {cafe_name: 1} );    
+                            Cafe.count({ categories: categoryQuery, cafe_name: {'$regex': userQuery, '$options': 'i' } }, (countErr, count) => {
+                                if (countErr) res.send(countErr);
+                                if (count <= lim && pageNum !== 0) pageNum = 0;
+                                res.json({searchedCafes: searchedCafes, count: count});
+                            });
+                        }).sort( { cafe_name: 1 } ).limit(lim).skip(lim * pageNum); 
                     }
                 }
                 else {
                     Cafe.find({ categories: categoryQuery, cafe_name: {'$regex': userQuery, '$options': 'i' } }, (err, searchedCafes) => {
                         if (err) res.send(err);
                         else {
-                            res.json({searchedCafes});
+                            res.json({searchedCafes}).limit(lim).skip(lim * pageNum);
                         }
                     });
                 }
@@ -329,17 +338,19 @@ router.get('/search', passport.authenticate('jwt', { session: false }), function
                     if (req.query.sort === 'names_asc') {
                         Cafe.find({ filters: {$all: parsedFilters}, cafe_name: {'$regex': userQuery, '$options': 'i' } }, (err, searchedCafes) => {
                             if (err) res.send(err);
-                            else {
-                                res.json({searchedCafes});
-                            }
-                        }).sort( {cafe_name: 1} );    
+                            Cafe.count({ filters: {$all: parsedFilters}, cafe_name: {'$regex': userQuery, '$options': 'i' } }, (countErr, count) => {
+                                if (countErr) res.send(countErr);
+                                if (count <= lim && pageNum !== 0) pageNum = 0;
+                                res.json({searchedCafes: searchedCafes, count: count});
+                            });
+                        }).sort( { cafe_name: 1 } ).limit(lim).skip(lim * pageNum);   
                     }
                 }
                 else {
                     Cafe.find({ filters: {$all: parsedFilters}, cafe_name: {'$regex': userQuery, '$options': 'i' } }, (err, searchedCafes) => {
                         if (err) res.send(err);
                         else {
-                            res.json({searchedCafes});
+                            res.json({searchedCafes}).limit(lim).skip(lim * pageNum);
                         }
                     });
                 }
@@ -351,17 +362,19 @@ router.get('/search', passport.authenticate('jwt', { session: false }), function
                     if (req.query.sort === 'names_asc') {
                         Cafe.find({ categories: categoryQuery }, (err, searchedCafes) => {
                             if (err) res.send(err);
-                            else {
-                                res.json({searchedCafes});
-                            }
-                        }).sort( {cafe_name: 1} );    
+                            Cafe.count({ filters: {$all: parsedFilters}, cafe_name: {'$regex': userQuery, '$options': 'i' } }, (countErr, count) => {
+                                if (countErr) res.send(countErr);
+                                if (count <= lim && pageNum !== 0) pageNum = 0;
+                                res.json({searchedCafes: searchedCafes, count: count});
+                            });
+                        }).sort( { cafe_name: 1 } ).limit(lim).skip(lim * pageNum); 
                     }
                 }
                 else {
                     Cafe.find({ categories: categoryQuery }, (err, searchedCafes) => {
                         if (err) res.send(err);
                         else {
-                            res.json({searchedCafes});
+                            res.json({searchedCafes}).limit(lim).skip(lim * pageNum);
                         }
                     });
                 }
@@ -371,19 +384,21 @@ router.get('/search', passport.authenticate('jwt', { session: false }), function
             if (userQuery.length > 0) {
                 if (req.query.sort) {
                     if (req.query.sort === 'names_asc') {
-                        Cafe.find({ cafe_name: {'$regex': userQuery, '$options': 'i' } }, (err, searchedCafes) => {
+                        Cafe.find({ cafe_name: {'$regex': userQuery, '$options': 'i' } }, function(err, searchedCafes) {
                             if (err) res.send(err);
-                            else {
-                                res.json({searchedCafes});
-                            }
-                        }).sort( {cafe_name: 1} );    
+                            Cafe.count({ cafe_name: {'$regex': userQuery, '$options': 'i' } }, (countErr, count) => {
+                                if (countErr) res.send(countErr);
+                                if (count <= lim && pageNum !== 0) pageNum = 0;
+                                res.json({searchedCafes: searchedCafes, count: count});
+                            });
+                        }).sort( { cafe_name: 1 } ).limit(lim).skip(lim * pageNum);    
                     }
                 }
                 else {
                     Cafe.find({ cafe_name: {'$regex': userQuery, '$options': 'i' } }, (err, searchedCafes) => {
                         if (err) res.send(err);
                         else {
-                            res.json({searchedCafes});
+                            res.json({searchedCafes}).limit(lim).skip(lim * pageNum);
                         }
                     });
                 }
@@ -396,17 +411,19 @@ router.get('/search', passport.authenticate('jwt', { session: false }), function
                     if (req.query.sort === 'names_asc') {
                         Cafe.find({ filters: {$all: parsedFilters} }, (err, searchedCafes) => {
                             if (err) res.send(err);
-                            else {
-                                res.json({searchedCafes});
-                            }
-                        }).sort( {cafe_name: 1} );    
+                            Cafe.count({ filters: {$all: parsedFilters} }, (countErr, count) => {
+                                if (countErr) res.send(countErr);
+                                if (count <= lim && pageNum !== 0) pageNum = 0;
+                                res.json({searchedCafes: searchedCafes, count: count});
+                            });
+                        }).sort( { cafe_name: 1 } ).limit(lim).skip(lim * pageNum); 
                     }
                 }
                 else {
                     Cafe.find({ filters: {$all: parsedFilters} }, (err, searchedCafes) => {
                         if (err) res.send(err);
                         else {
-                            res.json({searchedCafes});
+                            res.json({searchedCafes}).limit(lim).skip(lim * pageNum);
                         }
                     });
                 }
