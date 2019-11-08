@@ -110,7 +110,7 @@ class Cafes extends Component {
         .then(function(res) {
           // if current page is non-existent, redirect to first page
           // TODO: write message to user?
-          if (curPage < 0 || curPage > res.data.count) {
+          if ( curPage < 0 || curPage + 1 > (Math.ceil(res.data.count / PAGE_LIMIT)) ) {
             event.setState({
               cafe_data: res.data.cafes, 
               page: 0, 
@@ -207,7 +207,11 @@ class Cafes extends Component {
     let querifiedFilters = Object.keys(updatedFilters).filter(function(key) {
       return updatedFilters[key];
     });
-    this.setState({ filters: updatedFilters, filterTags: querifiedFilters, loading: true });
+    this.setState({ 
+      filters: updatedFilters, 
+      filterTags: querifiedFilters, 
+      loading: true 
+    });
     this.props.history.push({
       pathname: '/cafes',
       search: '?find_query='+this.state.searchField+'&filters='+querifiedFilters+'&category='+this.state.categories
@@ -361,7 +365,7 @@ class Cafes extends Component {
           pathname: '/cafes',
           search: newPageQuery+'page='+(pageQuery+1)
         });
-        this.getCafeNamesData(this, pageQuery-1, false);
+        this.getCafeNamesData(this, pageQuery, false);
       }
       else {
         // in case user manually enters unrecognizable query and refreshes
